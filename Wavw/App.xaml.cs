@@ -1,13 +1,12 @@
-﻿namespace Wavw
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+﻿using Wavw.Views;
 
-            MainPage = new AppShell();
-        }
-        
+namespace Wavw;
+
+public partial class App : Application
+{
+    public App(HomePage homePage)
+    {
+        InitializeComponent();
+        MainPage = new NavigationPage(homePage);
     }
 }

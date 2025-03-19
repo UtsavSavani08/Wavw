@@ -3,56 +3,119 @@
     x:Class="Wavw.Views.HomePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:map="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps">
+    xmlns:converters="clr-namespace:Wavw.Converters"
+    xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+    NavigationPage.HasNavigationBar="False">
 
-    <!--  ✅ Add ContentPage.Content explicitly  -->
-    <ContentPage.Content>
-        <Grid RowDefinitions="Auto, *">
+    <ContentPage.Resources>
+        <converters:NotNullToBoolConverter x:Key="NotNullToBoolConverter" />
+    </ContentPage.Resources>
 
-            <!--  Search Bar  -->
-            <Frame
-                Margin="10"
-                Padding="0"
-                BackgroundColor="Transparent"
-                CornerRadius="20">
-                <SearchBar
-                    x:Name="BeachSearchBar"
-                    BackgroundColor="#E3F2FD"
-                    Placeholder="Search for a beach..."
-                    SearchCommand="{Binding SearchBeachCommand}" />
-            </Frame>
+    <Grid RowDefinitions="Auto,*">
+        <!--  Search Bar  -->
+        <SearchBar
+            Grid.Row="0"
+            Margin="10"
+            Placeholder="Search beach by name..."
+            SearchCommand="{Binding SearchCommand}"
+            SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}" />
 
-            <!--  Map Section  -->
-            <map:Map
+        <!--  Map with Location Button  -->
+        <Grid Grid.Row="1">
+            <maps:Map
                 x:Name="BeachMap"
-                Grid.Row="1"
+                IsShowingUser="True"
+                IsTrafficEnabled="False"
                 MapType="Street" />
 
-            <!--  Pop-up for Beach Details  -->
-            <Frame
-                x:Name="BeachPopup"
-                Margin="10"
-                Padding="15"
-                BackgroundColor="White"
-                CornerRadius="25"
-                HeightRequest="200"
-                IsVisible="False"
-                TranslationY="300"
-                VerticalOptions="End">
-
-                <StackLayout>
-                    <Label
-                        x:Name="BeachName"
-                        FontAttributes="Bold"
-                        FontSize="20" />
-                    <Label x:Name="RatingLabel" Text="⭐ Rating: " />
-                    <Label x:Name="CleanlinessLabel" Text="🧹 Cleanliness: " />
-                    <Label x:Name="MainAttractionLabel" Text="🎢 Main Attractions: " />
-                </StackLayout>
-
-            </Frame>
-
+            <!--  Location Button  -->
+            <Button
+                Grid.Row="1"
+                Margin="0,0,80,20"
+                Command="{Binding GetCurrentLocationCommand}"
+                CornerRadius="30"
+                FontSize="24"
+                HeightRequest="60"
+                HorizontalOptions="End"
+                Text="📍"
+                VerticalOptions="End"
+                WidthRequest="60" />
         </Grid>
-    </ContentPage.Content>
+
+        <!--  Beach Details Panel  -->
+        <Frame
+            x:Name="DetailsPanel"
+            Grid.Row="1"
+            Margin="10"
+            Padding="15"
+            BackgroundColor="White"
+            BorderColor="Gray"
+            CornerRadius="10"
+            IsVisible="{Binding SelectedBeach, Converter={StaticResource NotNullToBoolConverter}}"
+            TranslationY="300">
+
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                <!--  Beach Name  -->
+                <Label
+                    Grid.Row="0"
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    Text="{Binding SelectedBeach.Name}"
+                    TextColor="Black" />
+
+                <!--  Rating  -->
+                <Label
+                    Grid.Row="1"
+                    Margin="0,5,0,0"
+                    FontSize="16"
+                    Text="{Binding SelectedBeach.Rating, StringFormat='Rating: {0}'}" />
+
+                <!--  Cleanliness  -->
+                <Label
+                    Grid.Row="2"
+                    Margin="0,5,0,0"
+                    FontSize="16"
+                    Text="{Binding SelectedBeach.Cleanliness, StringFormat='Cleanliness: {0}'}" />
+
+                <!--  Best Season  -->
+                <Label
+                    Grid.Row="3"
+                    Margin="0,5,0,0"
+                    FontSize="16"
+                    Text="{Binding SelectedBeach.BestSeason, StringFormat='Best Season: {0}'}" />
+
+                <!--  Distance  -->
+                <Label
+                    Grid.Row="4"
+                    Margin="0,5,0,0"
+                    FontSize="16"
+                    Text="{Binding SelectedBeachDistance, StringFormat='Distance: {0} km'}" />
+
+                <!--  Main Attractions  -->
+                <Label
+                    Grid.Row="5"
+                    Margin="0,10,0,5"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="Main Attractions:" />
+
+                <Label
+                    Grid.Row="6"
+                    Margin="0,0,0,10"
+                    FontSize="16"
+                    Text="{Binding SelectedBeach.MainAttractions}" />
+
+                <!--  Close Button  -->
+                <Button
+                    Grid.Row="7"
+                    BackgroundColor="#007AFF"
+                    Command="{Binding CloseDetailsCommand}"
+                    CornerRadius="5"
+                    HeightRequest="40"
+                    Text="Close"
+                    TextColor="White" />
+            </Grid>
+        </Frame>
+    </Grid>
 
 </ContentPage>

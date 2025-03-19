@@ -1,0 +1,184 @@
+{
+  "beaches": [
+    {
+      "name": "Juhu",
+      "latitude": 19.0883,
+      "longitude": 72.8263,
+      "rating": "4.2/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Celebrity Spotting, Famous Street Food, Vibrant Evening Life, Mumbai's Most Popular Beach"
+    },
+    {
+      "name": "Calangute",
+      "latitude": 15.5449,
+      "longitude": 73.7526,
+      "rating": "4.5/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "November to February",
+      "mainAttractions": "Queen of Goan Beaches, Adventure Water Sports Hub, Vibrant Nightlife, Shopping Paradise"
+    },
+    {
+      "name": "Marina",
+      "latitude": 13.0500,
+      "longitude": 80.2824,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "December to February",
+      "mainAttractions": "World's Second Longest Urban Beach, Historic Monuments, Traditional Street Food, Sunrise Views"
+    },
+    {
+      "name": "Kovalam",
+      "latitude": 8.3988,
+      "longitude": 76.9782,
+      "rating": "4.6/5",
+      "cleanliness": "Excellent",
+      "bestSeason": "September to March",
+      "mainAttractions": "Iconic Lighthouse, Ayurvedic Treatments, Crescent-shaped Beaches, Sunset Point"
+    },
+    {
+      "name": "Radhanagar",
+      "latitude": 11.9839,
+      "longitude": 92.9519,
+      "rating": "4.9/5",
+      "cleanliness": "Pristine",
+      "bestSeason": "October to May",
+      "mainAttractions": "Asia's Best Beach, Pristine White Sand, Crystal Clear Waters, Spectacular Sunsets"
+    },
+    {
+      "name": "Puri",
+      "latitude": 19.7987,
+      "longitude": 85.8249,
+      "rating": "4.4/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to February",
+      "mainAttractions": "Sacred Beach, Famous Sand Art, Religious Festivals, Golden Sand"
+    },
+    {
+      "name": "Varkala",
+      "latitude": 8.7370,
+      "longitude": 76.7067,
+      "rating": "4.7/5",
+      "cleanliness": "Excellent",
+      "bestSeason": "September to March",
+      "mainAttractions": "Dramatic Cliff Views, Mineral Springs, Spiritual Atmosphere, Wellness Destination"
+    },
+    {
+      "name": "Mandvi",
+      "latitude": 22.8372,
+      "longitude": 69.3237,
+      "rating": "4.3/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Royal Palace Views, Traditional Shipbuilding, Desert Beach Experience, Camel Rides"
+    },
+    {
+      "name": "Om",
+      "latitude": 14.5246,
+      "longitude": 74.3184,
+      "rating": "4.5/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Natural Om Shape, Spiritual Vibes, Adventure Trekking, Secluded Atmosphere"
+    },
+    {
+      "name": "Marari",
+      "latitude": 9.5916,
+      "longitude": 76.2892,
+      "rating": "4.6/5",
+      "cleanliness": "Excellent",
+      "bestSeason": "September to March",
+      "mainAttractions": "Pristine Village Beach, Traditional Fishing Life, Ayurvedic Retreats, Peaceful Atmosphere"
+    },
+    {
+      "name": "Vagator",
+      "latitude": 15.5977,
+      "longitude": 73.7441,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "November to February",
+      "mainAttractions": "Red Cliffs, Chapora Fort Views, Hippie Culture, Stunning Sunsets"
+    },
+    {
+      "name": "Butterfly",
+      "latitude": 15.0144,
+      "longitude": 74.0156,
+      "rating": "4.7/5",
+      "cleanliness": "Pristine",
+      "bestSeason": "October to March",
+      "mainAttractions": "Butterfly Sightings, Hidden Cove, Dolphin Spotting, Crystal Clear Waters"
+    },
+    {
+      "name": "Arambol",
+      "latitude": 15.6869,
+      "longitude": 73.7042,
+      "rating": "4.6/5",
+      "cleanliness": "Good",
+      "bestSeason": "November to March",
+      "mainAttractions": "Bohemian Vibe, Alternative Scene, Music Culture, Healing Centers"
+    },
+    {
+      "name": "Agonda",
+      "latitude": 15.0449,
+      "longitude": 73.9877,
+      "rating": "4.8/5",
+      "cleanliness": "Excellent",
+      "bestSeason": "October to March",
+      "mainAttractions": "Turtle Nesting Site, Quiet Atmosphere, Long Pristine Beach, Sunset Views"
+    },
+    {
+      "name": "Morjim",
+      "latitude": 15.6297,
+      "longitude": 73.7324,
+      "rating": "4.5/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Olive Ridley Turtles, Russian Influence, Kitesurfing Hub, Peaceful Environment"
+    },
+    {
+      "name": "Tarkarli",
+      "latitude": 16.0139,
+      "longitude": 73.4874,
+      "rating": "4.6/5",
+      "cleanliness": "Excellent",
+      "bestSeason": "October to March",
+      "mainAttractions": "Crystal Clear Waters, Scuba Diving, White Sand Beach, Historic Fort Views"
+    },
+    {
+      "name": "Gokarna",
+      "latitude": 14.5479,
+      "longitude": 74.3149,
+      "rating": "4.4/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Sacred Beach Town, Temple Architecture, Pilgrimage Site, Beach Trek Route"
+    },
+    {
+      "name": "Muzhappilangad",
+      "latitude": 11.7868,
+      "longitude": 75.4432,
+      "rating": "4.7/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to May",
+      "mainAttractions": "Longest Drive-in Beach in Asia, Black Rocks, Sunset Views, Bird Watching"
+    },
+    {
+      "name": "Bekal",
+      "latitude": 12.3917,
+      "longitude": 75.0377,
+      "rating": "4.6/5",
+      "cleanliness": "Excellent",
+      "bestSeason": "October to March",
+      "mainAttractions": "Historic Bekal Fort, Beach Gardens, Peaceful Atmosphere, Photography Points"
+    },
+    {
+      "name": "Rushikonda",
+      "latitude": 17.7843,
+      "longitude": 83.3857,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Golden Sandy Beach, Water Sports Hub, Hill View, Surfing Destination"
+    }
+  ]
+} 

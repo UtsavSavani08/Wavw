@@ -3,6 +3,8 @@ using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
 using Microsoft.Maui.Maps.Handlers;
+using Wavw.Services;
+using Wavw.Views;
 
 namespace Wavw;
 
@@ -23,6 +25,11 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-SemiBold.ttf", "OpenSansSemiBold");
             });
+
+        // Register services
+        builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
+        builder.Services.AddSingleton<BeachService>();
+        builder.Services.AddTransient<HomePage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

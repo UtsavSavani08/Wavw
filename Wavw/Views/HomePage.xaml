@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Wavw.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:map="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps">
+
+    <!--  ✅ Add ContentPage.Content explicitly  -->
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto, *">
+
+            <!--  Search Bar  -->
+            <Frame
+                Margin="10"
+                Padding="0"
+                BackgroundColor="Transparent"
+                CornerRadius="20">
+                <SearchBar
+                    x:Name="BeachSearchBar"
+                    BackgroundColor="#E3F2FD"
+                    Placeholder="Search for a beach..."
+                    SearchCommand="{Binding SearchBeachCommand}" />
+            </Frame>
+
+            <!--  Map Section  -->
+            <map:Map
+                x:Name="BeachMap"
+                Grid.Row="1"
+                MapType="Street" />
+
+            <!--  Pop-up for Beach Details  -->
+            <Frame
+                x:Name="BeachPopup"
+                Margin="10"
+                Padding="15"
+                BackgroundColor="White"
+                CornerRadius="25"
+                HeightRequest="200"
+                IsVisible="False"
+                TranslationY="300"
+                VerticalOptions="End">
+
+                <StackLayout>
+                    <Label
+                        x:Name="BeachName"
+                        FontAttributes="Bold"
+                        FontSize="20" />
+                    <Label x:Name="RatingLabel" Text="⭐ Rating: " />
+                    <Label x:Name="CleanlinessLabel" Text="🧹 Cleanliness: " />
+                    <Label x:Name="MainAttractionLabel" Text="🎢 Main Attractions: " />
+                </StackLayout>
+
+            </Frame>
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

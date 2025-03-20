@@ -263,9 +263,7 @@ namespace Wavw.Views
             {
                 Label = "You are here",
                 Location = new Location(location.Latitude, location.Longitude),
-                Type = PinType.Generic,
-                ImageSource = "my_location.png", // Make sure this image exists in your Resources/Images folder
-                MarkerColor = Colors.Red
+                Type = PinType.Place
             };
             _map.Pins.Add(pin);
         }
@@ -276,10 +274,8 @@ namespace Wavw.Views
             {
                 Label = beach.Name,
                 Location = new Location(beach.Latitude, beach.Longitude),
-                Type = PinType.Generic,
-                Address = $"Distance: {beach.DistanceFromUser(_currentLocation):F1} km",
-                ImageSource = "beach_pin.png", // Make sure this image exists in your Resources/Images folder
-                MarkerColor = Colors.Blue
+                Type = PinType.Place,
+                Address = $"Distance: {beach.DistanceFromUser(_currentLocation):F1} km"
             };
 
             pin.MarkerClicked += async (s, e) =>

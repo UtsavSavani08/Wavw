@@ -42,79 +42,133 @@
                 WidthRequest="60" />
         </Grid>
 
-        <!--  Beach Details Panel  -->
+        <!--  Beach Details Popup  -->
         <Frame
             x:Name="DetailsPanel"
             Grid.Row="1"
-            Margin="10"
-            Padding="15"
+            Margin="20"
+            Padding="20"
             BackgroundColor="White"
-            BorderColor="Gray"
-            CornerRadius="10"
+            BorderColor="Transparent"
+            CornerRadius="20"
+            HasShadow="True"
+            HorizontalOptions="Fill"
             IsVisible="{Binding SelectedBeach, Converter={StaticResource NotNullToBoolConverter}}"
-            TranslationY="300">
+            MaximumHeightRequest="500"
+            TranslationY="300"
+            VerticalOptions="Start">
+            <VerticalStackLayout Spacing="16">
+                <!--  Header  -->
+                <Grid Margin="0,0,0,10" ColumnDefinitions="*,Auto">
+                    <Label
+                        Grid.Column="0"
+                        CharacterSpacing="1"
+                        FontAttributes="Bold"
+                        FontSize="28"
+                        Text="{Binding SelectedBeach.Name}"
+                        TextColor="#333333"
+                        VerticalOptions="Center" />
+                    <Button
+                        Grid.Column="1"
+                        Padding="8"
+                        BackgroundColor="Transparent"
+                        Command="{Binding CloseDetailsCommand}"
+                        CornerRadius="20"
+                        FontSize="20"
+                        HeightRequest="40"
+                        HorizontalOptions="End"
+                        Text="✕"
+                        TextColor="#666666"
+                        VerticalOptions="Center"
+                        WidthRequest="40" />
+                </Grid>
 
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
-                <!--  Beach Name  -->
-                <Label
-                    Grid.Row="0"
-                    FontAttributes="Bold"
-                    FontSize="24"
-                    Text="{Binding SelectedBeach.Name}"
-                    TextColor="Black" />
+                <!--  Info Grid  -->
+                <Grid
+                    ColumnDefinitions="Auto,*"
+                    ColumnSpacing="15"
+                    RowDefinitions="Auto,Auto,Auto,Auto"
+                    RowSpacing="12">
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        Text="Rating"
+                        TextColor="#666666"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="{Binding SelectedBeach.Rating}"
+                        TextColor="#333333"
+                        VerticalOptions="Center" />
 
-                <!--  Rating  -->
-                <Label
-                    Grid.Row="1"
-                    Margin="0,5,0,0"
-                    FontSize="16"
-                    Text="{Binding SelectedBeach.Rating, StringFormat='Rating: {0}'}" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        Text="Cleanliness"
+                        TextColor="#666666"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding SelectedBeach.Cleanliness}"
+                        TextColor="#333333"
+                        VerticalOptions="Center" />
 
-                <!--  Cleanliness  -->
-                <Label
-                    Grid.Row="2"
-                    Margin="0,5,0,0"
-                    FontSize="16"
-                    Text="{Binding SelectedBeach.Cleanliness, StringFormat='Cleanliness: {0}'}" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        Text="Best Season"
+                        TextColor="#666666"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Text="{Binding SelectedBeach.BestSeason}"
+                        TextColor="#333333"
+                        VerticalOptions="Center" />
 
-                <!--  Best Season  -->
-                <Label
-                    Grid.Row="3"
-                    Margin="0,5,0,0"
-                    FontSize="16"
-                    Text="{Binding SelectedBeach.BestSeason, StringFormat='Best Season: {0}'}" />
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        Text="Distance"
+                        TextColor="#666666"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{Binding SelectedBeachDistance, StringFormat='{0:F1} km'}"
+                        TextColor="#333333"
+                        VerticalOptions="Center" />
+                </Grid>
 
-                <!--  Distance  -->
-                <Label
-                    Grid.Row="4"
-                    Margin="0,5,0,0"
-                    FontSize="16"
-                    Text="{Binding SelectedBeachDistance, StringFormat='Distance: {0} km'}" />
+                <!--  Attractions Section  -->
+                <StackLayout Spacing="8">
+                    <Label
+                        FontAttributes="Bold"
+                        Text="Main Attractions"
+                        TextColor="#666666" />
+                    <Label
+                        LineBreakMode="WordWrap"
+                        Text="{Binding SelectedBeach.MainAttractions}"
+                        TextColor="#333333" />
+                </StackLayout>
 
-                <!--  Main Attractions  -->
-                <Label
-                    Grid.Row="5"
-                    Margin="0,10,0,5"
-                    FontAttributes="Bold"
-                    FontSize="16"
-                    Text="Main Attractions:" />
-
-                <Label
-                    Grid.Row="6"
-                    Margin="0,0,0,10"
-                    FontSize="16"
-                    Text="{Binding SelectedBeach.MainAttractions}" />
-
-                <!--  Close Button  -->
+                <!--  Action Button  -->
                 <Button
-                    Grid.Row="7"
-                    BackgroundColor="#007AFF"
-                    Command="{Binding CloseDetailsCommand}"
-                    CornerRadius="5"
-                    HeightRequest="40"
-                    Text="Close"
+                    Margin="0,10,0,0"
+                    BackgroundColor="#2196F3"
+                    Command="{Binding GetDirectionsCommand}"
+                    CornerRadius="25"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    Text="Get Directions"
                     TextColor="White" />
-            </Grid>
+            </VerticalStackLayout>
         </Frame>
     </Grid>
 

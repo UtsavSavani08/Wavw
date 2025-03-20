@@ -1,7 +1,7 @@
 {
   "beaches": [
     {
-      "name": "Juhu",
+      "name": "juhu",
       "latitude": 19.0883,
       "longitude": 72.8263,
       "rating": "4.2/5",
@@ -10,7 +10,7 @@
       "mainAttractions": "Celebrity Spotting, Famous Street Food, Vibrant Evening Life, Mumbai's Most Popular Beach"
     },
     {
-      "name": "Calangute",
+      "name": "calangute",
       "latitude": 15.5449,
       "longitude": 73.7526,
       "rating": "4.5/5",
@@ -19,7 +19,7 @@
       "mainAttractions": "Queen of Goan Beaches, Adventure Water Sports Hub, Vibrant Nightlife, Shopping Paradise"
     },
     {
-      "name": "Marina",
+      "name": "marina",
       "latitude": 13.0500,
       "longitude": 80.2824,
       "rating": "4.3/5",
@@ -28,7 +28,7 @@
       "mainAttractions": "World's Second Longest Urban Beach, Historic Monuments, Traditional Street Food, Sunrise Views"
     },
     {
-      "name": "Kovalam",
+      "name": "kovalam",
       "latitude": 8.3988,
       "longitude": 76.9782,
       "rating": "4.6/5",
@@ -37,7 +37,7 @@
       "mainAttractions": "Iconic Lighthouse, Ayurvedic Treatments, Crescent-shaped Beaches, Sunset Point"
     },
     {
-      "name": "Radhanagar",
+      "name": "radhanagar",
       "latitude": 11.9839,
       "longitude": 92.9519,
       "rating": "4.9/5",
@@ -46,7 +46,7 @@
       "mainAttractions": "Asia's Best Beach, Pristine White Sand, Crystal Clear Waters, Spectacular Sunsets"
     },
     {
-      "name": "Puri",
+      "name": "puri",
       "latitude": 19.7987,
       "longitude": 85.8249,
       "rating": "4.4/5",
@@ -55,7 +55,7 @@
       "mainAttractions": "Sacred Beach, Famous Sand Art, Religious Festivals, Golden Sand"
     },
     {
-      "name": "Varkala",
+      "name": "varkala",
       "latitude": 8.7370,
       "longitude": 76.7067,
       "rating": "4.7/5",
@@ -64,7 +64,7 @@
       "mainAttractions": "Dramatic Cliff Views, Mineral Springs, Spiritual Atmosphere, Wellness Destination"
     },
     {
-      "name": "Mandvi",
+      "name": "mandvi",
       "latitude": 22.8372,
       "longitude": 69.3237,
       "rating": "4.3/5",
@@ -73,7 +73,7 @@
       "mainAttractions": "Royal Palace Views, Traditional Shipbuilding, Desert Beach Experience, Camel Rides"
     },
     {
-      "name": "Om",
+      "name": "om",
       "latitude": 14.5246,
       "longitude": 74.3184,
       "rating": "4.5/5",
@@ -82,7 +82,7 @@
       "mainAttractions": "Natural Om Shape, Spiritual Vibes, Adventure Trekking, Secluded Atmosphere"
     },
     {
-      "name": "Marari",
+      "name": "marari",
       "latitude": 9.5916,
       "longitude": 76.2892,
       "rating": "4.6/5",
@@ -91,7 +91,7 @@
       "mainAttractions": "Pristine Village Beach, Traditional Fishing Life, Ayurvedic Retreats, Peaceful Atmosphere"
     },
     {
-      "name": "Vagator",
+      "name": "vagator",
       "latitude": 15.5977,
       "longitude": 73.7441,
       "rating": "4.4/5",
@@ -100,7 +100,7 @@
       "mainAttractions": "Red Cliffs, Chapora Fort Views, Hippie Culture, Stunning Sunsets"
     },
     {
-      "name": "Butterfly",
+      "name": "butterfly",
       "latitude": 15.0144,
       "longitude": 74.0156,
       "rating": "4.7/5",
@@ -109,7 +109,7 @@
       "mainAttractions": "Butterfly Sightings, Hidden Cove, Dolphin Spotting, Crystal Clear Waters"
     },
     {
-      "name": "Arambol",
+      "name": "arambol",
       "latitude": 15.6869,
       "longitude": 73.7042,
       "rating": "4.6/5",
@@ -118,7 +118,7 @@
       "mainAttractions": "Bohemian Vibe, Alternative Scene, Music Culture, Healing Centers"
     },
     {
-      "name": "Agonda",
+      "name": "agonda",
       "latitude": 15.0449,
       "longitude": 73.9877,
       "rating": "4.8/5",
@@ -127,7 +127,7 @@
       "mainAttractions": "Turtle Nesting Site, Quiet Atmosphere, Long Pristine Beach, Sunset Views"
     },
     {
-      "name": "Morjim",
+      "name": "morjim",
       "latitude": 15.6297,
       "longitude": 73.7324,
       "rating": "4.5/5",
@@ -136,7 +136,7 @@
       "mainAttractions": "Olive Ridley Turtles, Russian Influence, Kitesurfing Hub, Peaceful Environment"
     },
     {
-      "name": "Tarkarli",
+      "name": "tarkarli",
       "latitude": 16.0139,
       "longitude": 73.4874,
       "rating": "4.6/5",
@@ -145,7 +145,7 @@
       "mainAttractions": "Crystal Clear Waters, Scuba Diving, White Sand Beach, Historic Fort Views"
     },
     {
-      "name": "Gokarna",
+      "name": "gokarna",
       "latitude": 14.5479,
       "longitude": 74.3149,
       "rating": "4.4/5",
@@ -154,7 +154,7 @@
       "mainAttractions": "Sacred Beach Town, Temple Architecture, Pilgrimage Site, Beach Trek Route"
     },
     {
-      "name": "Muzhappilangad",
+      "name": "muzhappilangad",
       "latitude": 11.7868,
       "longitude": 75.4432,
       "rating": "4.7/5",
@@ -163,7 +163,7 @@
       "mainAttractions": "Longest Drive-in Beach in Asia, Black Rocks, Sunset Views, Bird Watching"
     },
     {
-      "name": "Bekal",
+      "name": "bekal",
       "latitude": 12.3917,
       "longitude": 75.0377,
       "rating": "4.6/5",
@@ -172,13 +172,202 @@
       "mainAttractions": "Historic Bekal Fort, Beach Gardens, Peaceful Atmosphere, Photography Points"
     },
     {
-      "name": "Rushikonda",
+      "name": "rushikonda",
       "latitude": 17.7843,
       "longitude": 83.3857,
       "rating": "4.3/5",
       "cleanliness": "Good",
       "bestSeason": "October to March",
       "mainAttractions": "Golden Sandy Beach, Water Sports Hub, Hill View, Surfing Destination"
+    },
+    {
+      "name": "benaulim",
+      "latitude": 15.2647,
+      "longitude": 73.9287,
+      "rating": "4.5/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Pristine Waters, Water Sports, Local Culture, Peaceful Environment"
+    },
+    {
+      "name": "colva",
+      "latitude": 15.2797,
+      "longitude": 73.9227,
+      "rating": "4.4/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "White Sand, Water Sports, Local Markets, Nightlife"
+    },
+    {
+      "name": "palolem",
+      "latitude": 15.0100,
+      "longitude": 74.0233,
+      "rating": "4.6/5",
+      "cleanliness": "Excellent",
+      "bestSeason": "October to March",
+      "mainAttractions": "Crescent-shaped Beach, Dolphin Spotting, Beach Huts, Yoga Classes"
+    },
+    {
+      "name": "anjuna",
+      "latitude": 15.5767,
+      "longitude": 73.7394,
+      "rating": "4.5/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Flea Market, Nightlife, Water Sports, Hippie Culture"
+    },
+    {
+      "name": "baga",
+      "latitude": 15.5650,
+      "longitude": 73.7550,
+      "rating": "4.4/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Water Sports, Nightlife, Beach Shacks, Fishing"
+    },
+    {
+      "name": "candolim",
+      "latitude": 15.5183,
+      "longitude": 73.7625,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Water Sports, Beach Shacks, Fort Aguada, Scuba Diving"
+    },
+    {
+      "name": "sinquerim",
+      "latitude": 15.5083,
+      "longitude": 73.7683,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Fort Aguada, Water Sports, Beach Resorts, Sunset Views"
+    },
+    {
+      "name": "miramar",
+      "latitude": 15.4983,
+      "longitude": 73.8350,
+      "rating": "4.2/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Panaji City Views, Beach Promenade, Water Sports, Local Food"
+    },
+    {
+      "name": "dona paula",
+      "latitude": 15.4583,
+      "longitude": 73.8350,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Viewpoint, Water Sports, Beach Resorts, Local Markets"
+    },
+    {
+      "name": "bogmalo",
+      "latitude": 15.4083,
+      "longitude": 73.8350,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Scuba Diving, Beach Resorts, Water Sports, Local Culture"
+    },
+    {
+      "name": "majorda",
+      "latitude": 15.2983,
+      "longitude": 73.9183,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
+    },
+    {
+      "name": "cavelossim",
+      "latitude": 15.2583,
+      "longitude": 73.9383,
+      "rating": "4.5/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Luxury Resorts, Water Sports, Beach Shacks, Local Culture"
+    },
+    {
+      "name": "mobor",
+      "latitude": 15.2483,
+      "longitude": 73.9483,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Water Sports, Beach Resorts, Local Food, Beach Shacks"
+    },
+    {
+      "name": "betalbatim",
+      "latitude": 15.2383,
+      "longitude": 73.9583,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
+    },
+    {
+      "name": "colomb",
+      "latitude": 15.2283,
+      "longitude": 73.9683,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
+    },
+    {
+      "name": "varca",
+      "latitude": 15.2183,
+      "longitude": 73.9783,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
+    },
+    {
+      "name": "cavelossim",
+      "latitude": 15.2083,
+      "longitude": 73.9883,
+      "rating": "4.5/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Luxury Resorts, Water Sports, Beach Shacks, Local Culture"
+    },
+    {
+      "name": "majorda",
+      "latitude": 15.1983,
+      "longitude": 73.9983,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
+    },
+    {
+      "name": "betalbatim",
+      "latitude": 15.1883,
+      "longitude": 74.0083,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
+    },
+    {
+      "name": "colomb",
+      "latitude": 15.1783,
+      "longitude": 74.0183,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
+    },
+    {
+      "name": "varca",
+      "latitude": 15.1683,
+      "longitude": 74.0283,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
     }
   ]
 } 

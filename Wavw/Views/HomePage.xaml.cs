@@ -70,8 +70,24 @@ namespace Wavw.Views
                 _detailsPanel.TranslationY = 1000;
             }
 
-            // Check location permission when page loads
-            CheckLocationPermission();
+            // Request location access when page appears
+            this.Loaded += async (s, e) =>
+            {
+                var result = await DisplayAlert("Location Access", 
+                    "Wavw needs access to your location to show you nearby beaches. Would you like to allow location access?", 
+                    "Allow", "Not Now");
+                    
+                if (result)
+                {
+                    await CheckLocationPermission();
+                }
+                else
+                {
+                    await DisplayAlert("Limited Functionality", 
+                        "Without location access, you won't be able to see nearby beaches. You can enable it later in Settings.", 
+                        "OK");
+                }
+            };
         }
 
         private async Task CheckLocationPermission()
@@ -227,10 +243,16 @@ namespace Wavw.Views
                 var nearestBeaches = await _beachService.GetNearestBeaches(_currentLocation, 3);
                 if (nearestBeaches != null && nearestBeaches.Any())
                 {
+                    // Add all beach pins
                     foreach (var beach in nearestBeaches)
                     {
                         AddBeachPin(beach);
                     }
+
+                    // Calculate the bounds to show all pins
+                    var locations = new List<Location> { _currentLocation };
+                    locations.AddRange(nearestBeaches.Select(b => new Location(b.Latitude, b.Longitude)));
+                    await CenterMapOnPins(locations);
 
                     // Show details for the nearest beach
                     SelectedBeach = nearestBeaches.First();
@@ -239,7 +261,7 @@ namespace Wavw.Views
                 else
                 {
                     await DisplayAlert("No Beaches Found", 
-                        "No beaches found in your vicinity. Try searching for a specific beach instead.", 
+                        "No beaches found. Please try again.", 
                         "OK");
                 }
             }
@@ -274,8 +296,7 @@ namespace Wavw.Views
             {
                 Label = beach.Name,
                 Location = new Location(beach.Latitude, beach.Longitude),
-                Type = PinType.Place,
-                Address = $"Distance: {beach.DistanceFromUser(_currentLocation):F1} km"
+                Type = PinType.Place
             };
 
             pin.MarkerClicked += async (s, e) =>
@@ -292,6 +313,43 @@ namespace Wavw.Views
         {
             var location = new Location(latitude, longitude);
             _map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(5)));
+        }
+
+        private async Task CenterMapOnPins(List<Location> locations)
+        {
+            if (!locations.Any()) return;
+
+            // Calculate the bounding box for all locations
+            var minLat = locations.Min(l => l.Latitude);
+            var maxLat = locations.Max(l => l.Latitude);
+            var minLon = locations.Min(l => l.Longitude);
+            var maxLon = locations.Max(l => l.Longitude);
+
+            // Calculate center point
+            var centerLat = (minLat + maxLat) / 2;
+            var centerLon = (minLon + maxLon) / 2;
+
+            // Calculate the distance to determine radius
+            var maxDistance = locations.Max(l => 
+                Location.CalculateDistance(
+                    l, 
+                    new Location(centerLat, centerLon), 
+                    DistanceUnits.Kilometers
+                )
+            );
+
+            // Add some padding to the radius
+            var radius = maxDistance * 1.5;
+
+            // Ensure minimum zoom level
+            radius = Math.Max(radius, 1);
+
+            _map.MoveToRegion(
+                MapSpan.FromCenterAndRadius(
+                    new Location(centerLat, centerLon),
+                    Distance.FromKilometers(radius)
+                )
+            );
         }
 
         private async Task ShowDetailsPanel()

@@ -211,8 +211,8 @@ namespace Wavw.Services
             try
             {
                 // Create a more flexible search query
-                string query = $@"
-                    [out:json];
+            string query = $@"
+        [out:json];
                     area[name=""India""]->.india;
                     (
                         node(area.india)[""natural""=""beach""][name~""{searchTerm}"",i];
@@ -221,10 +221,10 @@ namespace Wavw.Services
                         node(area.india)[""natural""=""beach""][name~""{searchTerm} beach"",i];
                         node(area.india)[""natural""=""beach""][name~""beach {searchTerm}"",i];
                     );
-                    out;";
+        out;";
 
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-                string url = $"{OverpassApiUrl}?data={Uri.EscapeDataString(query)}";
+            string url = $"{OverpassApiUrl}?data={Uri.EscapeDataString(query)}";
                 var response = await _httpClient.GetStringAsync(url, cts.Token);
                 var apiBeaches = ParseBeachData(response);
 
@@ -252,32 +252,36 @@ namespace Wavw.Services
         {
             try
             {
-                // First get beaches from local cache within reasonable distance (50km)
+                // Get all beaches ordered by distance, without any distance restriction
                 var localBeaches = _beaches
-                    .Where(b => b.DistanceFromUser(userLocation) <= 50)
                     .OrderBy(b => b.DistanceFromUser(userLocation))
                     .Take(count)
                     .ToList();
 
-                if (localBeaches.Count >= count)
+                if (localBeaches.Count > 0)
                 {
+                    System.Diagnostics.Debug.WriteLine($"Found {localBeaches.Count} nearest beaches:");
+                    foreach (var beach in localBeaches)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"- {beach.Name} at distance: {beach.DistanceFromUser(userLocation):F2} km");
+                    }
                     return localBeaches;
                 }
 
-                // If not enough local beaches found, try API
+                // If no beaches in local cache, try API
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
                 string query = $@"
-                    [out:json];
-                    area[name=""India""]->.india;
-                    node(area.india)(around:50000,{userLocation.Latitude},{userLocation.Longitude})[natural=beach];
-                    out;";
+[out:json];
+            area[name=""India""]->.india;
+            node(area.india)[natural=beach];
+out;";
 
                 string url = $"{OverpassApiUrl}?data={Uri.EscapeDataString(query)}";
                 var response = await _httpClient.GetStringAsync(url, cts.Token);
                 var apiBeaches = ParseBeachData(response);
 
-                // Combine and deduplicate beaches
-                var allBeaches = localBeaches.Union(apiBeaches)
+                // Order API beaches by distance and take the nearest ones
+                var allBeaches = apiBeaches
                     .OrderBy(b => b.DistanceFromUser(userLocation))
                     .Take(count)
                     .ToList();
@@ -301,7 +305,7 @@ namespace Wavw.Services
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error getting nearest beaches: {ex.Message}");
-                // On error, just use local beaches
+                // On error, just use local beaches without distance restriction
                 return _beaches
                     .OrderBy(b => b.DistanceFromUser(userLocation))
                     .Take(count)
@@ -312,26 +316,26 @@ namespace Wavw.Services
         private List<Beach> ParseBeachData(string jsonResponse)
         {
             try
+        {
+            using JsonDocument doc = JsonDocument.Parse(jsonResponse);
+            var root = doc.RootElement;
+            var beaches = new List<Beach>();
+
+            if (root.TryGetProperty("elements", out JsonElement elements))
             {
-                using JsonDocument doc = JsonDocument.Parse(jsonResponse);
-                var root = doc.RootElement;
-                var beaches = new List<Beach>();
-
-                if (root.TryGetProperty("elements", out JsonElement elements))
+                foreach (var element in elements.EnumerateArray())
                 {
-                    foreach (var element in elements.EnumerateArray())
+                    if (element.TryGetProperty("lat", out JsonElement latEl) &&
+                        element.TryGetProperty("lon", out JsonElement lonEl))
                     {
-                        if (element.TryGetProperty("lat", out JsonElement latEl) &&
-                            element.TryGetProperty("lon", out JsonElement lonEl))
-                        {
-                            string name = element.TryGetProperty("tags", out JsonElement tags) &&
-                                          tags.TryGetProperty("name", out JsonElement nameEl) ? nameEl.GetString() : "Unknown Beach";
+                        string name = element.TryGetProperty("tags", out JsonElement tags) &&
+                                      tags.TryGetProperty("name", out JsonElement nameEl) ? nameEl.GetString() : "Unknown Beach";
 
-                            beaches.Add(new Beach
-                            {
-                                Name = name,
-                                Latitude = latEl.GetDouble(),
-                                Longitude = lonEl.GetDouble(),
+                        beaches.Add(new Beach
+                        {
+                            Name = name,
+                            Latitude = latEl.GetDouble(),
+                            Longitude = lonEl.GetDouble(),
                                 Rating = "3.5/5",  // Default rating
                                 Cleanliness = "Good",  // Default cleanliness
                                 BestSeason = "October to March",  // Default season

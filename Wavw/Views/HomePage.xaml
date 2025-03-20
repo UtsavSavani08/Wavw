@@ -9,6 +9,28 @@
 
     <ContentPage.Resources>
         <converters:NotNullToBoolConverter x:Key="NotNullToBoolConverter" />
+        <x:String x:Key="CustomMapStyle">
+            [
+                {
+                    "featureType": "poi",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                }
+            ]
+        </x:String>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
@@ -24,9 +46,10 @@
         <Grid Grid.Row="1">
             <maps:Map
                 x:Name="BeachMap"
-                IsShowingUser="True"
-                IsTrafficEnabled="False"
-                MapType="Street" />
+                IsShowingUser="False"
+                IsEnabled="True"
+                MapType="Street">
+            </maps:Map>
 
             <!--  Location Button  -->
             <Button
@@ -87,7 +110,7 @@
                 <Grid
                     ColumnDefinitions="Auto,*"
                     ColumnSpacing="15"
-                    RowDefinitions="Auto,Auto,Auto,Auto"
+                    RowDefinitions="Auto,Auto,Auto"
                     RowSpacing="12">
                     <Label
                         Grid.Row="0"
@@ -128,20 +151,6 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         Text="{Binding SelectedBeach.BestSeason}"
-                        TextColor="#333333"
-                        VerticalOptions="Center" />
-
-                    <Label
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        FontAttributes="Bold"
-                        Text="Distance"
-                        TextColor="#666666"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        Text="{Binding SelectedBeachDistance, StringFormat='{0:F1} km'}"
                         TextColor="#333333"
                         VerticalOptions="Center" />
                 </Grid>

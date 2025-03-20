@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Wavw.Views.WeatherPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:services="clr-namespace:Wavw.Services"
+    x:DataType="services:WeatherViewModel"
+    Title="Weather">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Search Bar -->
+        <SearchBar
+            Grid.Row="0"
+            Margin="10"
+            Placeholder="Search beach by name..."
+            SearchCommand="{Binding SearchCommand}"
+            SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}" />
+
+        <!-- Weather Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="20" IsVisible="{Binding HasBeachSelected}">
+                <!-- Beach Name -->
+                <Label
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    Text="{Binding BeachName}"
+                    TextColor="#333333" />
+
+                <!-- Current Conditions -->
+                <Frame BackgroundColor="White" Padding="15" CornerRadius="10">
+                    <VerticalStackLayout Spacing="15">
+                        <Label
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            Text="Current Conditions"
+                            TextColor="#666666" />
+
+                        <!-- Wave Height -->
+                        <Grid ColumnDefinitions="Auto,*" RowSpacing="10">
+                            <Image
+                                Grid.Column="0"
+                                Source="wave_icon.png"
+                                HeightRequest="24"
+                                WidthRequest="24" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                <Label
+                                    Text="Wave Height"
+                                    FontAttributes="Bold"
+                                    TextColor="#666666" />
+                                <Label
+                                    Text="{Binding WaveHeight, StringFormat='{0:F1} meters'}"
+                                    TextColor="#333333" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Sea Temperature -->
+                        <Grid ColumnDefinitions="Auto,*" RowSpacing="10">
+                            <Image
+                                Grid.Column="0"
+                                Source="temp_icon.png"
+                                HeightRequest="24"
+                                WidthRequest="24" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                <Label
+                                    Text="Sea Temperature"
+                                    FontAttributes="Bold"
+                                    TextColor="#666666" />
+                                <Label
+                                    Text="{Binding SeaTemperature, StringFormat='{0:F1}°C'}"
+                                    TextColor="#333333" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Wind Conditions -->
+                        <Grid ColumnDefinitions="Auto,*" RowSpacing="10">
+                            <Image
+                                Grid.Column="0"
+                                Source="wind_icon.png"
+                                HeightRequest="24"
+                                WidthRequest="24" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                <Label
+                                    Text="Wind Conditions"
+                                    FontAttributes="Bold"
+                                    TextColor="#666666" />
+                                <Label
+                                    Text="{Binding WindConditions}"
+                                    TextColor="#333333" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Last Updated -->
+                <Label
+                    Text="{Binding LastUpdated, StringFormat='Last Updated: {0:g}'}"
+                    TextColor="#666666"
+                    FontSize="12"
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- No Beach Selected Message -->
+        <VerticalStackLayout
+            Grid.Row="1"
+            IsVisible="{Binding HasBeachSelected, Converter={StaticResource BooleanInvertConverter}}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Spacing="20"
+            Padding="20">
+            <Label
+                Text="Search for a beach to view weather information"
+                FontSize="16"
+                TextColor="#666666"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage> 

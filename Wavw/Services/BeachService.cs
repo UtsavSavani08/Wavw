@@ -270,13 +270,13 @@ namespace Wavw.Services
 
                 // If no beaches in local cache, try API
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
-                string query = $@"
-[out:json];
+            string query = $@"
+        [out:json];
             area[name=""India""]->.india;
             node(area.india)[natural=beach];
-out;";
+        out;";
 
-                string url = $"{OverpassApiUrl}?data={Uri.EscapeDataString(query)}";
+            string url = $"{OverpassApiUrl}?data={Uri.EscapeDataString(query)}";
                 var response = await _httpClient.GetStringAsync(url, cts.Token);
                 var apiBeaches = ParseBeachData(response);
 

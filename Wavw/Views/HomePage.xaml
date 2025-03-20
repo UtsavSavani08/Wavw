@@ -11,24 +11,24 @@
         <converters:NotNullToBoolConverter x:Key="NotNullToBoolConverter" />
         <x:String x:Key="CustomMapStyle">
             [
-                {
-                    "featureType": "poi",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                }
+            {
+            "featureType": "poi",
+            "elementType": "labels",
+            "stylers": [
+            {
+            "visibility": "off"
+            }
+            ]
+            },
+            {
+            "featureType": "transit",
+            "elementType": "labels",
+            "stylers": [
+            {
+            "visibility": "off"
+            }
+            ]
+            }
             ]
         </x:String>
     </ContentPage.Resources>
@@ -46,10 +46,9 @@
         <Grid Grid.Row="1">
             <maps:Map
                 x:Name="BeachMap"
-                IsShowingUser="False"
                 IsEnabled="True"
-                MapType="Street">
-            </maps:Map>
+                IsShowingUser="False"
+                MapType="Street" />
 
             <!--  Location Button  -->
             <Button
@@ -167,16 +166,31 @@
                         TextColor="#333333" />
                 </StackLayout>
 
-                <!--  Action Button  -->
-                <Button
+                <!--  Action Buttons  -->
+                <Grid
                     Margin="0,10,0,0"
-                    BackgroundColor="#2196F3"
-                    Command="{Binding GetDirectionsCommand}"
-                    CornerRadius="25"
-                    FontAttributes="Bold"
-                    HeightRequest="50"
-                    Text="Get Directions"
-                    TextColor="White" />
+                    ColumnDefinitions="*,*"
+                    ColumnSpacing="10">
+                    <Button
+                        Grid.Column="0"
+                        BackgroundColor="#2196F3"
+                        Command="{Binding GetDirectionsCommand}"
+                        CornerRadius="25"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        Text="Get Directions"
+                        TextColor="White" />
+
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="#4CAF50"
+                        Command="{Binding GetWeatherCommand}"
+                        CornerRadius="25"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        Text="Weather Info"
+                        TextColor="White" />
+                </Grid>
             </VerticalStackLayout>
         </Frame>
     </Grid>

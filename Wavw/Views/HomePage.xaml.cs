@@ -31,6 +31,7 @@ namespace Wavw.Views
         public ICommand GetCurrentLocationCommand { get; }
         public ICommand CloseDetailsCommand { get; }
         public ICommand GetDirectionsCommand { get; }
+        public ICommand GetWeatherCommand { get; }
 
         public Beach? SelectedBeach
         {
@@ -61,6 +62,7 @@ namespace Wavw.Views
             GetCurrentLocationCommand = new Command(async () => await GetCurrentLocation());
             CloseDetailsCommand = new Command(async () => await HideDetailsPanel());
             GetDirectionsCommand = new Command(async () => await OpenDirections());
+            GetWeatherCommand = new Command(async () => await ShowWeatherInfo());
 
             BindingContext = this;
 
@@ -442,6 +444,24 @@ namespace Wavw.Views
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private async Task ShowWeatherInfo()
+        {
+            if (SelectedBeach == null) return;
+
+            try
+            {
+                var weatherPage = new WeatherPage(SelectedBeach);
+                await Navigation.PushAsync(weatherPage);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error showing weather info: {ex.Message}");
+                await DisplayAlert("Error", 
+                    "Unable to show weather information. Please try again.", 
+                    "OK");
             }
         }
     }

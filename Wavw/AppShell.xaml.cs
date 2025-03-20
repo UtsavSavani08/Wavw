@@ -1,10 +1,11 @@
-﻿namespace Wavw
+﻿namespace Wavw;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        Routing.RegisterRoute(nameof(Views.WeatherPage), typeof(Views.WeatherPage));
+        Routing.RegisterRoute(nameof(Views.HomePage), typeof(Views.HomePage));
     }
 }

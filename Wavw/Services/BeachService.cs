@@ -55,46 +55,134 @@ namespace Wavw.Services
         {
             try
             {
-                // Try multiple possible locations for the file
+                System.Diagnostics.Debug.WriteLine("Starting to load beaches from JSON...");
+                
+                // List all embedded resources
+                var assembly = GetType().Assembly;
+                System.Diagnostics.Debug.WriteLine("Available embedded resources:");
+                foreach (var resourceName in assembly.GetManifestResourceNames())
+                {
+                    System.Diagnostics.Debug.WriteLine($"Resource: {resourceName}");
+                }
+
+                // First try to load from embedded resource
+                var embeddedResourceName = "Wavw.Resources.Raw.beaches.json";
+                System.Diagnostics.Debug.WriteLine($"Trying to load embedded resource: {embeddedResourceName}");
+                using (var stream = assembly.GetManifestResourceStream(embeddedResourceName))
+                {
+                    if (stream != null)
+                    {
+                        using (var reader = new StreamReader(stream))
+                        {
+                            var jsonString = reader.ReadToEnd();
+                            System.Diagnostics.Debug.WriteLine($"Found beaches.json in embedded resources, content length: {jsonString.Length}");
+                            var beaches = ParseBeachJson(jsonString);
+                            if (beaches.Any())
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Successfully loaded {beaches.Count} beaches from embedded resource");
+                                return beaches;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Embedded resource stream was null");
+                    }
+                }
+
+                // If not found in embedded resources, try file system
                 var possiblePaths = new[]
                 {
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "beaches.json"),
-                    Path.Combine(FileSystem.AppDataDirectory, "Resources", "beaches.json"),
-                    Path.Combine(FileSystem.AppDataDirectory, "beaches.json"),
-                    "Resources/beaches.json",
-                    "beaches.json"
+                    "Resources/Raw/beaches.json",
+                    Path.Combine(FileSystem.AppDataDirectory, "Resources", "Raw", "beaches.json"),
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Raw", "beaches.json"),
+                    Path.Combine(FileSystem.CacheDirectory, "Resources", "Raw", "beaches.json"),
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "beaches.json"),
+                    Path.Combine(Environment.CurrentDirectory, "Resources", "Raw", "beaches.json"),
+                    Path.Combine(Environment.CurrentDirectory, "beaches.json")
                 };
 
-                string jsonFileName = null;
                 foreach (var path in possiblePaths)
                 {
                     System.Diagnostics.Debug.WriteLine($"Checking path: {path}");
                     if (File.Exists(path))
                     {
-                        jsonFileName = path;
-                        System.Diagnostics.Debug.WriteLine($"Found beaches.json at: {path}");
-                        break;
+                        System.Diagnostics.Debug.WriteLine($"Found file at: {path}");
+                        var jsonString = File.ReadAllText(path);
+                        System.Diagnostics.Debug.WriteLine($"File content length: {jsonString.Length}");
+                        System.Diagnostics.Debug.WriteLine($"First 100 characters of content: {(jsonString.Length > 100 ? jsonString.Substring(0, 100) : jsonString)}...");
+                        
+                        var beaches = ParseBeachJson(jsonString);
+                        if (beaches.Any())
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Successfully loaded {beaches.Count} beaches from file");
+                            return beaches;
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("File was found but no beaches were parsed from it");
+                        }
                     }
                 }
 
-                if (jsonFileName == null)
+                // If we get here, we couldn't find the file
+                System.Diagnostics.Debug.WriteLine("\nListing all files in current directory and subdirectories:");
+                var currentDir = Directory.GetCurrentDirectory();
+                System.Diagnostics.Debug.WriteLine($"Current directory: {currentDir}");
+                var allFiles = Directory.GetFiles(currentDir, "*.*", SearchOption.AllDirectories);
+                foreach (var file in allFiles)
                 {
-                    System.Diagnostics.Debug.WriteLine("beaches.json not found in any expected location!");
-                    // Create a default list with some beaches for testing
-                    var defaultBeaches = new List<Beach>
-                    {
-                        new Beach { Name = "juhu", Latitude = 19.0883, Longitude = 72.8263, Rating = "4.2/5", Cleanliness = "Good", BestSeason = "October to March", MainAttractions = "Celebrity Spotting, Famous Street Food" },
-                        new Beach { Name = "marina", Latitude = 13.0500, Longitude = 80.2824, Rating = "4.3/5", Cleanliness = "Good", BestSeason = "December to February", MainAttractions = "World's Second Longest Urban Beach" },
-                        new Beach { Name = "puri", Latitude = 19.7987, Longitude = 85.8249, Rating = "4.4/5", Cleanliness = "Good", BestSeason = "October to February", MainAttractions = "Sacred Beach, Famous Sand Art" }
-                    };
-                    System.Diagnostics.Debug.WriteLine($"Created default beach list with {defaultBeaches.Count} beaches");
-                    return defaultBeaches;
+                    System.Diagnostics.Debug.WriteLine($"Found file: {file}");
                 }
 
-                var jsonString = File.ReadAllText(jsonFileName);
-                System.Diagnostics.Debug.WriteLine($"Read JSON content, length: {jsonString.Length}");
-                System.Diagnostics.Debug.WriteLine($"JSON content: {jsonString.Substring(0, Math.Min(500, jsonString.Length))}");
+                // Return default beaches for testing
+                System.Diagnostics.Debug.WriteLine("\nReturning default test beaches since no file was found");
+                return new List<Beach>
+                {
+                    new Beach 
+                    { 
+                        Name = "Mandvi Beach", 
+                        Latitude = 22.8373, 
+                        Longitude = 69.3564,
+                        Rating = "4/5",
+                        Cleanliness = "Good",
+                        BestSeason = "October to March",
+                        MainAttractions = "Windmills, camping, water sports"
+                    },
+                    new Beach 
+                    { 
+                        Name = "Dwarka Beach", 
+                        Latitude = 22.2442, 
+                        Longitude = 68.9685,
+                        Rating = "4.5/5",
+                        Cleanliness = "Very Good",
+                        BestSeason = "October to March",
+                        MainAttractions = "Temple view, sunset point"
+                    },
+                    new Beach 
+                    { 
+                        Name = "Somnath Beach", 
+                        Latitude = 20.8880, 
+                        Longitude = 70.4006,
+                        Rating = "4/5",
+                        Cleanliness = "Good",
+                        BestSeason = "October to February",
+                        MainAttractions = "Temple vicinity, evening aarti view"
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error loading beaches from JSON: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+                return new List<Beach>();
+            }
+        }
 
+        private List<Beach> ParseBeachJson(string jsonString)
+        {
+            try
+            {
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,
@@ -102,36 +190,43 @@ namespace Wavw.Services
                     ReadCommentHandling = JsonCommentHandling.Skip
                 };
 
-                var beachData = JsonSerializer.Deserialize<BeachData>(jsonString, options);
-                if (beachData?.Beaches == null || !beachData.Beaches.Any())
+                // Try parsing as BeachData first
+                try
                 {
-                    System.Diagnostics.Debug.WriteLine("No beaches found in JSON file, using default list");
-                    return new List<Beach>
+                    var beachData = JsonSerializer.Deserialize<BeachData>(jsonString, options);
+                    if (beachData?.Beaches != null && beachData.Beaches.Any())
                     {
-                        new Beach { Name = "juhu", Latitude = 19.0883, Longitude = 72.8263, Rating = "4.2/5", Cleanliness = "Good", BestSeason = "October to March", MainAttractions = "Celebrity Spotting, Famous Street Food" },
-                        new Beach { Name = "marina", Latitude = 13.0500, Longitude = 80.2824, Rating = "4.3/5", Cleanliness = "Good", BestSeason = "December to February", MainAttractions = "World's Second Longest Urban Beach" },
-                        new Beach { Name = "puri", Latitude = 19.7987, Longitude = 85.8249, Rating = "4.4/5", Cleanliness = "Good", BestSeason = "October to February", MainAttractions = "Sacred Beach, Famous Sand Art" }
-                    };
+                        System.Diagnostics.Debug.WriteLine($"Successfully parsed {beachData.Beaches.Count} beaches from BeachData format");
+                        return beachData.Beaches;
+                    }
+                }
+                catch (JsonException)
+                {
+                    System.Diagnostics.Debug.WriteLine("Failed to parse as BeachData, trying direct Beach array");
                 }
 
-                System.Diagnostics.Debug.WriteLine($"Successfully loaded {beachData.Beaches.Count} beaches from JSON");
-                foreach (var beach in beachData.Beaches)
+                // Try parsing as direct array of beaches
+                try
                 {
-                    System.Diagnostics.Debug.WriteLine($"Loaded beach: {beach.Name}");
+                    var beaches = JsonSerializer.Deserialize<List<Beach>>(jsonString, options);
+                    if (beaches != null && beaches.Any())
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Successfully parsed {beaches.Count} beaches from direct array format");
+                        return beaches;
+                    }
                 }
-                return beachData.Beaches;
+                catch (JsonException)
+                {
+                    System.Diagnostics.Debug.WriteLine("Failed to parse as direct Beach array");
+                }
+
+                System.Diagnostics.Debug.WriteLine("No valid beach data found in JSON");
+                return new List<Beach>();
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error loading beaches from JSON: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                // Return a default list on error
-                return new List<Beach>
-                {
-                    new Beach { Name = "juhu", Latitude = 19.0883, Longitude = 72.8263, Rating = "4.2/5", Cleanliness = "Good", BestSeason = "October to March", MainAttractions = "Celebrity Spotting, Famous Street Food" },
-                    new Beach { Name = "marina", Latitude = 13.0500, Longitude = 80.2824, Rating = "4.3/5", Cleanliness = "Good", BestSeason = "December to February", MainAttractions = "World's Second Longest Urban Beach" },
-                    new Beach { Name = "puri", Latitude = 19.7987, Longitude = 85.8249, Rating = "4.4/5", Cleanliness = "Good", BestSeason = "October to February", MainAttractions = "Sacred Beach, Famous Sand Art" }
-                };
+                System.Diagnostics.Debug.WriteLine($"Error parsing beach JSON: {ex.Message}");
+                return new List<Beach>();
             }
         }
 
@@ -252,64 +347,51 @@ namespace Wavw.Services
         {
             try
             {
-                // Get all beaches ordered by distance, without any distance restriction
-                var localBeaches = _beaches
-                    .OrderBy(b => b.DistanceFromUser(userLocation))
-                    .Take(count)
-                    .ToList();
-
-                if (localBeaches.Count > 0)
+                System.Diagnostics.Debug.WriteLine($"Getting nearest {count} beaches to location: {userLocation.Latitude}, {userLocation.Longitude}");
+                System.Diagnostics.Debug.WriteLine($"Total beaches in database: {_beaches.Count}");
+                
+                if (_beaches.Count == 0)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Found {localBeaches.Count} nearest beaches:");
-                    foreach (var beach in localBeaches)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"- {beach.Name} at distance: {beach.DistanceFromUser(userLocation):F2} km");
-                    }
-                    return localBeaches;
+                    System.Diagnostics.Debug.WriteLine("No beaches loaded in the database!");
+                    return new List<Beach>();
                 }
 
-                // If no beaches in local cache, try API
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
-            string query = $@"
-        [out:json];
-            area[name=""India""]->.india;
-            node(area.india)[natural=beach];
-        out;";
-
-            string url = $"{OverpassApiUrl}?data={Uri.EscapeDataString(query)}";
-                var response = await _httpClient.GetStringAsync(url, cts.Token);
-                var apiBeaches = ParseBeachData(response);
-
-                // Order API beaches by distance and take the nearest ones
-                var allBeaches = apiBeaches
-                    .OrderBy(b => b.DistanceFromUser(userLocation))
-                    .Take(count)
+                // Calculate distances for all beaches without any filtering
+                var orderedBeaches = _beaches
+                    .Select(beach => {
+                        var distance = beach.DistanceFromUser(userLocation);
+                        System.Diagnostics.Debug.WriteLine($"Distance from {beach.Name}: {distance:F2} km");
+                        return (Beach: beach, Distance: distance);
+                    })
+                    .OrderBy(x => x.Distance)
                     .ToList();
 
-                // Cache new beaches
-                foreach (var beach in apiBeaches)
+                System.Diagnostics.Debug.WriteLine("All beaches sorted by distance:");
+                foreach (var (beach, distance) in orderedBeaches)
                 {
-                    if (!_beaches.Any(b => b.Name.Equals(beach.Name, StringComparison.OrdinalIgnoreCase)))
-                    {
-                        _beaches.Add(beach);
-                        var normalizedName = NormalizeName(beach.Name);
-                        if (!_beachNameCache.ContainsKey(normalizedName))
-                        {
-                            _beachNameCache[normalizedName] = beach;
-                        }
-                    }
+                    System.Diagnostics.Debug.WriteLine($"- {beach.Name}: {distance:F2} km");
                 }
 
-                return allBeaches;
+                // Take the nearest 3 beaches regardless of distance
+                var nearestBeaches = orderedBeaches
+                    .Take(count)
+                    .Select(x => x.Beach)
+                    .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Selected {nearestBeaches.Count} nearest beaches:");
+                foreach (var beach in nearestBeaches)
+                {
+                    var distance = beach.DistanceFromUser(userLocation);
+                    System.Diagnostics.Debug.WriteLine($"- {beach.Name} at distance: {distance:F2} km");
+                }
+
+                return nearestBeaches;
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error getting nearest beaches: {ex.Message}");
-                // On error, just use local beaches without distance restriction
-                return _beaches
-                    .OrderBy(b => b.DistanceFromUser(userLocation))
-                    .Take(count)
-                    .ToList();
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+                return new List<Beach>();
             }
         }
 

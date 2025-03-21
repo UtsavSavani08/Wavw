@@ -20,4 +20,6 @@ public partial class WeatherPage : ContentPage
         _viewModel = new WeatherViewModel(selectedBeach);
         BindingContext = _viewModel;
     }
+
+    public string DisplayBeachName => _viewModel?.BeachName?.ToUpper() ?? string.Empty;
 } 

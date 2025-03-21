@@ -106,6 +106,8 @@
             IsVisible="{Binding HasBeachSelected, Converter={StaticResource BooleanInvertConverter}}"
             HorizontalOptions="Center"
             VerticalOptions="Center"
+            Margin="20,100,20,20"
+            TranslationY="50"
             Spacing="20"
             Padding="20">
             <Label

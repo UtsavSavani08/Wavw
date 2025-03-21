@@ -11,7 +11,7 @@ namespace Wavw.Services
     public class WeatherViewModel : INotifyPropertyChanged
     {
         private readonly HttpClient _httpClient;
-        private const string API_KEY = "d61e2c4c-05a5-11f0-a906-0242ac130003-d61e2cc4-05a5-11f0-a906-0242ac130003"; // Replace with your actual API key
+        private const string API_KEY = "d61e2c4c-05a5-11f0-a906-0242ac130003-d61e2cc4-05a5-11f0-a906-0242ac130003"; // Replace this with your actual StormGlass API key
         private readonly BeachService _beachService;
         private const string BaseUrl = "https://api.stormglass.io/v2/weather/";
         
@@ -151,10 +151,9 @@ namespace Wavw.Services
                 var url = $"{BaseUrl}point?lat={latitude}&lng={longitude}&params={parameters}";
                 
                 System.Diagnostics.Debug.WriteLine($"Full API URL: {url}");
-                System.Diagnostics.Debug.WriteLine($"API Key being used: {API_KEY}");
 
                 using var request = new HttpRequestMessage(HttpMethod.Get, url);
-                request.Headers.Add("Authorization", API_KEY);
+                request.Headers.Add("Authorization", $"Bearer {API_KEY}");
 
                 // Log all request headers
                 foreach (var header in request.Headers)

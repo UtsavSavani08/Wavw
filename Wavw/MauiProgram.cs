@@ -5,7 +5,6 @@ using Microsoft.Maui.Maps;
 using Microsoft.Maui.Maps.Handlers;
 using Wavw.Services;
 using Wavw.Views;
-using CommunityToolkit.Maui;
 
 namespace Wavw;
 
@@ -17,7 +16,6 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiMaps()
-            .UseMauiCommunityToolkit()
             .ConfigureMauiHandlers(handlers =>
             {
                 handlers.AddHandler<Microsoft.Maui.Controls.Maps.Map, MapHandler>();
@@ -25,13 +23,13 @@ public static class MauiProgram
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("OpenSans-SemiBold.ttf", "OpenSansSemiBold");
             });
 
         // Register services
         builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
         builder.Services.AddSingleton<BeachService>();
-        builder.Services.AddSingleton<HomePage>();
+        builder.Services.AddTransient<HomePage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

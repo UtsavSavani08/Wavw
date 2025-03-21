@@ -137,12 +137,12 @@
     },
     {
       "name": "tarkarli",
-      "latitude": 16.0139,
-      "longitude": 73.4874,
-      "rating": "4.6/5",
-      "cleanliness": "Excellent",
+      "latitude": 16.0167,
+      "longitude": 73.4833,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
       "bestSeason": "October to March",
-      "mainAttractions": "Crystal Clear Waters, Scuba Diving, White Sand Beach, Historic Fort Views"
+      "mainAttractions": "Scuba Diving, Snorkeling, Water Sports, Dolphin Watching, Beach Resorts"
     },
     {
       "name": "gokarna",
@@ -487,15 +487,6 @@
       "mainAttractions": "Mahadev Temple, Rocky Beach, Peaceful Atmosphere, Local Pilgrimage"
     },
     {
-      "name": "umbharat",
-      "latitude": 21.1667,
-      "longitude": 72.7500,
-      "rating": "3.9/5",
-      "cleanliness": "Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Secluded Beach, Fishing Community, Weekend Spot, Natural Setting"
-    },
-    {
       "name": "vansi borsi",
       "latitude": 20.8900,
       "longitude": 72.9200,
@@ -542,12 +533,21 @@
     },
     {
       "name": "ghogha",
-      "latitude": 21.6869,
-      "longitude": 72.2819,
+      "latitude": 21.6833,
+      "longitude": 72.2833,
       "rating": "3.8/5",
       "cleanliness": "Good",
       "bestSeason": "October to March",
-      "mainAttractions": "Historic Port, Ferry Point, Beach Walk, Local History"
+      "mainAttractions": "Historic Port, Sunset Views, Bird Watching, Local Culture"
+    },
+    {
+      "name": "khambhat",
+      "latitude": 22.3167,
+      "longitude": 72.6167,
+      "rating": "3.7/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Historic Gulf Port, Bird Watching, Mangroves, Local Heritage, Traditional Markets"
     },
     {
       "name": "mahuva",
@@ -874,33 +874,6 @@
       "mainAttractions": "Rock Formations, Lighthouse, Fishing Village, Secluded Beach"
     },
     {
-      "name": "tarkali",
-      "latitude": 16.0139,
-      "longitude": 73.4874,
-      "rating": "4.5/5",
-      "cleanliness": "Very Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Scuba Diving, Dolphin Watching, Water Sports, Backwater Boat Rides"
-    },
-    {
-      "name": "kannur",
-      "latitude": 11.8745,
-      "longitude": 75.3704,
-      "rating": "4.4/5",
-      "cleanliness": "Very Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Payyambalam Beach, St. Angelo Fort, Drive-in Beach, Local Culture"
-    },
-    {
-      "name": "beypore",
-      "latitude": 11.1689,
-      "longitude": 75.8051,
-      "rating": "4.2/5",
-      "cleanliness": "Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Ancient Port, Ship Building, Stone Bridge, Sunset Views"
-    },
-    {
       "name": "thirumullavaram",
       "latitude": 8.9016,
       "longitude": 76.6419,
@@ -991,13 +964,184 @@
       "mainAttractions": "Secluded Beach, Natural Beauty, Fishing Village, Peaceful Environment"
     },
     {
-      "name": "mahuva beach",
-      "latitude": 21.0833,
-      "longitude": 71.7500,
+      "name": "bangaram",
+      "latitude": 10.9333,
+      "longitude": 72.2833,
+      "rating": "4.7/5",
+      "cleanliness": "Pristine",
+      "bestSeason": "October to May",
+      "mainAttractions": "Coral Reefs, Lagoon Beach, Water Sports, Lakshadweep Experience"
+    },
+    {
+      "name": "kadmat",
+      "latitude": 11.2167,
+      "longitude": 72.7833,
+      "rating": "4.6/5",
+      "cleanliness": "Pristine",
+      "bestSeason": "October to May",
+      "mainAttractions": "Lagoon Waters, Marine Life, Coral Reefs, Island Tourism"
+    },
+    {
+      "name": "yarada",
+      "latitude": 17.6568,
+      "longitude": 83.2715,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Hill View Beach, Dolphin Nose Point, Secluded Location, Scenic Beauty"
+    },
+    {
+      "name": "muttom",
+      "latitude": 8.1250,
+      "longitude": 77.3276,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Rocky Coast, Lighthouse, Natural Rock Port, Fishing Village"
+    },
+    {
+      "name": "tharangambadi",
+      "latitude": 11.0271,
+      "longitude": 79.8516,
+      "rating": "4.3/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Danish Fort, Colonial Architecture, Tranquebar Beach, Historical Sites"
+    },
+    {
+      "name": "minicoy",
+      "latitude": 8.2833,
+      "longitude": 73.0500,
+      "rating": "4.8/5",
+      "cleanliness": "Pristine",
+      "bestSeason": "October to May",
+      "mainAttractions": "Lighthouse, Tuna Fishing, Local Culture, Crystal Clear Waters"
+    },
+    {
+      "name": "marve",
+      "latitude": 19.2075,
+      "longitude": 72.7939,
       "rating": "4.1/5",
       "cleanliness": "Good",
       "bestSeason": "October to March",
-      "mainAttractions": "Bird Watching, Quiet Beach, Natural Setting, Local Culture"
+      "mainAttractions": "Ferry Point, Local Food, Weekend Gateway, Peaceful Beach"
+    },
+    {
+      "name": "revdanda",
+      "latitude": 18.5561,
+      "longitude": 72.9283,
+      "rating": "4.2/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Portuguese Fort, Black Sand, Historic Port, Peaceful Environment"
+    },
+    {
+      "name": "kihim",
+      "latitude": 18.6492,
+      "longitude": 72.8645,
+      "rating": "4.3/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Bird Watching, Beach Camping, Clean Beach, Weekend Destination"
+    },
+    {
+      "name": "mandwa",
+      "latitude": 18.6633,
+      "longitude": 72.8833,
+      "rating": "4.2/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Ferry Point, Beach Activities, Mumbai View, Celebrity Houses"
+    },
+    {
+      "name": "dabhol",
+      "latitude": 17.5889,
+      "longitude": 73.1833,
+      "rating": "4.1/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Port Beach, Lighthouse, Historic Fort, Natural Harbor"
+    },
+    {
+      "name": "tarkarli beach",
+      "latitude": 16.0139,
+      "longitude": 73.4874,
+      "rating": "4.5/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "MTDC Resort, Water Sports, Houseboat Stay, Backwater Beach"
+    },
+    {
+      "name": "dahanu chakrabhata",
+      "latitude": 19.9667,
+      "longitude": 72.7333,
+      "rating": "4.0/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Black Sand, Fishing Village, Chikoo Farms, Peaceful Beach"
+    },
+    {
+      "name": "kelva",
+      "latitude": 19.6167,
+      "longitude": 72.7333,
+      "rating": "4.1/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Fort Beach, Bird Watching, Weekend Picnic, Clean Environment"
+    },
+    {
+      "name": "arnala",
+      "latitude": 19.4500,
+      "longitude": 72.7500,
+      "rating": "4.0/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Island Fort, Fishing Port, Local Food, Beach Activities"
+    },
+    {
+      "name": "kavaratti",
+      "latitude": 10.5626,
+      "longitude": 72.6369,
+      "rating": "4.7/5",
+      "cleanliness": "Pristine",
+      "bestSeason": "October to May",
+      "mainAttractions": "Coral Reefs, Water Sports, Marine Aquarium, Island Capital"
+    },
+    {
+      "name": "karmatang",
+      "latitude": 12.9137,
+      "longitude": 92.9629,
+      "rating": "4.4/5",
+      "cleanliness": "Very Good",
+      "bestSeason": "October to May",
+      "mainAttractions": "Turtle Nesting, Mangrove Forest, Eco Tourism, Pristine Beach"
+    },
+    {
+      "name": "lalaji bay",
+      "latitude": 12.0500,
+      "longitude": 92.9667,
+      "rating": "4.6/5",
+      "cleanliness": "Pristine",
+      "bestSeason": "October to May",
+      "mainAttractions": "Coral Reefs, Snorkeling, Remote Beach, Natural Beauty"
+    },
+    {
+      "name": "elephanta",
+      "latitude": 18.9633,
+      "longitude": 72.9315,
+      "rating": "4.2/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "UNESCO Site, Cave Temples, Island Beach, Heritage Tourism"
+    },
+    {
+      "name": "long island",
+      "latitude": 12.3500,
+      "longitude": 92.9333,
+      "rating": "4.5/5",
+      "cleanliness": "Pristine",
+      "bestSeason": "October to May",
+      "mainAttractions": "Remote Beaches, Lalaji Bay, Trekking Trails, Marine Life"
     }
   ]
 } 

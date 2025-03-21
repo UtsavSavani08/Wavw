@@ -55,45 +55,55 @@ namespace Wavw.Services
         {
             try
             {
-                // Try multiple possible locations for the file
-                var possiblePaths = new[]
+                string jsonString = null;
+                
+                // First try to read from the app package
+                try
                 {
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "beaches.json"),
-                    Path.Combine(FileSystem.AppDataDirectory, "Resources", "beaches.json"),
-                    Path.Combine(FileSystem.AppDataDirectory, "beaches.json"),
-                    "Resources/beaches.json",
-                    "beaches.json"
-                };
-
-                string jsonFileName = null;
-                foreach (var path in possiblePaths)
+                    using var stream = FileSystem.OpenAppPackageFileAsync("beaches.json").Result;
+                    using var reader = new StreamReader(stream);
+                    jsonString = reader.ReadToEnd();
+                    System.Diagnostics.Debug.WriteLine("Successfully read beaches.json from app package");
+                }
+                catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Checking path: {path}");
-                    if (File.Exists(path))
+                    System.Diagnostics.Debug.WriteLine($"Could not read from app package: {ex.Message}");
+                    
+                    // Fall back to file system if app package fails
+                    var possiblePaths = new[]
                     {
-                        jsonFileName = path;
-                        System.Diagnostics.Debug.WriteLine($"Found beaches.json at: {path}");
-                        break;
+                        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "beaches.json"),
+                        Path.Combine(FileSystem.AppDataDirectory, "Resources", "beaches.json"),
+                        Path.Combine(FileSystem.AppDataDirectory, "beaches.json"),
+                        "Resources/beaches.json",
+                        "beaches.json"
+                    };
+
+                    foreach (var path in possiblePaths)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Checking path: {path}");
+                        if (File.Exists(path))
+                        {
+                            jsonString = File.ReadAllText(path);
+                            System.Diagnostics.Debug.WriteLine($"Found and read beaches.json at: {path}");
+                            break;
+                        }
                     }
                 }
 
-                if (jsonFileName == null)
+                // If we still don't have the JSON content, use default beaches
+                if (string.IsNullOrEmpty(jsonString))
                 {
-                    System.Diagnostics.Debug.WriteLine("beaches.json not found in any expected location!");
-                    // Create a default list with some beaches for testing
-                    var defaultBeaches = new List<Beach>
+                    System.Diagnostics.Debug.WriteLine("No beaches.json found, using default list");
+                    return new List<Beach>
                     {
                         new Beach { Name = "juhu", Latitude = 19.0883, Longitude = 72.8263, Rating = "4.2/5", Cleanliness = "Good", BestSeason = "October to March", MainAttractions = "Celebrity Spotting, Famous Street Food" },
                         new Beach { Name = "marina", Latitude = 13.0500, Longitude = 80.2824, Rating = "4.3/5", Cleanliness = "Good", BestSeason = "December to February", MainAttractions = "World's Second Longest Urban Beach" },
                         new Beach { Name = "puri", Latitude = 19.7987, Longitude = 85.8249, Rating = "4.4/5", Cleanliness = "Good", BestSeason = "October to February", MainAttractions = "Sacred Beach, Famous Sand Art" }
                     };
-                    System.Diagnostics.Debug.WriteLine($"Created default beach list with {defaultBeaches.Count} beaches");
-                    return defaultBeaches;
                 }
 
-                var jsonString = File.ReadAllText(jsonFileName);
                 System.Diagnostics.Debug.WriteLine($"Read JSON content, length: {jsonString.Length}");
-                System.Diagnostics.Debug.WriteLine($"JSON content: {jsonString.Substring(0, Math.Min(500, jsonString.Length))}");
 
                 var options = new JsonSerializerOptions
                 {
@@ -125,7 +135,6 @@ namespace Wavw.Services
             {
                 System.Diagnostics.Debug.WriteLine($"Error loading beaches from JSON: {ex.Message}");
                 System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                // Return a default list on error
                 return new List<Beach>
                 {
                     new Beach { Name = "juhu", Latitude = 19.0883, Longitude = 72.8263, Rating = "4.2/5", Cleanliness = "Good", BestSeason = "October to March", MainAttractions = "Celebrity Spotting, Famous Street Food" },
@@ -145,18 +154,20 @@ namespace Wavw.Services
                 System.Diagnostics.Debug.WriteLine($"Starting search for beach: {searchTerm}");
                 System.Diagnostics.Debug.WriteLine($"Total beaches available: {_beaches.Count}");
                 
-                // Convert search term to lowercase and trim
-                var searchTermLower = searchTerm.ToLowerInvariant().Trim();
+                // Normalize the search term
+                var normalizedSearchTerm = NormalizeName(searchTerm);
                 
+                System.Diagnostics.Debug.WriteLine($"Normalized search term: {normalizedSearchTerm}");
                 System.Diagnostics.Debug.WriteLine("Available beaches:");
                 foreach (var beach in _beaches)
                 {
-                    System.Diagnostics.Debug.WriteLine($"- {beach.Name} (lowercase: {beach.Name.ToLowerInvariant()})");
+                    var normalizedBeachName = NormalizeName(beach.Name);
+                    System.Diagnostics.Debug.WriteLine($"- {beach.Name} (normalized: {normalizedBeachName})");
                 }
 
-                // First try exact match
+                // First try exact match with normalized names
                 var exactMatch = _beaches.FirstOrDefault(b => 
-                    b.Name.Equals(searchTermLower, StringComparison.OrdinalIgnoreCase));
+                    NormalizeName(b.Name).Equals(normalizedSearchTerm, StringComparison.OrdinalIgnoreCase));
                 
                 if (exactMatch != null)
                 {
@@ -164,9 +175,10 @@ namespace Wavw.Services
                     return exactMatch;
                 }
 
-                // Then try contains match
+                // Then try contains match with normalized names
                 var containsMatch = _beaches.FirstOrDefault(b => 
-                    b.Name.Contains(searchTermLower, StringComparison.OrdinalIgnoreCase));
+                    NormalizeName(b.Name).Contains(normalizedSearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    normalizedSearchTerm.Contains(NormalizeName(b.Name), StringComparison.OrdinalIgnoreCase));
                 
                 if (containsMatch != null)
                 {
@@ -174,20 +186,24 @@ namespace Wavw.Services
                     return containsMatch;
                 }
 
-                // Try more flexible matching
-                var flexibleMatch = _beaches.FirstOrDefault(b => 
-                    searchTermLower.Contains(b.Name.ToLowerInvariant()) || 
-                    b.Name.ToLowerInvariant().Contains(searchTermLower));
-                
-                if (flexibleMatch != null)
+                // Try fuzzy matching by splitting words
+                var searchWords = normalizedSearchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var fuzzyMatch = _beaches.FirstOrDefault(b => {
+                    var beachWords = NormalizeName(b.Name).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    return searchWords.Any(sw => beachWords.Any(bw => 
+                        bw.Contains(sw, StringComparison.OrdinalIgnoreCase) || 
+                        sw.Contains(bw, StringComparison.OrdinalIgnoreCase)));
+                });
+
+                if (fuzzyMatch != null)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Found flexible match: {flexibleMatch.Name}");
-                    return flexibleMatch;
+                    System.Diagnostics.Debug.WriteLine($"Found fuzzy match: {fuzzyMatch.Name}");
+                    return fuzzyMatch;
                 }
 
                 // If still no match found locally, try API search
                 System.Diagnostics.Debug.WriteLine("No local matches found, trying API search");
-                var apiMatch = await SearchBeachInApi(searchTermLower);
+                var apiMatch = await SearchBeachInApi(normalizedSearchTerm);
                 
                 if (apiMatch != null)
                 {

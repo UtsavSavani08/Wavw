@@ -325,51 +325,6 @@
       "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
     },
     {
-      "name": "cavelossim",
-      "latitude": 15.2083,
-      "longitude": 73.9883,
-      "rating": "4.5/5",
-      "cleanliness": "Very Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Luxury Resorts, Water Sports, Beach Shacks, Local Culture"
-    },
-    {
-      "name": "majorda",
-      "latitude": 15.1983,
-      "longitude": 73.9983,
-      "rating": "4.3/5",
-      "cleanliness": "Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
-    },
-    {
-      "name": "betalbatim",
-      "latitude": 15.1883,
-      "longitude": 74.0083,
-      "rating": "4.4/5",
-      "cleanliness": "Very Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
-    },
-    {
-      "name": "colomb",
-      "latitude": 15.1783,
-      "longitude": 74.0183,
-      "rating": "4.3/5",
-      "cleanliness": "Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
-    },
-    {
-      "name": "varca",
-      "latitude": 15.1683,
-      "longitude": 74.0283,
-      "rating": "4.4/5",
-      "cleanliness": "Very Good",
-      "bestSeason": "October to March",
-      "mainAttractions": "Beach Resorts, Water Sports, Local Food, Beach Shacks"
-    },
-    {
       "name": "diu",
       "latitude": 20.7144,
       "longitude": 70.9874,
@@ -406,7 +361,7 @@
       "mainAttractions": "Black Sand Beach, Sunset Point, Local Food Stalls, Family-friendly Environment"
     },
     {
-      "name": "ahmedpur mandvi",
+      "name": "ahmadpur mandvi",
       "latitude": 20.7167,
       "longitude": 71.0833,
       "rating": "4.4/5",
@@ -457,7 +412,7 @@
       "rating": "4.0/5",
       "cleanliness": "Good",
       "bestSeason": "October to March",
-      "mainAttractions": "Quiet Beach, Local Food, Fishing Village, Weekend Getaway"
+      "mainAttractions": "Quiet Beach, Local Food, Fishing Village, Weekend Getaway, Traditional Fishing Community"
     },
     {
       "name": "suvali",
@@ -598,7 +553,7 @@
       "name": "mahuva",
       "latitude": 21.0833,
       "longitude": 71.7500,
-      "rating": "3.9/5",
+      "rating": "4.1/5",
       "cleanliness": "Good",
       "bestSeason": "October to March",
       "mainAttractions": "Bird Watching, Quiet Beach, Natural Setting, Local Culture"
@@ -998,6 +953,51 @@
       "cleanliness": "Very Good",
       "bestSeason": "October to March",
       "mainAttractions": "River Beach, Local Food Shacks, Peaceful Setting, Natural Beauty"
+    },
+    {
+      "name": "narara",
+      "latitude": 22.4747,
+      "longitude": 69.7436,
+      "rating": "4.2/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Marine National Park, Coral Reefs, Marine Life, Educational Tours"
+    },
+    {
+      "name": "pingleshwar",
+      "latitude": 23.1203,
+      "longitude": 68.8127,
+      "rating": "4.0/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Pristine Beach, Camping, Stargazing, Peaceful Environment"
+    },
+    {
+      "name": "sutrapada",
+      "latitude": 20.8417,
+      "longitude": 70.4833,
+      "rating": "3.9/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Fishing Port, Local Culture, Peaceful Beach, Traditional Village Life"
+    },
+    {
+      "name": "bhogat",
+      "latitude": 21.8583,
+      "longitude": 69.2000,
+      "rating": "4.0/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Secluded Beach, Natural Beauty, Fishing Village, Peaceful Environment"
+    },
+    {
+      "name": "mahuva beach",
+      "latitude": 21.0833,
+      "longitude": 71.7500,
+      "rating": "4.1/5",
+      "cleanliness": "Good",
+      "bestSeason": "October to March",
+      "mainAttractions": "Bird Watching, Quiet Beach, Natural Setting, Local Culture"
     }
   ]
 } 

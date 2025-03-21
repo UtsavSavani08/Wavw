@@ -26,6 +26,7 @@ namespace Wavw.Views
         private Frame? _detailsPanel;
         private bool _isLocationPermissionGranted;
         private const uint AnimationDuration = 250;
+        private const string LocationPermissionRequestedKey = "LocationPermissionRequested";
 
         public ICommand SearchCommand { get; }
         public ICommand GetCurrentLocationCommand { get; }
@@ -49,6 +50,8 @@ namespace Wavw.Views
         }
 
         public double SelectedBeachDistance { get; private set; }
+
+        public string DisplayBeachName => _selectedBeach?.Name.ToUpper() ?? string.Empty;
 
         public HomePage(IGeolocation geolocation, BeachService beachService)
         {
@@ -75,19 +78,33 @@ namespace Wavw.Views
             // Request location access when page appears
             this.Loaded += async (s, e) =>
             {
-                var result = await DisplayAlert("Location Access", 
-                    "Wavw needs access to your location to show you nearby beaches. Would you like to allow location access?", 
-                    "Allow", "Not Now");
-                    
-                if (result)
+                // Check if we've already requested permission
+                bool hasRequestedPermission = Preferences.Default.Get(LocationPermissionRequestedKey, false);
+                
+                if (!hasRequestedPermission)
                 {
-                    await CheckLocationPermission();
+                    var result = await DisplayAlert("Location Access", 
+                        "Wavw needs access to your location to show you nearby beaches. Would you like to allow location access?", 
+                        "Allow", "Not Now");
+                        
+                    // Mark that we've requested permission
+                    Preferences.Default.Set(LocationPermissionRequestedKey, true);
+                    
+                    if (result)
+                    {
+                        await CheckLocationPermission();
+                    }
+                    else
+                    {
+                        await DisplayAlert("Limited Functionality", 
+                            "Without location access, you won't be able to see nearby beaches. You can enable it later in Settings.", 
+                            "OK");
+                    }
                 }
                 else
                 {
-                    await DisplayAlert("Limited Functionality", 
-                        "Without location access, you won't be able to see nearby beaches. You can enable it later in Settings.", 
-                        "OK");
+                    // Just check the permission status without showing the prompt
+                    await CheckLocationPermission();
                 }
             };
         }
@@ -359,6 +376,11 @@ namespace Wavw.Views
             if (_detailsPanel != null)
             {
                 _detailsPanel.IsVisible = true;
+                var nameLabel = _detailsPanel.FindByName<Label>("BeachNameLabel");
+                if (nameLabel != null && _selectedBeach != null)
+                {
+                    nameLabel.Text = _selectedBeach.Name.ToUpper();
+                }
                 await _detailsPanel.TranslateTo(0, 0, AnimationDuration, Easing.SpringOut);
             }
         }

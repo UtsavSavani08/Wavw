@@ -53,7 +53,7 @@ namespace Wavw.Model
         /// The main attractions and highlights of the beach
         /// </summary>
         [JsonPropertyName("mainAttractions")]
-        public string MainAttractions { get; set; } = "Beach Activities, Swimming";
+        public string MainAttractions { get; set; } = string.Empty;
 
         /// <summary>
         /// Calculates the distance between the beach and a user's location
@@ -62,29 +62,8 @@ namespace Wavw.Model
         /// <returns>Distance in kilometers</returns>
         public double DistanceFromUser(Location userLocation)
         {
-            if (userLocation == null)
-                return double.MaxValue;
-
-            try
-            {
-                var beachLocation = new Location(Latitude, Longitude);
-                var distance = Location.CalculateDistance(
-                    userLocation,
-                    beachLocation,
-                    DistanceUnits.Kilometers
-                );
-
-                System.Diagnostics.Debug.WriteLine($"Distance from {Name} to user: {distance:F2} km");
-                System.Diagnostics.Debug.WriteLine($"Beach coordinates: {Latitude}, {Longitude}");
-                System.Diagnostics.Debug.WriteLine($"User coordinates: {userLocation.Latitude}, {userLocation.Longitude}");
-
-                return distance;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error calculating distance for {Name}: {ex.Message}");
-                return double.MaxValue;
-            }
+            var beachLocation = new Location(Latitude, Longitude);
+            return Location.CalculateDistance(userLocation, beachLocation, DistanceUnits.Kilometers);
         }
 
         /// <summary>
@@ -92,7 +71,7 @@ namespace Wavw.Model
         /// </summary>
         public override string ToString()
         {
-            return $"{Name} ({Latitude:F4}, {Longitude:F4})";
+            return Name;
         }
     }
 }

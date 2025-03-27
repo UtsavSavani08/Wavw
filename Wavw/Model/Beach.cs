@@ -20,6 +20,18 @@ namespace Wavw.Model
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
+        /// The state where the beach is located
+        /// </summary>
+        [JsonPropertyName("state")]
+        public string State { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The city where the beach is located
+        /// </summary>
+        [JsonPropertyName("city")]
+        public string City { get; set; } = string.Empty;
+
+        /// <summary>
         /// The latitude coordinate of the beach
         /// </summary>
         [JsonPropertyName("latitude")]

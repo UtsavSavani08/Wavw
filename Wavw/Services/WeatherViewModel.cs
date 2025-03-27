@@ -25,6 +25,8 @@ namespace Wavw.Services
 
         public ICommand SearchCommand { get; }
 
+        public Beach Beach => _beach;
+
         public bool HasBeachSelected
         {
             get => _hasBeachSelected;

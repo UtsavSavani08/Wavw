@@ -97,9 +97,39 @@ namespace Wavw.Services
                     System.Diagnostics.Debug.WriteLine("No beaches.json found, using default list");
                     return new List<Beach>
                     {
-                        new Beach { Name = "juhu", Latitude = 19.0883, Longitude = 72.8263, Rating = "4.2/5", Cleanliness = "Good", BestSeason = "October to March", MainAttractions = "Celebrity Spotting, Famous Street Food" },
-                        new Beach { Name = "marina", Latitude = 13.0500, Longitude = 80.2824, Rating = "4.3/5", Cleanliness = "Good", BestSeason = "December to February", MainAttractions = "World's Second Longest Urban Beach" },
-                        new Beach { Name = "puri", Latitude = 19.7987, Longitude = 85.8249, Rating = "4.4/5", Cleanliness = "Good", BestSeason = "October to February", MainAttractions = "Sacred Beach, Famous Sand Art" }
+                        new Beach { 
+                            Name = "juhu", 
+                            State = "Maharashtra",
+                            City = "Mumbai",
+                            Latitude = 19.0883, 
+                            Longitude = 72.8263, 
+                            Rating = "4.2/5", 
+                            Cleanliness = "Good", 
+                            BestSeason = "October to March", 
+                            MainAttractions = "Celebrity Spotting, Famous Street Food" 
+                        },
+                        new Beach { 
+                            Name = "marina", 
+                            State = "Tamil Nadu",
+                            City = "Chennai",
+                            Latitude = 13.0500, 
+                            Longitude = 80.2824, 
+                            Rating = "4.3/5", 
+                            Cleanliness = "Good", 
+                            BestSeason = "December to February", 
+                            MainAttractions = "World's Second Longest Urban Beach" 
+                        },
+                        new Beach { 
+                            Name = "puri", 
+                            State = "Odisha",
+                            City = "Puri",
+                            Latitude = 19.7987, 
+                            Longitude = 85.8249, 
+                            Rating = "4.4/5", 
+                            Cleanliness = "Good", 
+                            BestSeason = "October to February", 
+                            MainAttractions = "Sacred Beach, Famous Sand Art" 
+                        }
                     };
                 }
 
@@ -118,9 +148,39 @@ namespace Wavw.Services
                     System.Diagnostics.Debug.WriteLine("No beaches found in JSON file, using default list");
                     return new List<Beach>
                     {
-                        new Beach { Name = "juhu", Latitude = 19.0883, Longitude = 72.8263, Rating = "4.2/5", Cleanliness = "Good", BestSeason = "October to March", MainAttractions = "Celebrity Spotting, Famous Street Food" },
-                        new Beach { Name = "marina", Latitude = 13.0500, Longitude = 80.2824, Rating = "4.3/5", Cleanliness = "Good", BestSeason = "December to February", MainAttractions = "World's Second Longest Urban Beach" },
-                        new Beach { Name = "puri", Latitude = 19.7987, Longitude = 85.8249, Rating = "4.4/5", Cleanliness = "Good", BestSeason = "October to February", MainAttractions = "Sacred Beach, Famous Sand Art" }
+                        new Beach { 
+                            Name = "juhu", 
+                            State = "Maharashtra",
+                            City = "Mumbai",
+                            Latitude = 19.0883, 
+                            Longitude = 72.8263, 
+                            Rating = "4.2/5", 
+                            Cleanliness = "Good", 
+                            BestSeason = "October to March", 
+                            MainAttractions = "Celebrity Spotting, Famous Street Food" 
+                        },
+                        new Beach { 
+                            Name = "marina", 
+                            State = "Tamil Nadu",
+                            City = "Chennai",
+                            Latitude = 13.0500, 
+                            Longitude = 80.2824, 
+                            Rating = "4.3/5", 
+                            Cleanliness = "Good", 
+                            BestSeason = "December to February", 
+                            MainAttractions = "World's Second Longest Urban Beach" 
+                        },
+                        new Beach { 
+                            Name = "puri", 
+                            State = "Odisha",
+                            City = "Puri",
+                            Latitude = 19.7987, 
+                            Longitude = 85.8249, 
+                            Rating = "4.4/5", 
+                            Cleanliness = "Good", 
+                            BestSeason = "October to February", 
+                            MainAttractions = "Sacred Beach, Famous Sand Art" 
+                        }
                     };
                 }
 
@@ -137,9 +197,39 @@ namespace Wavw.Services
                 System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
                 return new List<Beach>
                 {
-                    new Beach { Name = "juhu", Latitude = 19.0883, Longitude = 72.8263, Rating = "4.2/5", Cleanliness = "Good", BestSeason = "October to March", MainAttractions = "Celebrity Spotting, Famous Street Food" },
-                    new Beach { Name = "marina", Latitude = 13.0500, Longitude = 80.2824, Rating = "4.3/5", Cleanliness = "Good", BestSeason = "December to February", MainAttractions = "World's Second Longest Urban Beach" },
-                    new Beach { Name = "puri", Latitude = 19.7987, Longitude = 85.8249, Rating = "4.4/5", Cleanliness = "Good", BestSeason = "October to February", MainAttractions = "Sacred Beach, Famous Sand Art" }
+                    new Beach { 
+                        Name = "juhu", 
+                        State = "Maharashtra",
+                        City = "Mumbai",
+                        Latitude = 19.0883, 
+                        Longitude = 72.8263, 
+                        Rating = "4.2/5", 
+                        Cleanliness = "Good", 
+                        BestSeason = "October to March", 
+                        MainAttractions = "Celebrity Spotting, Famous Street Food" 
+                    },
+                    new Beach { 
+                        Name = "marina", 
+                        State = "Tamil Nadu",
+                        City = "Chennai",
+                        Latitude = 13.0500, 
+                        Longitude = 80.2824, 
+                        Rating = "4.3/5", 
+                        Cleanliness = "Good", 
+                        BestSeason = "December to February", 
+                        MainAttractions = "World's Second Longest Urban Beach" 
+                    },
+                    new Beach { 
+                        Name = "puri", 
+                        State = "Odisha",
+                        City = "Puri",
+                        Latitude = 19.7987, 
+                        Longitude = 85.8249, 
+                        Rating = "4.4/5", 
+                        Cleanliness = "Good", 
+                        BestSeason = "October to February", 
+                        MainAttractions = "Sacred Beach, Famous Sand Art" 
+                    }
                 };
             }
         }

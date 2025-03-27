@@ -2,6 +2,8 @@
   "beaches": [
     {
       "name": "juhu",
+      "state": "Maharashtra",
+      "city": "Mumbai",
       "latitude": 19.0883,
       "longitude": 72.8263,
       "rating": "4.2/5",
@@ -11,6 +13,8 @@
     },
     {
       "name": "calangute",
+      "state": "Goa",
+      "city": "Calangute",
       "latitude": 15.5449,
       "longitude": 73.7526,
       "rating": "4.5/5",
@@ -20,6 +24,8 @@
     },
     {
       "name": "marina",
+      "state": "Tamil Nadu",
+      "city": "Chennai",
       "latitude": 13.0500,
       "longitude": 80.2824,
       "rating": "4.3/5",
@@ -29,6 +35,8 @@
     },
     {
       "name": "kovalam",
+      "state": "Kerala",
+      "city": "Thiruvananthapuram",
       "latitude": 8.3988,
       "longitude": 76.9782,
       "rating": "4.6/5",
@@ -38,6 +46,8 @@
     },
     {
       "name": "radhanagar",
+      "state": "Andaman and Nicobar Islands",
+      "city": "Havelock Island",
       "latitude": 11.9839,
       "longitude": 92.9519,
       "rating": "4.9/5",
@@ -47,6 +57,8 @@
     },
     {
       "name": "puri",
+      "state": "Odisha",
+      "city": "Puri",
       "latitude": 19.7987,
       "longitude": 85.8249,
       "rating": "4.4/5",
@@ -56,6 +68,8 @@
     },
     {
       "name": "varkala",
+      "state": "Kerala",
+      "city": "Varkala",
       "latitude": 8.7370,
       "longitude": 76.7067,
       "rating": "4.7/5",
@@ -65,6 +79,8 @@
     },
     {
       "name": "mandvi",
+      "state": "Gujarat",
+      "city": "Mandvi",
       "latitude": 22.8372,
       "longitude": 69.3237,
       "rating": "4.5/5",
@@ -74,6 +90,8 @@
     },
     {
       "name": "om",
+      "state": "Karnataka",
+      "city": "Gokarna",
       "latitude": 14.5246,
       "longitude": 74.3184,
       "rating": "4.5/5",
@@ -83,6 +101,8 @@
     },
     {
       "name": "marari",
+      "state": "Kerala",
+      "city": "Alappuzha",
       "latitude": 9.5916,
       "longitude": 76.2892,
       "rating": "4.6/5",
@@ -92,6 +112,8 @@
     },
     {
       "name": "vagator",
+      "state": "Goa",
+      "city": "Vagator",
       "latitude": 15.5977,
       "longitude": 73.7441,
       "rating": "4.4/5",
@@ -101,6 +123,8 @@
     },
     {
       "name": "butterfly",
+      "state": "Goa",
+      "city": "Palolem",
       "latitude": 15.0144,
       "longitude": 74.0156,
       "rating": "4.7/5",
@@ -110,6 +134,8 @@
     },
     {
       "name": "arambol",
+      "state": "Goa",
+      "city": "Arambol",
       "latitude": 15.6869,
       "longitude": 73.7042,
       "rating": "4.6/5",
@@ -119,6 +145,8 @@
     },
     {
       "name": "agonda",
+      "state": "Goa",
+      "city": "Agonda",
       "latitude": 15.0449,
       "longitude": 73.9877,
       "rating": "4.8/5",
@@ -128,6 +156,8 @@
     },
     {
       "name": "morjim",
+      "state": "Goa",
+      "city": "Morjim",
       "latitude": 15.6297,
       "longitude": 73.7324,
       "rating": "4.5/5",
@@ -137,6 +167,8 @@
     },
     {
       "name": "tarkarli",
+      "state": "Maharashtra",
+      "city": "Malvan",
       "latitude": 16.0167,
       "longitude": 73.4833,
       "rating": "4.4/5",
@@ -146,6 +178,8 @@
     },
     {
       "name": "gokarna",
+      "state": "Karnataka",
+      "city": "Gokarna",
       "latitude": 14.5479,
       "longitude": 74.3149,
       "rating": "4.4/5",
@@ -155,6 +189,8 @@
     },
     {
       "name": "muzhappilangad",
+      "state": "Kerala",
+      "city": "Kannur",
       "latitude": 11.7868,
       "longitude": 75.4432,
       "rating": "4.7/5",
@@ -254,6 +290,8 @@
     },
     {
       "name": "dona paula",
+      "state": "Goa",
+      "city": "Panaji",
       "latitude": 15.4583,
       "longitude": 73.8350,
       "rating": "4.3/5",
@@ -263,6 +301,8 @@
     },
     {
       "name": "bogmalo",
+      "state": "Goa",
+      "city": "Bogmalo",
       "latitude": 15.4083,
       "longitude": 73.8350,
       "rating": "4.4/5",
@@ -272,6 +312,8 @@
     },
     {
       "name": "majorda",
+      "state": "Goa",
+      "city": "Majorda",
       "latitude": 15.2983,
       "longitude": 73.9183,
       "rating": "4.3/5",
@@ -281,6 +323,8 @@
     },
     {
       "name": "cavelossim",
+      "state": "Goa",
+      "city": "Cavelossim",
       "latitude": 15.2583,
       "longitude": 73.9383,
       "rating": "4.5/5",
@@ -290,6 +334,8 @@
     },
     {
       "name": "mobor",
+      "state": "Goa",
+      "city": "Cavelossim",
       "latitude": 15.2483,
       "longitude": 73.9483,
       "rating": "4.4/5",
@@ -299,6 +345,8 @@
     },
     {
       "name": "betalbatim",
+      "state": "Goa",
+      "city": "Betalbatim",
       "latitude": 15.2383,
       "longitude": 73.9583,
       "rating": "4.3/5",
@@ -308,6 +356,8 @@
     },
     {
       "name": "colomb",
+      "state": "Goa",
+      "city": "Colomb",
       "latitude": 15.2283,
       "longitude": 73.9683,
       "rating": "4.4/5",
@@ -317,6 +367,8 @@
     },
     {
       "name": "varca",
+      "state": "Goa",
+      "city": "Varca",
       "latitude": 15.2183,
       "longitude": 73.9783,
       "rating": "4.3/5",
@@ -326,6 +378,8 @@
     },
     {
       "name": "diu",
+      "state": "Daman and Diu",
+      "city": "Diu",
       "latitude": 20.7144,
       "longitude": 70.9874,
       "rating": "4.6/5",
@@ -335,6 +389,8 @@
     },
     {
       "name": "somnath",
+      "state": "Gujarat",
+      "city": "Somnath",
       "latitude": 20.8880,
       "longitude": 70.4010,
       "rating": "4.5/5",
@@ -344,6 +400,8 @@
     },
     {
       "name": "dwarka",
+      "state": "Gujarat",
+      "city": "Dwarka",
       "latitude": 22.2376,
       "longitude": 68.9674,
       "rating": "4.4/5",
@@ -353,6 +411,8 @@
     },
     {
       "name": "tithal",
+      "state": "Gujarat",
+      "city": "Valsad",
       "latitude": 20.6079,
       "longitude": 72.9319,
       "rating": "4.3/5",
@@ -362,6 +422,8 @@
     },
     {
       "name": "ahmadpur mandvi",
+      "state": "Gujarat",
+      "city": "Mandvi",
       "latitude": 20.7167,
       "longitude": 71.0833,
       "rating": "4.4/5",
@@ -371,6 +433,8 @@
     },
     {
       "name": "chorwad",
+      "state": "Gujarat",
+      "city": "Chorwad",
       "latitude": 21.0300,
       "longitude": 70.2300,
       "rating": "4.2/5",
@@ -380,6 +444,8 @@
     },
     {
       "name": "porbandar",
+      "state": "Gujarat",
+      "city": "Porbandar",
       "latitude": 21.6417,
       "longitude": 69.6293,
       "rating": "4.3/5",
@@ -389,6 +455,8 @@
     },
     {
       "name": "gopnath",
+      "state": "Gujarat",
+      "city": "Bhavnagar",
       "latitude": 21.2107,
       "longitude": 72.1155,
       "rating": "4.1/5",
@@ -398,6 +466,8 @@
     },
     {
       "name": "dumas",
+      "state": "Gujarat",
+      "city": "Surat",
       "latitude": 21.0931,
       "longitude": 72.7178,
       "rating": "4.2/5",
@@ -407,6 +477,8 @@
     },
     {
       "name": "ubharat",
+      "state": "Gujarat",
+      "city": "Navsari",
       "latitude": 21.1679,
       "longitude": 72.7417,
       "rating": "4.0/5",
@@ -416,6 +488,8 @@
     },
     {
       "name": "suvali",
+      "state": "Gujarat",
+      "city": "Surat",
       "latitude": 21.1454,
       "longitude": 72.6331,
       "rating": "4.1/5",
@@ -425,6 +499,8 @@
     },
     {
       "name": "shivrajpur",
+      "state": "Gujarat",
+      "city": "Dwarka",
       "latitude": 22.3333,
       "longitude": 69.0167,
       "rating": "4.2/5",
@@ -434,6 +510,8 @@
     },
     {
       "name": "beyt dwarka",
+      "state": "Gujarat",
+      "city": "Dwarka",
       "latitude": 22.4467,
       "longitude": 69.1033,
       "rating": "4.3/5",
@@ -443,6 +521,8 @@
     },
     {
       "name": "madhavpur",
+      "state": "Gujarat",
+      "city": "Porbandar",
       "latitude": 21.2567,
       "longitude": 69.9567,
       "rating": "4.0/5",
@@ -452,6 +532,8 @@
     },
     {
       "name": "veraval",
+      "state": "Gujarat",
+      "city": "Veraval",
       "latitude": 20.9111,
       "longitude": 70.3673,
       "rating": "4.1/5",
@@ -461,6 +543,8 @@
     },
     {
       "name": "mangrol",
+      "state": "Gujarat",
+      "city": "Mangrol",
       "latitude": 21.1186,
       "longitude": 70.1153,
       "rating": "4.0/5",
@@ -470,6 +554,8 @@
     },
     {
       "name": "mul dwarka",
+      "state": "Gujarat",
+      "city": "Kodinar",
       "latitude": 20.7789,
       "longitude": 71.0933,
       "rating": "3.9/5",
@@ -479,6 +565,8 @@
     },
     {
       "name": "jaleshwar",
+      "state": "Gujarat",
+      "city": "Veraval",
       "latitude": 21.1333,
       "longitude": 71.7833,
       "rating": "3.8/5",
@@ -488,6 +576,8 @@
     },
     {
       "name": "vansi borsi",
+      "state": "Gujarat",
+      "city": "Valsad",
       "latitude": 20.8900,
       "longitude": 72.9200,
       "rating": "3.8/5",
@@ -497,6 +587,8 @@
     },
     {
       "name": "nargol",
+      "state": "Gujarat",
+      "city": "Valsad",
       "latitude": 20.2322,
       "longitude": 72.7511,
       "rating": "4.0/5",
@@ -506,6 +598,8 @@
     },
     {
       "name": "umbergaon",
+      "state": "Gujarat",
+      "city": "Valsad",
       "latitude": 20.1800,
       "longitude": 72.7500,
       "rating": "3.9/5",
@@ -515,6 +609,8 @@
     },
     {
       "name": "dahanu",
+      "state": "Maharashtra",
+      "city": "Dahanu",
       "latitude": 19.9667,
       "longitude": 72.7167,
       "rating": "4.0/5",
@@ -524,6 +620,8 @@
     },
     {
       "name": "bordi",
+      "state": "Maharashtra",
+      "city": "Dahanu",
       "latitude": 20.1667,
       "longitude": 72.7833,
       "rating": "4.1/5",
@@ -533,6 +631,8 @@
     },
     {
       "name": "ghogha",
+      "state": "Gujarat",
+      "city": "Bhavnagar",
       "latitude": 21.6833,
       "longitude": 72.2833,
       "rating": "3.8/5",
@@ -542,6 +642,8 @@
     },
     {
       "name": "khambhat",
+      "state": "Gujarat",
+      "city": "Khambhat",
       "latitude": 22.3167,
       "longitude": 72.6167,
       "rating": "3.7/5",
@@ -551,6 +653,8 @@
     },
     {
       "name": "mahuva",
+      "state": "Gujarat",
+      "city": "Bhavnagar",
       "latitude": 21.0833,
       "longitude": 71.7500,
       "rating": "4.1/5",
@@ -560,6 +664,8 @@
     },
     {
       "name": "visakhapatnam",
+      "state": "Andhra Pradesh",
+      "city": "Visakhapatnam",
       "latitude": 17.7119,
       "longitude": 83.2989,
       "rating": "4.4/5",
@@ -569,6 +675,8 @@
     },
     {
       "name": "pondicherry",
+      "state": "Puducherry",
+      "city": "Puducherry",
       "latitude": 11.9416,
       "longitude": 79.8083,
       "rating": "4.5/5",
@@ -578,6 +686,8 @@
     },
     {
       "name": "mahabalipuram",
+      "state": "Tamil Nadu",
+      "city": "Mahabalipuram",
       "latitude": 12.6269,
       "longitude": 80.1927,
       "rating": "4.4/5",
@@ -587,6 +697,8 @@
     },
     {
       "name": "rameswaram",
+      "state": "Tamil Nadu",
+      "city": "Rameswaram",
       "latitude": 9.2876,
       "longitude": 79.3129,
       "rating": "4.5/5",
@@ -596,6 +708,8 @@
     },
     {
       "name": "kanyakumari",
+      "state": "Tamil Nadu",
+      "city": "Kanyakumari",
       "latitude": 8.0883,
       "longitude": 77.5385,
       "rating": "4.6/5",
@@ -605,6 +719,8 @@
     },
     {
       "name": "alappuzha",
+      "state": "Kerala",
+      "city": "Alappuzha",
       "latitude": 9.4981,
       "longitude": 76.3388,
       "rating": "4.7/5",
@@ -614,6 +730,8 @@
     },
     {
       "name": "kumarakom",
+      "state": "Kerala",
+      "city": "Kottayam",
       "latitude": 9.5937,
       "longitude": 76.4287,
       "rating": "4.6/5",
@@ -623,6 +741,8 @@
     },
     {
       "name": "cherai",
+      "state": "Kerala",
+      "city": "Kochi",
       "latitude": 10.1373,
       "longitude": 76.1794,
       "rating": "4.5/5",
@@ -632,6 +752,8 @@
     },
     {
       "name": "kappad",
+      "state": "Kerala",
+      "city": "Kozhikode",
       "latitude": 11.3875,
       "longitude": 75.7627,
       "rating": "4.4/5",
@@ -641,6 +763,8 @@
     },
     {
       "name": "ganapatipule",
+      "state": "Maharashtra",
+      "city": "Ratnagiri",
       "latitude": 17.1447,
       "longitude": 73.2695,
       "rating": "4.5/5",
@@ -650,6 +774,8 @@
     },
     {
       "name": "alibaug",
+      "state": "Maharashtra",
+      "city": "Alibaug",
       "latitude": 18.6413,
       "longitude": 72.8724,
       "rating": "4.3/5",
@@ -659,6 +785,8 @@
     },
     {
       "name": "diveagar",
+      "state": "Maharashtra",
+      "city": "Raigad",
       "latitude": 18.1744,
       "longitude": 72.9941,
       "rating": "4.4/5",
@@ -668,6 +796,8 @@
     },
     {
       "name": "havelock",
+      "state": "Andaman and Nicobar Islands",
+      "city": "Havelock Island",
       "latitude": 12.0011,
       "longitude": 92.9496,
       "rating": "4.8/5",
@@ -677,6 +807,8 @@
     },
     {
       "name": "neil island",
+      "state": "Andaman and Nicobar Islands",
+      "city": "Neil Island",
       "latitude": 11.8311,
       "longitude": 93.0375,
       "rating": "4.7/5",
@@ -686,6 +818,8 @@
     },
     {
       "name": "digha",
+      "state": "West Bengal",
+      "city": "Digha",
       "latitude": 21.6267,
       "longitude": 87.5550,
       "rating": "4.2/5",
@@ -695,6 +829,8 @@
     },
     {
       "name": "bakkhali",
+      "state": "West Bengal",
+      "city": "South 24 Parganas",
       "latitude": 21.5677,
       "longitude": 88.2603,
       "rating": "4.1/5",
@@ -704,6 +840,8 @@
     },
     {
       "name": "chandipur",
+      "state": "Odisha",
+      "city": "Balasore",
       "latitude": 21.4700,
       "longitude": 87.0200,
       "rating": "4.3/5",
@@ -713,6 +851,8 @@
     },
     {
       "name": "gopalpur",
+      "state": "Odisha",
+      "city": "Ganjam",
       "latitude": 19.2583,
       "longitude": 84.8750,
       "rating": "4.2/5",
@@ -722,6 +862,8 @@
     },
     {
       "name": "karwar",
+      "state": "Karnataka",
+      "city": "Karwar",
       "latitude": 14.8136,
       "longitude": 74.1297,
       "rating": "4.4/5",
@@ -731,6 +873,8 @@
     },
     {
       "name": "malvan",
+      "state": "Maharashtra",
+      "city": "Malvan",
       "latitude": 16.0594,
       "longitude": 73.4694,
       "rating": "4.3/5",
@@ -740,6 +884,8 @@
     },
     {
       "name": "devbagh",
+      "state": "Karnataka",
+      "city": "Karwar",
       "latitude": 14.8367,
       "longitude": 74.1167,
       "rating": "4.5/5",
@@ -749,6 +895,8 @@
     },
     {
       "name": "kaup",
+      "state": "Karnataka",
+      "city": "Udupi",
       "latitude": 13.2231,
       "longitude": 74.7395,
       "rating": "4.2/5",
@@ -758,6 +906,8 @@
     },
     {
       "name": "st marys island",
+      "state": "Karnataka",
+      "city": "Udupi",
       "latitude": 13.3778,
       "longitude": 74.6703,
       "rating": "4.6/5",
@@ -767,6 +917,8 @@
     },
     {
       "name": "maravanthe",
+      "state": "Karnataka",
+      "city": "Kundapura",
       "latitude": 13.7414,
       "longitude": 74.6703,
       "rating": "4.4/5",
@@ -776,6 +928,8 @@
     },
     {
       "name": "mandarmani",
+      "state": "West Bengal",
+      "city": "Purba Medinipur",
       "latitude": 21.6673,
       "longitude": 87.6907,
       "rating": "4.3/5",
@@ -785,6 +939,8 @@
     },
     {
       "name": "tajpur",
+      "state": "West Bengal",
+      "city": "Purba Medinipur",
       "latitude": 21.6077,
       "longitude": 87.5918,
       "rating": "4.2/5",
@@ -794,6 +950,8 @@
     },
     {
       "name": "talsari",
+      "state": "West Bengal",
+      "city": "Balasore",
       "latitude": 21.5977,
       "longitude": 87.5018,
       "rating": "4.1/5",
@@ -803,6 +961,8 @@
     },
     {
       "name": "astaranga",
+      "state": "Odisha",
+      "city": "Puri",
       "latitude": 19.9885,
       "longitude": 86.2755,
       "rating": "4.0/5",
@@ -812,6 +972,8 @@
     },
     {
       "name": "konark",
+      "state": "Odisha",
+      "city": "Puri",
       "latitude": 19.8762,
       "longitude": 86.1001,
       "rating": "4.4/5",
@@ -821,6 +983,8 @@
     },
     {
       "name": "talasari",
+      "state": "Odisha",
+      "city": "Balasore",
       "latitude": 21.5924,
       "longitude": 87.4321,
       "rating": "4.2/5",
@@ -830,6 +994,8 @@
     },
     {
       "name": "kashid",
+      "state": "Maharashtra",
+      "city": "Raigad",
       "latitude": 18.2833,
       "longitude": 72.8833,
       "rating": "4.5/5",
@@ -839,6 +1005,8 @@
     },
     {
       "name": "murud",
+      "state": "Maharashtra",
+      "city": "Raigad",
       "latitude": 18.3307,
       "longitude": 72.9634,
       "rating": "4.3/5",
@@ -848,6 +1016,8 @@
     },
     {
       "name": "harihareshwar",
+      "state": "Maharashtra",
+      "city": "Raigad",
       "latitude": 17.9947,
       "longitude": 73.0255,
       "rating": "4.4/5",
@@ -857,6 +1027,8 @@
     },
     {
       "name": "velneshwar",
+      "state": "Maharashtra",
+      "city": "Ratnagiri",
       "latitude": 17.3739,
       "longitude": 73.2300,
       "rating": "4.2/5",
@@ -866,6 +1038,8 @@
     },
     {
       "name": "vengurla",
+      "state": "Maharashtra",
+      "city": "Sindhudurg",
       "latitude": 15.8626,
       "longitude": 73.6326,
       "rating": "4.3/5",
@@ -875,6 +1049,8 @@
     },
     {
       "name": "thirumullavaram",
+      "state": "Kerala",
+      "city": "Kollam",
       "latitude": 8.9016,
       "longitude": 76.6419,
       "rating": "4.3/5",
@@ -884,6 +1060,8 @@
     },
     {
       "name": "chavakkad",
+      "state": "Kerala",
+      "city": "Thrissur",
       "latitude": 10.5847,
       "longitude": 76.0162,
       "rating": "4.1/5",
@@ -893,6 +1071,8 @@
     },
     {
       "name": "thottada",
+      "state": "Kerala",
+      "city": "Kannur",
       "latitude": 11.8333,
       "longitude": 75.4167,
       "rating": "4.4/5",
@@ -902,6 +1082,8 @@
     },
     {
       "name": "kakolem",
+      "state": "Goa",
+      "city": "Canacona",
       "latitude": 15.0500,
       "longitude": 74.0167,
       "rating": "4.5/5",
@@ -911,6 +1093,8 @@
     },
     {
       "name": "galgibaga",
+      "state": "Goa",
+      "city": "Canacona",
       "latitude": 14.9667,
       "longitude": 74.0500,
       "rating": "4.6/5",
@@ -920,6 +1104,8 @@
     },
     {
       "name": "talpona",
+      "state": "Goa",
+      "city": "Canacona",
       "latitude": 14.9833,
       "longitude": 74.0333,
       "rating": "4.4/5",
@@ -929,6 +1115,8 @@
     },
     {
       "name": "narara",
+      "state": "Gujarat",
+      "city": "Jamnagar",
       "latitude": 22.4747,
       "longitude": 69.7436,
       "rating": "4.2/5",
@@ -938,6 +1126,8 @@
     },
     {
       "name": "pingleshwar",
+      "state": "Gujarat",
+      "city": "Kutch",
       "latitude": 23.1203,
       "longitude": 68.8127,
       "rating": "4.0/5",
@@ -947,6 +1137,8 @@
     },
     {
       "name": "sutrapada",
+      "state": "Gujarat",
+      "city": "Gir Somnath",
       "latitude": 20.8417,
       "longitude": 70.4833,
       "rating": "3.9/5",
@@ -956,6 +1148,8 @@
     },
     {
       "name": "bhogat",
+      "state": "Gujarat",
+      "city": "Porbandar",
       "latitude": 21.8583,
       "longitude": 69.2000,
       "rating": "4.0/5",
@@ -965,6 +1159,8 @@
     },
     {
       "name": "bangaram",
+      "state": "Lakshadweep",
+      "city": "Bangaram",
       "latitude": 10.9333,
       "longitude": 72.2833,
       "rating": "4.7/5",
@@ -974,6 +1170,8 @@
     },
     {
       "name": "kadmat",
+      "state": "Lakshadweep",
+      "city": "Kadmat",
       "latitude": 11.2167,
       "longitude": 72.7833,
       "rating": "4.6/5",
@@ -983,6 +1181,8 @@
     },
     {
       "name": "yarada",
+      "state": "Andhra Pradesh",
+      "city": "Visakhapatnam",
       "latitude": 17.6568,
       "longitude": 83.2715,
       "rating": "4.3/5",
@@ -992,6 +1192,8 @@
     },
     {
       "name": "muttom",
+      "state": "Tamil Nadu",
+      "city": "Kanyakumari",
       "latitude": 8.1250,
       "longitude": 77.3276,
       "rating": "4.4/5",
@@ -1001,6 +1203,8 @@
     },
     {
       "name": "tharangambadi",
+      "state": "Tamil Nadu",
+      "city": "Nagapattinam",
       "latitude": 11.0271,
       "longitude": 79.8516,
       "rating": "4.3/5",
@@ -1010,6 +1214,8 @@
     },
     {
       "name": "minicoy",
+      "state": "Lakshadweep",
+      "city": "Minicoy",
       "latitude": 8.2833,
       "longitude": 73.0500,
       "rating": "4.8/5",
@@ -1019,6 +1225,8 @@
     },
     {
       "name": "marve",
+      "state": "Maharashtra",
+      "city": "Mumbai",
       "latitude": 19.2075,
       "longitude": 72.7939,
       "rating": "4.1/5",
@@ -1028,6 +1236,8 @@
     },
     {
       "name": "revdanda",
+      "state": "Maharashtra",
+      "city": "Raigad",
       "latitude": 18.5561,
       "longitude": 72.9283,
       "rating": "4.2/5",
@@ -1037,6 +1247,8 @@
     },
     {
       "name": "kihim",
+      "state": "Maharashtra",
+      "city": "Alibaug",
       "latitude": 18.6492,
       "longitude": 72.8645,
       "rating": "4.3/5",
@@ -1046,6 +1258,8 @@
     },
     {
       "name": "mandwa",
+      "state": "Maharashtra",
+      "city": "Alibaug",
       "latitude": 18.6633,
       "longitude": 72.8833,
       "rating": "4.2/5",
@@ -1055,6 +1269,8 @@
     },
     {
       "name": "dabhol",
+      "state": "Maharashtra",
+      "city": "Ratnagiri",
       "latitude": 17.5889,
       "longitude": 73.1833,
       "rating": "4.1/5",
@@ -1064,6 +1280,8 @@
     },
     {
       "name": "tarkarli beach",
+      "state": "Maharashtra",
+      "city": "Malvan",
       "latitude": 16.0139,
       "longitude": 73.4874,
       "rating": "4.5/5",
@@ -1073,6 +1291,8 @@
     },
     {
       "name": "dahanu chakrabhata",
+      "state": "Maharashtra",
+      "city": "Dahanu",
       "latitude": 19.9667,
       "longitude": 72.7333,
       "rating": "4.0/5",
@@ -1082,6 +1302,8 @@
     },
     {
       "name": "kelva",
+      "state": "Maharashtra",
+      "city": "Palghar",
       "latitude": 19.6167,
       "longitude": 72.7333,
       "rating": "4.1/5",
@@ -1091,6 +1313,8 @@
     },
     {
       "name": "arnala",
+      "state": "Maharashtra",
+      "city": "Vasai",
       "latitude": 19.4500,
       "longitude": 72.7500,
       "rating": "4.0/5",
@@ -1100,6 +1324,8 @@
     },
     {
       "name": "kavaratti",
+      "state": "Lakshadweep",
+      "city": "Kavaratti",
       "latitude": 10.5626,
       "longitude": 72.6369,
       "rating": "4.7/5",
@@ -1109,6 +1335,8 @@
     },
     {
       "name": "karmatang",
+      "state": "Andaman and Nicobar Islands",
+      "city": "Mayabunder",
       "latitude": 12.9137,
       "longitude": 92.9629,
       "rating": "4.4/5",
@@ -1118,6 +1346,8 @@
     },
     {
       "name": "lalaji bay",
+      "state": "Andaman and Nicobar Islands",
+      "city": "Long Island",
       "latitude": 12.0500,
       "longitude": 92.9667,
       "rating": "4.6/5",
@@ -1127,6 +1357,8 @@
     },
     {
       "name": "elephanta",
+      "state": "Maharashtra",
+      "city": "Mumbai",
       "latitude": 18.9633,
       "longitude": 72.9315,
       "rating": "4.2/5",
@@ -1136,6 +1368,8 @@
     },
     {
       "name": "long island",
+      "state": "Andaman and Nicobar Islands",
+      "city": "Long Island",
       "latitude": 12.3500,
       "longitude": 92.9333,
       "rating": "4.5/5",

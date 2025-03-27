@@ -26,6 +26,12 @@
                     Text="{Binding BeachName}"
                     TextColor="#333333" />
 
+                <!-- Location -->
+                <Label
+                    FontSize="16"
+                    Text="{Binding Beach.City, StringFormat='{0}, '}{Binding Beach.State}"
+                    TextColor="#666666" />
+
                 <!-- Current Conditions -->
                 <Frame BackgroundColor="White" Padding="15" CornerRadius="10">
                     <VerticalStackLayout Spacing="15">

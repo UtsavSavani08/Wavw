@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
@@ -29,7 +30,16 @@ public static class MauiProgram
         // Register services
         builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
         builder.Services.AddSingleton<BeachService>();
-        builder.Services.AddTransient<HomePage>();
+        builder.Services.AddSingleton<SupabaseService>();
+        
+        // Register pages
+        builder.Services.AddTransient<SignUpPage>();
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<HomePage>(serviceProvider => 
+            new HomePage(
+                serviceProvider.GetRequiredService<IGeolocation>(),
+                serviceProvider.GetRequiredService<BeachService>()
+            ));
 
 #if DEBUG
         builder.Logging.AddDebug();

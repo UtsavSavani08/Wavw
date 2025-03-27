@@ -1,8 +1,14 @@
+using System.Text.Json.Serialization;
+
 public class Beach
 {
     public string Name { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;
     public string Region { get; set; } = string.Empty;
+    [JsonPropertyName("state")]
+    public string State { get; set; } = string.Empty;
+    [JsonPropertyName("city")]
+    public string City { get; set; } = string.Empty;
     public double Latitude { get; set; }
     public double Longitude { get; set; }
     public string Rating { get; set; } = "3.5/5";

@@ -4,9 +4,9 @@ namespace Wavw;
 
 public partial class App : Application
 {
-    public App(HomePage homePage)
+    public App(SignUpPage signUpPage)
     {
         InitializeComponent();
-        MainPage = new NavigationPage(homePage);
+        MainPage = new NavigationPage(signUpPage);
     }
 }

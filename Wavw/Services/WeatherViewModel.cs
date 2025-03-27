@@ -11,9 +11,11 @@ namespace Wavw.Services
     public class WeatherViewModel : INotifyPropertyChanged
     {
         private readonly HttpClient _httpClient;
-        private const string API_KEY = "d61e2c4c-05a5-11f0-a906-0242ac130003-d61e2cc4-05a5-11f0-a906-0242ac130003"; // Replace this with your actual StormGlass API key
+        private const string API_KEY = "YOUR_API_KEY"; // TODO: Replace with your actual Stormglass API key
         private readonly BeachService _beachService;
         private const string BaseUrl = "https://api.stormglass.io/v2/weather/";
+        private DateTime _lastApiCall = DateTime.MinValue;
+        private const int MinSecondsBetweenCalls = 5; // Rate limiting
         
         private string _beachName;
         private double _waveHeight;
@@ -22,8 +24,31 @@ namespace Wavw.Services
         private DateTime _lastUpdated;
         private Beach _beach;
         private bool _hasBeachSelected;
+        private bool _isLoading;
+        private string _errorMessage;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand SearchCommand { get; }
+        public ICommand RefreshCommand { get; }
 
         public Beach Beach => _beach;
 
@@ -94,6 +119,7 @@ namespace Wavw.Services
             _beachService = new BeachService();
             HasBeachSelected = false;
             SearchCommand = new Command<string>(async (term) => await SearchBeach(term));
+            RefreshCommand = new Command(async () => await RefreshWeatherData());
         }
 
         public WeatherViewModel(Beach beach) : this()
@@ -104,10 +130,19 @@ namespace Wavw.Services
             LoadWeatherDataAsync(beach.Latitude, beach.Longitude).ConfigureAwait(false);
         }
 
+        private async Task RefreshWeatherData()
+        {
+            if (_beach == null) return;
+            await LoadWeatherDataAsync(_beach.Latitude, _beach.Longitude);
+        }
+
         private async Task SearchBeach(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
                 return;
+
+            IsLoading = true;
+            ErrorMessage = null;
 
             try
             {
@@ -122,118 +157,101 @@ namespace Wavw.Services
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Not Found", 
-                        $"No beach found matching '{searchTerm}'. Please check the spelling.", 
-                        "OK");
+                    ErrorMessage = $"No beach found matching '{searchTerm}'. Please check the spelling.";
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Search error: {ex.Message}");
-                await Application.Current.MainPage.DisplayAlert("Error", 
-                    "An error occurred while searching for the beach. Please try again.", 
-                    "OK");
+                ErrorMessage = "An error occurred while searching for the beach. Please try again.";
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
         private async Task LoadWeatherDataAsync(double latitude, double longitude)
         {
+            if (IsLoading) return;
+            
+            // Check rate limiting
+            var timeSinceLastCall = DateTime.Now - _lastApiCall;
+            if (timeSinceLastCall.TotalSeconds < MinSecondsBetweenCalls)
+            {
+                await Task.Delay((int)(MinSecondsBetweenCalls - timeSinceLastCall.TotalSeconds) * 1000);
+            }
+
+            IsLoading = true;
+            ErrorMessage = null;
+
             try
             {
                 // Validate coordinates
                 if (latitude == 0 || longitude == 0)
                 {
-                    System.Diagnostics.Debug.WriteLine("Error: Invalid coordinates - Latitude or Longitude is 0");
                     throw new ArgumentException("Invalid coordinates provided");
                 }
 
-                System.Diagnostics.Debug.WriteLine($"Starting API request for coordinates: Lat={latitude}, Long={longitude}");
-                
+                // Check if API key is configured
+                if (string.IsNullOrWhiteSpace(API_KEY) || API_KEY == "YOUR_API_KEY")
+                {
+                    throw new Exception("Stormglass API key not configured");
+                }
+
                 var parameters = "waveHeight,waterTemperature,windSpeed,windDirection";
                 var url = $"{BaseUrl}point?lat={latitude}&lng={longitude}&params={parameters}";
                 
-                System.Diagnostics.Debug.WriteLine($"Full API URL: {url}");
-
                 using var request = new HttpRequestMessage(HttpMethod.Get, url);
-                request.Headers.Add("Authorization", $"Bearer {API_KEY}");
+                request.Headers.Add("Authorization", API_KEY);
 
-                // Log all request headers
-                foreach (var header in request.Headers)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Request Header: {header.Key} = {string.Join(", ", header.Value)}");
-                }
-
-                System.Diagnostics.Debug.WriteLine("Sending API request...");
+                _lastApiCall = DateTime.Now;
                 var response = await _httpClient.SendAsync(request);
                 
-                System.Diagnostics.Debug.WriteLine($"Response Status Code: {response.StatusCode}");
-                System.Diagnostics.Debug.WriteLine($"Response Headers:");
-                foreach (var header in response.Headers)
+                if (!response.IsSuccessStatusCode)
                 {
-                    System.Diagnostics.Debug.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    
+                    switch (response.StatusCode)
+                    {
+                        case System.Net.HttpStatusCode.Unauthorized:
+                            throw new Exception("Invalid API key. Please check your API configuration.");
+                        case System.Net.HttpStatusCode.TooManyRequests:
+                            throw new Exception("API rate limit exceeded. Please try again later.");
+                        default:
+                            throw new Exception($"API Error ({response.StatusCode}): {errorContent}");
+                    }
                 }
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                System.Diagnostics.Debug.WriteLine($"Raw API Response: {jsonResponse}");
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    System.Diagnostics.Debug.WriteLine($"API Error Status Code: {response.StatusCode}");
-                    System.Diagnostics.Debug.WriteLine($"API Error Response: {jsonResponse}");
-                    
-                    // Check for specific error cases
-                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                    {
-                        throw new Exception("API Key is invalid or expired");
-                    }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                    {
-                        throw new Exception("API rate limit exceeded");
-                    }
-                    
-                    throw new Exception($"API Error: {response.StatusCode} - {jsonResponse}");
-                }
-
-                System.Diagnostics.Debug.WriteLine("Deserializing API response...");
                 var apiResponse = JsonSerializer.Deserialize<StormglassResponse>(jsonResponse);
                 
                 if (apiResponse?.Hours == null || !apiResponse.Hours.Any())
                 {
-                    System.Diagnostics.Debug.WriteLine("Error: No hours data in API response");
-                    throw new Exception("No weather data available in the API response");
+                    throw new Exception("No weather data available for this location");
                 }
 
-                System.Diagnostics.Debug.WriteLine($"Number of hours in response: {apiResponse.Hours.Count}");
                 var currentData = apiResponse.Hours[0];
                 
-                // Log the raw values before processing
-                System.Diagnostics.Debug.WriteLine($"Raw Wave Height - NOAA: {currentData.WaveHeight?.Noaa}, SG: {currentData.WaveHeight?.Sg}");
-                System.Diagnostics.Debug.WriteLine($"Raw Water Temp - NOAA: {currentData.WaterTemperature?.Noaa}, SG: {currentData.WaterTemperature?.Sg}");
-                System.Diagnostics.Debug.WriteLine($"Raw Wind Speed - NOAA: {currentData.WindSpeed?.Noaa}, SG: {currentData.WindSpeed?.Sg}");
-                System.Diagnostics.Debug.WriteLine($"Raw Wind Direction - NOAA: {currentData.WindDirection?.Noaa}, SG: {currentData.WindDirection?.Sg}");
-
-                // Update the UI values
+                // Update the UI values with fallback to SG data if NOAA is not available
                 WaveHeight = currentData.WaveHeight?.Noaa ?? currentData.WaveHeight?.Sg ?? 0;
                 SeaTemperature = currentData.WaterTemperature?.Noaa ?? currentData.WaterTemperature?.Sg ?? 0;
                 var windSpeed = currentData.WindSpeed?.Noaa ?? currentData.WindSpeed?.Sg ?? 0;
                 var windDir = currentData.WindDirection?.Noaa ?? currentData.WindDirection?.Sg ?? 0;
+                
                 WindConditions = $"{windSpeed:F1} m/s from {GetWindDirection(windDir)}";
                 LastUpdated = DateTime.Parse(currentData.Time);
                 HasBeachSelected = true;
-
-                System.Diagnostics.Debug.WriteLine($"Successfully updated weather data for {BeachName}");
-                System.Diagnostics.Debug.WriteLine($"Final values - Wave Height: {WaveHeight}, Sea Temp: {SeaTemperature}, Wind: {WindConditions}");
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error loading weather data: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                
-                var errorMessage = ex.Message.Contains("API Key") 
-                    ? "Invalid API key. Please check your API configuration."
-                    : "Unable to load weather data. Please try again later.";
-                    
-                await Application.Current.MainPage.DisplayAlert("Error", errorMessage, "OK");
+                ErrorMessage = ex.Message;
+                HasBeachSelected = false;
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 

@@ -316,21 +316,18 @@ namespace Wavw.Services
         {
             try
             {
-                // Create a more flexible search query
-            string query = $@"
-        [out:json];
-                    area[name=""India""]->.india;
-                    (
-                        node(area.india)[""natural""=""beach""][name~""{searchTerm}"",i];
-                        node(area.india)[""natural""=""beach""][name~"".*{searchTerm}.*"",i];
-                        node(area.india)[""natural""=""beach""][name~"".*{searchTerm.Replace(" ", ".*")}.*"",i];
-                        node(area.india)[""natural""=""beach""][name~""{searchTerm} beach"",i];
-                        node(area.india)[""natural""=""beach""][name~""beach {searchTerm}"",i];
-                    );
-        out;";
-
+                // Create a more flexible search query with proper escaping
+                var sanitizedSearchTerm = Uri.EscapeDataString(searchTerm);
+                var query = $@"[out:json];area[name=""India""]->.india;(node(area.india)[""natural""=""beach""][name~""{sanitizedSearchTerm}"",i];node(area.india)[""natural""=""beach""][name~"".*{sanitizedSearchTerm}.*"",i];);out;";
+                
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-            string url = $"{OverpassApiUrl}?data={Uri.EscapeDataString(query)}";
+                
+                // Properly encode the entire query
+                var encodedQuery = Uri.EscapeDataString(query);
+                var url = $"{OverpassApiUrl}?data={encodedQuery}";
+                
+                System.Diagnostics.Debug.WriteLine($"Making API request to: {url}");
+                
                 var response = await _httpClient.GetStringAsync(url, cts.Token);
                 var apiBeaches = ParseBeachData(response);
 
@@ -366,23 +363,17 @@ namespace Wavw.Services
 
                 if (localBeaches.Count > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Found {localBeaches.Count} nearest beaches:");
-                    foreach (var beach in localBeaches)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"- {beach.Name} at distance: {beach.DistanceFromUser(userLocation):F2} km");
-                    }
                     return localBeaches;
                 }
 
                 // If no beaches in local cache, try API
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
-            string query = $@"
-        [out:json];
-            area[name=""India""]->.india;
-            node(area.india)[natural=beach];
-        out;";
-
-            string url = $"{OverpassApiUrl}?data={Uri.EscapeDataString(query)}";
+                var query = @"[out:json];area[name=""India""]->.india;node(area.india)[natural=beach];out;";
+                
+                // Properly encode the query
+                var encodedQuery = Uri.EscapeDataString(query);
+                var url = $"{OverpassApiUrl}?data={encodedQuery}";
+                
                 var response = await _httpClient.GetStringAsync(url, cts.Token);
                 var apiBeaches = ParseBeachData(response);
 
@@ -422,26 +413,26 @@ namespace Wavw.Services
         private List<Beach> ParseBeachData(string jsonResponse)
         {
             try
-        {
-            using JsonDocument doc = JsonDocument.Parse(jsonResponse);
-            var root = doc.RootElement;
-            var beaches = new List<Beach>();
-
-            if (root.TryGetProperty("elements", out JsonElement elements))
             {
-                foreach (var element in elements.EnumerateArray())
-                {
-                    if (element.TryGetProperty("lat", out JsonElement latEl) &&
-                        element.TryGetProperty("lon", out JsonElement lonEl))
-                    {
-                        string name = element.TryGetProperty("tags", out JsonElement tags) &&
-                                      tags.TryGetProperty("name", out JsonElement nameEl) ? nameEl.GetString() : "Unknown Beach";
+                using JsonDocument doc = JsonDocument.Parse(jsonResponse);
+                var root = doc.RootElement;
+                var beaches = new List<Beach>();
 
-                        beaches.Add(new Beach
+                if (root.TryGetProperty("elements", out JsonElement elements))
+                {
+                    foreach (var element in elements.EnumerateArray())
+                    {
+                        if (element.TryGetProperty("lat", out JsonElement latEl) &&
+                            element.TryGetProperty("lon", out JsonElement lonEl))
                         {
-                            Name = name,
-                            Latitude = latEl.GetDouble(),
-                            Longitude = lonEl.GetDouble(),
+                            string name = element.TryGetProperty("tags", out JsonElement tags) &&
+                                          tags.TryGetProperty("name", out JsonElement nameEl) ? nameEl.GetString() : "Unknown Beach";
+
+                            beaches.Add(new Beach
+                            {
+                                Name = name,
+                                Latitude = latEl.GetDouble(),
+                                Longitude = lonEl.GetDouble(),
                                 Rating = "3.5/5",  // Default rating
                                 Cleanliness = "Good",  // Default cleanliness
                                 BestSeason = "October to March",  // Default season

@@ -9,11 +9,11 @@
     <TabBar>
         <Tab Title="Home" Icon="home_icon.png">
             <ShellContent
-                ContentTemplate="{DataTemplate views:HomePage}" />
+                ContentTemplate="{DataTemplate views:SignUpPage}" />
         </Tab>
         <Tab Title="Weather" Icon="weather_icon.png">
             <ShellContent
-                ContentTemplate="{DataTemplate views:WeatherPage}" />
+                ContentTemplate="{DataTemplate views:SignUpPage}" />
         </Tab>
     </TabBar>
 

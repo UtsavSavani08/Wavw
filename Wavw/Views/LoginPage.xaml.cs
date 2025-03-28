@@ -35,7 +35,7 @@ public partial class LoginPage : ContentPage
 
         try
         {
-            string email = EmailEntry.Text?.Trim();
+            string email = EmailEntry.Text;
             string password = PasswordEntry.Text;
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
@@ -47,11 +47,7 @@ public partial class LoginPage : ContentPage
             bool isSuccess = await _supabaseService.SignInAsync(email, password);
             if (isSuccess)
             {
-                // Clear the entries
-                EmailEntry.Text = string.Empty;
-                PasswordEntry.Text = string.Empty;
-
-                // Navigate to MainPage wrapped in NavigationPage
+                // Navigate to HomePage
                 Application.Current.MainPage = new NavigationPage(new MainPage());
             }
             else
@@ -61,7 +57,6 @@ public partial class LoginPage : ContentPage
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Login error: {ex.Message}");
             await DisplayAlert("Error", "An error occurred while logging in", "OK");
         }
         finally
@@ -72,7 +67,6 @@ public partial class LoginPage : ContentPage
 
     private async void OnSignUpTapped(object sender, TappedEventArgs e)
     {
-        if (IsBusy) return;
         await Navigation.PushAsync(new SignUpPage());
     }
 }

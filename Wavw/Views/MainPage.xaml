@@ -2,10 +2,310 @@
 <ContentPage
     x:Class="Wavw.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Wavw.Models"
+    BackgroundColor="White"
+    NavigationPage.HasNavigationBar="False">
 
-    <Grid>
-        <!--  Empty page  -->
+    <Grid RowDefinitions="*,60">
+        <!-- Main Content -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="0">
+                <!-- Top Section with Background -->
+                <Grid HeightRequest="220">
+                    <!-- Background Image with Gradient -->
+                    <Image
+                        Aspect="AspectFill"
+                        Source="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" />
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Offset="0.0" Color="#40FFFFFF" />
+                                <GradientStop Offset="1.0" Color="#FFFFFF" />
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <!-- Header Content -->
+                    <VerticalStackLayout
+                        Spacing="20"
+                        Padding="20,40,20,20">
+                        
+                        <!-- App Title -->
+                        <Label
+                            Text="Wavw"
+                            FontSize="32"
+                            TextColor="#1B4965"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="Explore the Indian coast!"
+                            FontSize="16"
+                            TextColor="#1B4965"
+                            Opacity="0.8"
+                            Margin="0,-15,0,0" />
+
+                        <!-- Search Bar -->
+                        <Frame 
+                            Margin="16,8"
+                            Padding="12,0"
+                            HeightRequest="48"
+                            BackgroundColor="White"
+                            BorderColor="Transparent"
+                            CornerRadius="8"
+                            HasShadow="True">
+                            <Grid ColumnDefinitions="Auto,*">
+                                <Label 
+                                    Grid.Column="0"
+                                    Text="&#xE8B6;"
+                                    FontFamily="{StaticResource MaterialIconsFont}"
+                                    TextColor="#1B4965"
+                                    FontSize="20"
+                                    VerticalOptions="Center"/>
+                                <Entry 
+                                    x:Name="SearchEntry"
+                                    Grid.Column="1"
+                                    Placeholder="Search your dream beach"
+                                    PlaceholderColor="#1B4965"
+                                    TextColor="#1B4965"
+                                    FontSize="16"
+                                    BackgroundColor="Transparent"
+                                    VerticalOptions="Center"
+                                    TextChanged="OnSearchTextChanged"
+                                    ReturnType="Search"/>
+                            </Grid>
+                        </Frame>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Popular Beaches Section -->
+                <VerticalStackLayout
+                    Spacing="20"
+                    Padding="20,20,20,0">
+                    
+                    <!-- Popular Beaches Section Header -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label
+                            Grid.Column="0"
+                            Text="Popular Beaches"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="Black" />
+                        <Label
+                            Grid.Column="1"
+                            Text="See more"
+                            FontSize="14"
+                            TextColor="#62B6CB"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <!-- Beach Cards -->
+                    <ScrollView
+                        Orientation="Horizontal"
+                        HorizontalScrollBarVisibility="Never">
+                        <HorizontalStackLayout Spacing="15">
+                            <!-- Beach Card 1 -->
+                            <Frame
+                                BackgroundColor="White"
+                                CornerRadius="10"
+                                HeightRequest="180"
+                                WidthRequest="150"
+                                Padding="0"
+                                HasShadow="True"
+                                IsClippedToBounds="True">
+                                <Grid RowDefinitions="*, Auto">
+                                    <Image
+                                        Grid.Row="0"
+                                        Source="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86"
+                                        Aspect="AspectFill"
+                                        HeightRequest="120" />
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Padding="10,5">
+                                        <Label
+                                            Text="Palolem Beach"
+                                            FontAttributes="Bold"
+                                            FontSize="14" />
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                Text="&#xE55F;"
+                                                FontFamily="{StaticResource MaterialIconsFont}"
+                                                FontSize="12"
+                                                TextColor="Gray"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Text="Goa"
+                                                FontSize="12"
+                                                TextColor="Gray" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                Text="&#xE838;"
+                                                FontFamily="{StaticResource MaterialIconsFont}"
+                                                FontSize="12"
+                                                TextColor="#FFD700"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Text="4.8"
+                                                FontSize="12"
+                                                TextColor="#FFD700" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+
+                            <!-- Beach Card 2 -->
+                            <Frame
+                                BackgroundColor="White"
+                                CornerRadius="10"
+                                HeightRequest="180"
+                                WidthRequest="150"
+                                Padding="0"
+                                HasShadow="True"
+                                IsClippedToBounds="True">
+                                <Grid RowDefinitions="*, Auto">
+                                    <Image
+                                        Grid.Row="0"
+                                        Source="https://images.unsplash.com/photo-1584551882465-d649f4669a70"
+                                        Aspect="AspectFill"
+                                        HeightRequest="120" />
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Padding="10,5">
+                                        <Label
+                                            Text="Varkala Beach"
+                                            FontAttributes="Bold"
+                                            FontSize="14" />
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                Text="&#xE55F;"
+                                                FontFamily="{StaticResource MaterialIconsFont}"
+                                                FontSize="12"
+                                                TextColor="Gray"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Text="Kerala"
+                                                FontSize="12"
+                                                TextColor="Gray" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                Text="&#xE838;"
+                                                FontFamily="{StaticResource MaterialIconsFont}"
+                                                FontSize="12"
+                                                TextColor="#FFD700"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Text="4.6"
+                                                FontSize="12"
+                                                TextColor="#FFD700" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+
+                            <!-- Beach Card 3 -->
+                            <Frame
+                                BackgroundColor="White"
+                                CornerRadius="10"
+                                HeightRequest="180"
+                                WidthRequest="150"
+                                Padding="0"
+                                HasShadow="True"
+                                IsClippedToBounds="True"
+                                Margin="0,0,20,0">
+                                <Grid RowDefinitions="*, Auto">
+                                    <Image
+                                        Grid.Row="0"
+                                        Source="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f"
+                                        Aspect="AspectFill"
+                                        HeightRequest="120" />
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Padding="10,5">
+                                        <Label
+                                            Text="Radhanagar"
+                                            FontAttributes="Bold"
+                                            FontSize="14" />
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                Text="&#xE55F;"
+                                                FontFamily="{StaticResource MaterialIconsFont}"
+                                                FontSize="12"
+                                                TextColor="Gray"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Text="Andaman"
+                                                FontSize="12"
+                                                TextColor="Gray" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                Text="&#xE838;"
+                                                FontFamily="{StaticResource MaterialIconsFont}"
+                                                FontSize="12"
+                                                TextColor="#FFD700"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Text="4.9"
+                                                FontSize="12"
+                                                TextColor="#FFD700" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </HorizontalStackLayout>
+                    </ScrollView>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Navigation Bar -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" BackgroundColor="White" HeightRequest="60">
+            <!-- Home -->
+            <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
+                <Label 
+                    Text="&#xE88A;"
+                    FontFamily="{StaticResource MaterialIconsFont}"
+                    TextColor="#1B4965"
+                    FontSize="24"
+                    HorizontalOptions="Center"/>
+                <Label 
+                    Text="Home"
+                    TextColor="#1B4965"
+                    FontSize="12"
+                    HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Weather -->
+            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                <Label 
+                    Text="&#xE2BD;"
+                    FontFamily="{StaticResource MaterialIconsFont}"
+                    TextColor="#1B4965"
+                    FontSize="24"
+                    HorizontalOptions="Center"/>
+                <Label 
+                    Text="Weather"
+                    TextColor="#1B4965"
+                    FontSize="12"
+                    HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Map -->
+            <VerticalStackLayout Grid.Column="2" Spacing="4" VerticalOptions="Center">
+                <Label 
+                    Text="&#xE55B;"
+                    FontFamily="{StaticResource MaterialIconsFont}"
+                    TextColor="#1B4965"
+                    FontSize="24"
+                    HorizontalOptions="Center"/>
+                <Label 
+                    Text="Map"
+                    TextColor="#1B4965"
+                    FontSize="12"
+                    HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
-
 </ContentPage> 

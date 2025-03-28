@@ -4,6 +4,17 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <!-- Material Icons Resources -->
+    <x:String x:Key="IconVisibility">&#xE8F4;</x:String>
+    <x:String x:Key="MaterialIconsFont">MaterialIcons-Regular</x:String>
+
+    <!-- Material Icon Codes -->
+    <x:String x:Key="IconSearch">&#xF349;</x:String>
+    <x:String x:Key="IconLocation">&#xF34E;</x:String>
+    <x:String x:Key="IconMap">&#xF34D;</x:String>
+    <x:String x:Key="IconWeather">&#xF594;</x:String>
+    <x:String x:Key="IconHome">&#xF32A;</x:String>
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Wavw.Model;
+using Wavw.Models;
 using Wavw.Services;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Graphics;

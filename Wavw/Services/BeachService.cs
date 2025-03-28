@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Wavw.Model;
+using Wavw.Models;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Devices.Sensors;
 using System.Linq;

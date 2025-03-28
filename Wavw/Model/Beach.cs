@@ -68,6 +68,12 @@ namespace Wavw.Model
         public string MainAttractions { get; set; } = string.Empty;
 
         /// <summary>
+        /// The URL of the beach's image
+        /// </summary>
+        [JsonPropertyName("imageUrl")]
+        public string ImageUrl { get; set; } = string.Empty;
+
+        /// <summary>
         /// Calculates the distance between the beach and a user's location
         /// </summary>
         /// <param name="userLocation">The user's current location</param>

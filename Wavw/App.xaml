@@ -5,6 +5,10 @@
              x:Class="Wavw.App">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Material Icons Resources -->
+            <x:String x:Key="MaterialIconsFont">MaterialIcons-Regular</x:String>
+            <x:String x:Key="IconVisibility">&#xE8F4;</x:String>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

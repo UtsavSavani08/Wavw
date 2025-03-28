@@ -9,7 +9,8 @@
       "rating": "4.9/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to May",
-      "mainAttractions": "Asia's Best Beach, Pristine White Sand, Crystal Clear Waters, Spectacular Sunsets"
+      "mainAttractions": "Asia's Best Beach, Pristine White Sand, Crystal Clear Waters, Spectacular Sunsets",
+      "imageUrl": "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f"
     },
     {
       "name": "minicoy",
@@ -20,7 +21,8 @@
       "rating": "4.8/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to May",
-      "mainAttractions": "Lighthouse, Tuna Fishing, Local Culture, Crystal Clear Waters"
+      "mainAttractions": "Lighthouse, Tuna Fishing, Local Culture, Crystal Clear Waters",
+      "imageUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5"
     },
     {
       "name": "agonda",
@@ -31,7 +33,8 @@
       "rating": "4.8/5",
       "cleanliness": "Excellent",
       "bestSeason": "October to March",
-      "mainAttractions": "Turtle Nesting Site, Quiet Atmosphere, Long Pristine Beach, Sunset Views"
+      "mainAttractions": "Turtle Nesting Site, Quiet Atmosphere, Long Pristine Beach, Sunset Views",
+      "imageUrl": "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a"
     },
     {
       "name": "havelock",
@@ -42,7 +45,8 @@
       "rating": "4.8/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to May",
-      "mainAttractions": "Radhanagar Beach, Scuba Diving, Coral Reefs, Pristine Waters"
+      "mainAttractions": "Radhanagar Beach, Scuba Diving, Coral Reefs, Pristine Waters",
+      "imageUrl": "https://images.unsplash.com/photo-1589979481223-deb893043163"
     },
     {
       "name": "alappuzha",
@@ -53,7 +57,8 @@
       "rating": "4.7/5",
       "cleanliness": "Excellent",
       "bestSeason": "October to March",
-      "mainAttractions": "Houseboats, Beach Festival, Lighthouse, Traditional Culture"
+      "mainAttractions": "Houseboats, Beach Festival, Lighthouse, Traditional Culture",
+      "imageUrl": "https://images.unsplash.com/photo-1593693411515-c20261bcad6e"
     },
     {
       "name": "varkala",
@@ -64,7 +69,8 @@
       "rating": "4.7/5",
       "cleanliness": "Excellent",
       "bestSeason": "September to March",
-      "mainAttractions": "Dramatic Cliff Views, Mineral Springs, Spiritual Atmosphere, Wellness Destination"
+      "mainAttractions": "Dramatic Cliff Views, Mineral Springs, Spiritual Atmosphere, Wellness Destination",
+      "imageUrl": "https://images.unsplash.com/photo-1584551882465-d649f4669a70"
     },
     {
       "name": "neil island",
@@ -75,7 +81,8 @@
       "rating": "4.7/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to May",
-      "mainAttractions": "Natural Bridge, Coral Reefs, Secluded Beaches, Clear Waters"
+      "mainAttractions": "Natural Bridge, Coral Reefs, Secluded Beaches, Clear Waters",
+      "imageUrl": "https://images.unsplash.com/photo-1597466599360-3b9775841aec"
     },
     {
       "name": "muzhappilangad",
@@ -86,7 +93,8 @@
       "rating": "4.7/5",
       "cleanliness": "Very Good",
       "bestSeason": "October to May",
-      "mainAttractions": "Longest Drive-in Beach in Asia, Black Rocks, Sunset Views, Bird Watching"
+      "mainAttractions": "Longest Drive-in Beach in Asia, Black Rocks, Sunset Views, Bird Watching",
+      "imageUrl": "https://images.unsplash.com/photo-1621789098261-430d7d875ee2"
     },
     {
       "name": "kavaratti",
@@ -97,7 +105,8 @@
       "rating": "4.7/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to May",
-      "mainAttractions": "Coral Reefs, Water Sports, Marine Aquarium, Island Capital"
+      "mainAttractions": "Coral Reefs, Water Sports, Marine Aquarium, Island Capital",
+      "imageUrl": "https://images.unsplash.com/photo-1573790387438-4da905039392"
     },
     {
       "name": "butterfly",
@@ -108,7 +117,8 @@
       "rating": "4.7/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to March",
-      "mainAttractions": "Butterfly Sightings, Hidden Cove, Dolphin Spotting, Crystal Clear Waters"
+      "mainAttractions": "Butterfly Sightings, Hidden Cove, Dolphin Spotting, Crystal Clear Waters",
+      "imageUrl": "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86"
     },
     {
       "name": "bangaram",
@@ -119,7 +129,8 @@
       "rating": "4.7/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to May",
-      "mainAttractions": "Coral Reefs, Lagoon Beach, Water Sports, Lakshadweep Experience"
+      "mainAttractions": "Coral Reefs, Lagoon Beach, Water Sports, Lakshadweep Experience",
+      "imageUrl": "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5"
     },
     {
       "name": "kovalam",
@@ -130,7 +141,8 @@
       "rating": "4.6/5",
       "cleanliness": "Excellent",
       "bestSeason": "September to March",
-      "mainAttractions": "Iconic Lighthouse, Ayurvedic Treatments, Crescent-shaped Beaches, Sunset Point"
+      "mainAttractions": "Iconic Lighthouse, Ayurvedic Treatments, Crescent-shaped Beaches, Sunset Point",
+      "imageUrl": "https://images.unsplash.com/photo-1582972236019-ea4af5ffe587"
     },
     {
       "name": "marari",
@@ -141,7 +153,8 @@
       "rating": "4.6/5",
       "cleanliness": "Excellent",
       "bestSeason": "September to March",
-      "mainAttractions": "Pristine Village Beach, Traditional Fishing Life, Ayurvedic Retreats, Peaceful Atmosphere"
+      "mainAttractions": "Pristine Village Beach, Traditional Fishing Life, Ayurvedic Retreats, Peaceful Atmosphere",
+      "imageUrl": "https://images.unsplash.com/photo-1596178065887-1198b6148b2b"
     },
     {
       "name": "kumarakom",
@@ -152,7 +165,8 @@
       "rating": "4.6/5",
       "cleanliness": "Excellent",
       "bestSeason": "October to March",
-      "mainAttractions": "Bird Sanctuary, Backwaters, Luxury Resorts, Peaceful Environment"
+      "mainAttractions": "Bird Sanctuary, Backwaters, Luxury Resorts, Peaceful Environment",
+      "imageUrl": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745"
     },
     {
       "name": "diu",
@@ -163,7 +177,8 @@
       "rating": "4.6/5",
       "cleanliness": "Excellent",
       "bestSeason": "October to March",
-      "mainAttractions": "Nagoa Beach, Historic Portuguese Architecture, Water Sports, Sunset Views, Diu Fort"
+      "mainAttractions": "Nagoa Beach, Historic Portuguese Architecture, Water Sports, Sunset Views, Diu Fort",
+      "imageUrl": "https://images.unsplash.com/photo-1596178067639-5c6e68aea6dc"
     },
     {
       "name": "kanyakumari",
@@ -174,7 +189,8 @@
       "rating": "4.6/5",
       "cleanliness": "Excellent",
       "bestSeason": "October to March",
-      "mainAttractions": "Sunrise Point, Triveni Sangam, Vivekananda Rock, Beach Temple"
+      "mainAttractions": "Sunrise Point, Triveni Sangam, Vivekananda Rock, Beach Temple",
+      "imageUrl": "https://images.unsplash.com/photo-1621996659490-3275b4d0d951"
     },
     {
       "name": "galgibaga",
@@ -185,7 +201,8 @@
       "rating": "4.6/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to March",
-      "mainAttractions": "Turtle Nesting Site, Pristine Beach, River Meeting Sea, Quiet Environment"
+      "mainAttractions": "Turtle Nesting Site, Pristine Beach, River Meeting Sea, Quiet Environment",
+      "imageUrl": "https://images.unsplash.com/photo-1512100356356-de1b84283e18"
     },
     {
       "name": "lalaji bay",
@@ -196,7 +213,8 @@
       "rating": "4.6/5",
       "cleanliness": "Pristine",
       "bestSeason": "October to May",
-      "mainAttractions": "Coral Reefs, Snorkeling, Remote Beach, Natural Beauty"
+      "mainAttractions": "Coral Reefs, Snorkeling, Remote Beach, Natural Beauty",
+      "imageUrl": "https://images.unsplash.com/photo-1597466765990-64ad1c35dafc"
     },
     {
       "name": "calangute",
@@ -207,7 +225,8 @@
       "rating": "4.5/5",
       "cleanliness": "Very Good",
       "bestSeason": "November to February",
-      "mainAttractions": "Queen of Goan Beaches, Adventure Water Sports Hub, Vibrant Nightlife, Shopping Paradise"
+      "mainAttractions": "Queen of Goan Beaches, Adventure Water Sports Hub, Vibrant Nightlife, Shopping Paradise",
+      "imageUrl": "https://images.unsplash.com/photo-1512798738109-af8814836728"
     },
     {
       "name": "arambol",
@@ -218,7 +237,8 @@
       "rating": "4.6/5",
       "cleanliness": "Good",
       "bestSeason": "November to March",
-      "mainAttractions": "Bohemian Vibe, Alternative Scene, Music Culture, Healing Centers"
+      "mainAttractions": "Bohemian Vibe, Alternative Scene, Music Culture, Healing Centers",
+      "imageUrl": "https://images.unsplash.com/photo-1517822306416-9c6a7f0c7438"
     }
   ]
 } 

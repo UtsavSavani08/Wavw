@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows.Input;
-using Wavw.Model;
+using Wavw.Models;
 using System.Text.Json.Serialization;
 
 namespace Wavw.Services

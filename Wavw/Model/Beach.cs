@@ -92,4 +92,21 @@ namespace Wavw.Model
             return Name;
         }
     }
+     public double DistanceFromUser(Location userLocation)
+    {
+        return CalculateDistance(
+            userLocation.Latitude, userLocation.Longitude,
+            Latitude, Longitude
+        );
+    }
+
+    private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+    {
+        var d1 = lat1 * (Math.PI / 180);
+        var num1 = lon1 * (Math.PI / 180);
+        var d2 = lat2 * (Math.PI / 180);
+        var num2 = lon2 * (Math.PI / 180) - num1;
+        var d3 = Math.Pow(Math.Sin((d2 - d1) / 2), 2) + Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2), 2);
+        return 6371 * (2 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1 - d3)));
+    }
 }

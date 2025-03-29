@@ -3,7 +3,6 @@
     x:Class="Wavw.Views.BeachPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:models="clr-namespace:Wavw.Models"
     NavigationPage.HasNavigationBar="False">
 
     <Grid RowDefinitions="Auto,*,Auto">
@@ -18,7 +17,7 @@
                 TextColor="Black"
                 VerticalOptions="Center">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnBackButtonTapped"/>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
             
@@ -47,14 +46,13 @@
                 <!-- Beach Image -->
                 <Grid HeightRequest="200">
                     <Image 
-                        x:Name="BeachImage"
-                        Source="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
-                        Aspect="AspectFill"/>
+                        Aspect="AspectFill"
+                        Source="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"/>
                     <BoxView>
                         <BoxView.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Offset="0.5" Color="Transparent"/>
-                                <GradientStop Offset="1.0" Color="#AA000000"/>
+                                <GradientStop Offset="0.7" Color="Transparent"/>
+                                <GradientStop Offset="1.0" Color="#80000000"/>
                             </LinearGradientBrush>
                         </BoxView.Background>
                     </BoxView>
@@ -64,14 +62,14 @@
                         Padding="16"
                         VerticalOptions="End">
                         <Label 
-                            x:Name="BeachNameLabel"
+                            Text="Paradise Beach"
                             TextColor="White"
-                            FontSize="28"
+                            FontSize="24"
                             FontAttributes="Bold"/>
                         <Label 
-                            x:Name="LocationLabel"
+                            Text="Miami, Florida"
                             TextColor="White"
-                            FontSize="16"
+                            FontSize="14"
                             Opacity="0.9"/>
                     </VerticalStackLayout>
                 </Grid>
@@ -85,10 +83,15 @@
                         FontSize="16"
                         VerticalOptions="Center"/>
                     <Label 
-                        x:Name="RatingLabel"
+                        Text="4.5"
                         FontSize="14"
                         FontAttributes="Bold"
-                        TextColor="#FFD700"
+                        TextColor="Black"
+                        VerticalOptions="Center"/>
+                    <Label 
+                        Text="(2,341 reviews)"
+                        FontSize="12"
+                        TextColor="Gray"
                         VerticalOptions="Center"/>
                 </HorizontalStackLayout>
 
@@ -104,10 +107,7 @@
                                 FontSize="16"
                                 TextColor="Black"
                                 VerticalOptions="Center"/>
-                            <Label 
-                                x:Name="StateLabel"
-                                FontSize="14" 
-                                TextColor="Black"/>
+                            <Label Text="Florida" FontSize="14" TextColor="Black"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                     
@@ -121,10 +121,7 @@
                                 FontSize="16"
                                 TextColor="Black"
                                 VerticalOptions="Center"/>
-                            <Label 
-                                x:Name="CityLabel"
-                                FontSize="14" 
-                                TextColor="Black"/>
+                            <Label Text="Miami" FontSize="14" TextColor="Black"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </Grid>
@@ -149,10 +146,7 @@
                                 CornerRadius="3"
                                 BackgroundColor="#4CAF50"
                                 VerticalOptions="Center"/>
-                            <Label 
-                                x:Name="CleanlinessLabel"
-                                FontSize="14" 
-                                TextColor="Black"/>
+                            <Label Text="Excellent" FontSize="14" TextColor="Black"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                     
@@ -168,10 +162,8 @@
                             <Label Text="Best Season" FontSize="12" TextColor="Gray"/>
                         </HorizontalStackLayout>
                         <VerticalStackLayout Spacing="2">
-                            <Label 
-                                x:Name="BestSeasonLabel"
-                                FontSize="14" 
-                                TextColor="Black"/>
+                            <Label Text="Summer" FontSize="14" TextColor="Black"/>
+                            <Label Text="(June - August)" FontSize="12" TextColor="Gray"/>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Grid>
@@ -184,14 +176,54 @@
                         FontAttributes="Bold"
                         TextColor="Black"/>
                     
-                    <VerticalStackLayout 
-                        x:Name="AttractionsLayout"
-                        Spacing="12"/>
+                    <VerticalStackLayout Spacing="12">
+                        <!-- Attraction 1 -->
+                        <HorizontalStackLayout Spacing="8">
+                            <BoxView 
+                                WidthRequest="4" 
+                                HeightRequest="4" 
+                                CornerRadius="2"
+                                BackgroundColor="#1B4965"
+                                VerticalOptions="Center"/>
+                            <Label 
+                                Text="Crystal clear waters perfect for swimming"
+                                FontSize="14"
+                                TextColor="Black"/>
+                        </HorizontalStackLayout>
+                        
+                        <!-- Attraction 2 -->
+                        <HorizontalStackLayout Spacing="8">
+                            <BoxView 
+                                WidthRequest="4" 
+                                HeightRequest="4" 
+                                CornerRadius="2"
+                                BackgroundColor="#1B4965"
+                                VerticalOptions="Center"/>
+                            <Label 
+                                Text="Vibrant coral reefs for snorkeling"
+                                FontSize="14"
+                                TextColor="Black"/>
+                        </HorizontalStackLayout>
+                        
+                        <!-- Attraction 3 -->
+                        <HorizontalStackLayout Spacing="8">
+                            <BoxView 
+                                WidthRequest="4" 
+                                HeightRequest="4" 
+                                CornerRadius="2"
+                                BackgroundColor="#1B4965"
+                                VerticalOptions="Center"/>
+                            <Label 
+                                Text="Beachfront restaurants and cafes"
+                                FontSize="14"
+                                TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
 
                 <!-- Map Section -->
                 <Frame 
-                    Margin="16,16,16,0"
+                    Margin="16,16,16,16"
                     Padding="0"
                     HeightRequest="120"
                     CornerRadius="8"
@@ -209,23 +241,22 @@
                             HeightRequest="32"
                             WidthRequest="100"
                             FontSize="12"
-                            Clicked="OnViewMapClicked"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"/>
                     </Grid>
                 </Frame>
 
-                <!-- Weather Button Section -->
+                <!-- Check Weather Button -->
                 <Button 
-                    Margin="16,16,16,16"
                     Text="Check Weather"
-                    TextColor="White"
-                    BackgroundColor="#1B4965"
-                    CornerRadius="8"
+                    TextColor="#1B4965"
+                    BackgroundColor="White"
+                    CornerRadius="16"
                     HeightRequest="48"
-                    FontSize="16"
-                    Clicked="OnCheckWeatherClicked"
-                    FontAttributes="Bold"/>
+                    Margin="16,0,16,16"
+                    FontSize="14"
+                    HorizontalOptions="Fill"
+                    Command="{Binding CheckWeatherCommand}"/>
             </VerticalStackLayout>
         </ScrollView>
 

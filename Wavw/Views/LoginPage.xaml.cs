@@ -8,34 +8,23 @@ namespace Wavw.Views;
 public partial class LoginPage : ContentPage
 {
     private readonly SupabaseService _supabaseService;
-    private bool _isPasswordVisible;
+    private bool _isLoading;
 
     public LoginPage()
     {
         InitializeComponent();
         _supabaseService = new SupabaseService();
-        _isPasswordVisible = false;
-    }
-
-    private void OnTogglePassword(object sender, TappedEventArgs e)
-    {
-        _isPasswordVisible = !_isPasswordVisible;
-        var entry = ((sender as Image)?.Parent as Grid)?.Children.OfType<Entry>().FirstOrDefault();
-        if (entry != null)
-        {
-            entry.IsPassword = !_isPasswordVisible;
-            ((Image)sender).Source = _isPasswordVisible ? "eye_off.png" : "eye.png";
-        }
+        _isLoading = false;
     }
 
     private async void OnLoginClicked(object sender, EventArgs e)
     {
-        if (IsBusy) return;
-        IsBusy = true;
+        if (_isLoading) return;
+        _isLoading = true;
 
         try
         {
-            string email = EmailEntry.Text;
+            string email = EmailEntry.Text?.Trim();
             string password = PasswordEntry.Text;
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
@@ -44,29 +33,37 @@ public partial class LoginPage : ContentPage
                 return;
             }
 
+            // Show loading indicator
+            IsBusy = true;
+            LoginButton.IsEnabled = false;
+
             bool isSuccess = await _supabaseService.SignInAsync(email, password);
             if (isSuccess)
             {
-                // Navigate to HomePage
+                // Navigate to MainPage
                 Application.Current.MainPage = new NavigationPage(new MainPage());
             }
             else
             {
-                await DisplayAlert("Error", "Invalid email or password", "OK");
+                await DisplayAlert("Error", "Invalid email or password. Please try again.", "OK");
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "An error occurred while logging in", "OK");
+            System.Diagnostics.Debug.WriteLine($"Login error: {ex.Message}");
+            await DisplayAlert("Error", "Unable to connect to the server. Please check your internet connection and try again.", "OK");
         }
         finally
         {
+            _isLoading = false;
             IsBusy = false;
+            LoginButton.IsEnabled = true;
         }
     }
 
     private async void OnSignUpTapped(object sender, TappedEventArgs e)
     {
+        if (_isLoading) return;
         await Navigation.PushAsync(new SignUpPage());
     }
 }

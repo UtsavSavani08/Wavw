@@ -1,12 +1,16 @@
-﻿using Wavw.Views;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Xaml;
+using Wavw.Views;
 
 namespace Wavw;
 
 public partial class App : Application
 {
-    public App(SignUpPage signUpPage)
+    public App()
     {
         InitializeComponent();
-        MainPage = new NavigationPage(signUpPage);
+
+        MainPage = new NavigationPage(new SignUpPage());
     }
 }

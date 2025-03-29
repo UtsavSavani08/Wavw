@@ -3,7 +3,6 @@
     x:Class="Wavw.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:Wavw.Models"
     BackgroundColor="White"
     NavigationPage.HasNavigationBar="False">
 
@@ -46,33 +45,29 @@
                             Margin="0,-15,0,0" />
 
                         <!-- Search Bar -->
-                        <Frame 
-                            Margin="16,8"
-                            Padding="12,0"
-                            HeightRequest="48"
+                        <Frame
+                            Grid.Row="1"
                             BackgroundColor="White"
-                            BorderColor="Transparent"
-                            CornerRadius="8"
-                            HasShadow="True">
+                            CornerRadius="30"
+                            Margin="24,16,24,24"
+                            Padding="16,0"
+                            HeightRequest="50">
                             <Grid ColumnDefinitions="Auto,*">
                                 <Label 
                                     Grid.Column="0"
                                     Text="&#xE8B6;"
                                     FontFamily="{StaticResource MaterialIconsFont}"
                                     TextColor="#1B4965"
-                                    FontSize="20"
+                                    FontSize="24"
                                     VerticalOptions="Center"/>
-                                <Entry 
-                                    x:Name="SearchEntry"
+                                <Entry
                                     Grid.Column="1"
                                     Placeholder="Search your dream beach"
                                     PlaceholderColor="#1B4965"
                                     TextColor="#1B4965"
                                     FontSize="16"
                                     BackgroundColor="Transparent"
-                                    VerticalOptions="Center"
-                                    TextChanged="OnSearchTextChanged"
-                                    ReturnType="Search"/>
+                                    VerticalOptions="Center"/>
                             </Grid>
                         </Frame>
                     </VerticalStackLayout>

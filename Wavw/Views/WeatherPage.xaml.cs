@@ -1,5 +1,5 @@
-using Wavw.Models;
 using Wavw.Services;
+using Wavw.Model;
 
 namespace Wavw.Views;
 

@@ -8,25 +8,12 @@ using System.Text.RegularExpressions;
 public partial class SignUpPage : ContentPage
 {
     private readonly SupabaseService _supabaseService;
-    private bool _isPasswordVisible;
     private readonly Regex _emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
 
     public SignUpPage()
     {
         InitializeComponent();
         _supabaseService = new SupabaseService();
-        _isPasswordVisible = false;
-    }
-
-    private void OnTogglePassword(object sender, TappedEventArgs e)
-    {
-        _isPasswordVisible = !_isPasswordVisible;
-        var entry = ((sender as Image)?.Parent as Grid)?.Children.OfType<Entry>().FirstOrDefault();
-        if (entry != null)
-        {
-            entry.IsPassword = !_isPasswordVisible;
-            ((Image)sender).Source = _isPasswordVisible ? "eye_off.png" : "eye.png";
-        }
     }
 
     private async void OnSignUpClicked(object sender, EventArgs e)

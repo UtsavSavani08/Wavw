@@ -17,8 +17,8 @@
         <VerticalStackLayout Grid.Row="0" Spacing="8">
             <Image 
                 Source="wavw_logo.png"
-                HeightRequest="48" 
-                WidthRequest="48"
+                HeightRequest="60" 
+                WidthRequest="60"
                 HorizontalOptions="Center"
                 Margin="0,0,0,8"/>
             <Label 
@@ -83,7 +83,7 @@
                     CornerRadius="8"
                     Padding="16,0"
                     HeightRequest="48">
-                    <Grid ColumnDefinitions="*,Auto">
+                    <Grid ColumnDefinitions="*">
                         <Entry 
                             x:Name="PasswordEntry"
                             Grid.Column="0"
@@ -93,22 +93,13 @@
                             TextColor="White"
                             BackgroundColor="Transparent"
                             VerticalOptions="Center"/>
-                        <Image 
-                            Grid.Column="1"
-                            Source="eye.png"
-                            HeightRequest="20"
-                            WidthRequest="20"
-                            VerticalOptions="Center">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnTogglePassword"/>
-                            </Image.GestureRecognizers>
-                        </Image>
                     </Grid>
                 </Frame>
             </VerticalStackLayout>
 
             <!-- Login Button -->
             <Button 
+                x:Name="LoginButton"
                 Text="Login"
                 TextColor="#1B4965"
                 BackgroundColor="White"

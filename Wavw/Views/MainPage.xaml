@@ -2,9 +2,18 @@
 <ContentPage
     x:Class="Wavw.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Wavw.Model"
+    xmlns:local="clr-namespace:Wavw.Views"
+    xmlns:converters="clr-namespace:Wavw.Converters"
     BackgroundColor="White"
     NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid RowDefinitions="*,60">
         <!-- Main Content -->
@@ -46,10 +55,9 @@
 
                         <!-- Search Bar -->
                         <Frame
-                            Grid.Row="1"
                             BackgroundColor="White"
                             CornerRadius="30"
-                            Margin="24,16,24,24"
+                            Margin="0,16,0,0"
                             Padding="16,0"
                             HeightRequest="50">
                             <Grid ColumnDefinitions="Auto,*">
@@ -62,6 +70,7 @@
                                     VerticalOptions="Center"/>
                                 <Entry
                                     Grid.Column="1"
+                                    Text="{Binding SearchText}"
                                     Placeholder="Search your dream beach"
                                     PlaceholderColor="#1B4965"
                                     TextColor="#1B4965"
@@ -85,172 +94,105 @@
                             Text="Popular Beaches"
                             FontSize="20"
                             FontAttributes="Bold"
-                            TextColor="Black" />
+                            TextColor="#1B4965" />
                         <Label
                             Grid.Column="1"
                             Text="See more"
                             FontSize="14"
                             TextColor="#62B6CB"
-                            VerticalOptions="Center" />
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding SeeMoreCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </Grid>
 
-                    <!-- Beach Cards -->
-                    <ScrollView
-                        Orientation="Horizontal"
-                        HorizontalScrollBarVisibility="Never">
-                        <HorizontalStackLayout Spacing="15">
-                            <!-- Beach Card 1 -->
-                            <Frame
-                                BackgroundColor="White"
-                                CornerRadius="10"
-                                HeightRequest="180"
-                                WidthRequest="150"
-                                Padding="0"
-                                HasShadow="True"
-                                IsClippedToBounds="True">
-                                <Grid RowDefinitions="*, Auto">
-                                    <Image
-                                        Grid.Row="0"
-                                        Source="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86"
-                                        Aspect="AspectFill"
-                                        HeightRequest="120" />
-                                    <VerticalStackLayout
-                                        Grid.Row="1"
-                                        Padding="10,5">
-                                        <Label
-                                            Text="Palolem Beach"
-                                            FontAttributes="Bold"
-                                            FontSize="14" />
-                                        <HorizontalStackLayout Spacing="5">
-                                            <Label
-                                                Text="&#xE55F;"
-                                                FontFamily="{StaticResource MaterialIconsFont}"
-                                                FontSize="12"
-                                                TextColor="Gray"
-                                                VerticalOptions="Center" />
-                                            <Label
-                                                Text="Goa"
-                                                FontSize="12"
-                                                TextColor="Gray" />
-                                        </HorizontalStackLayout>
-                                        <HorizontalStackLayout Spacing="5">
-                                            <Label
-                                                Text="&#xE838;"
-                                                FontFamily="{StaticResource MaterialIconsFont}"
-                                                FontSize="12"
-                                                TextColor="#FFD700"
-                                                VerticalOptions="Center" />
-                                            <Label
-                                                Text="4.8"
-                                                FontSize="12"
-                                                TextColor="#FFD700" />
-                                        </HorizontalStackLayout>
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
+                    <!-- Loading Indicator -->
+                    <ActivityIndicator
+                        IsRunning="{Binding IsLoading}"
+                        IsVisible="{Binding IsLoading}"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Color="#1B4965"
+                        Margin="0,20,0,20" />
 
-                            <!-- Beach Card 2 -->
-                            <Frame
-                                BackgroundColor="White"
-                                CornerRadius="10"
-                                HeightRequest="180"
-                                WidthRequest="150"
-                                Padding="0"
-                                HasShadow="True"
-                                IsClippedToBounds="True">
-                                <Grid RowDefinitions="*, Auto">
-                                    <Image
-                                        Grid.Row="0"
-                                        Source="https://images.unsplash.com/photo-1584551882465-d649f4669a70"
-                                        Aspect="AspectFill"
-                                        HeightRequest="120" />
-                                    <VerticalStackLayout
-                                        Grid.Row="1"
-                                        Padding="10,5">
-                                        <Label
-                                            Text="Varkala Beach"
-                                            FontAttributes="Bold"
-                                            FontSize="14" />
-                                        <HorizontalStackLayout Spacing="5">
+                    <!-- Popular Beach Cards -->
+                    <CollectionView 
+                        IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                        ItemsSource="{Binding PopularBeaches}"
+                        HeightRequest="200">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:PopularBeach">
+                                <Frame
+                                    BackgroundColor="White"
+                                    CornerRadius="10"
+                                    HeightRequest="180"
+                                    WidthRequest="150"
+                                    Padding="0"
+                                    HasShadow="True"
+                                    IsClippedToBounds="True">
+                                    <Grid RowDefinitions="*, Auto">
+                                        <Image
+                                            Grid.Row="0"
+                                            Source="{Binding ImageUrl}"
+                                            Aspect="AspectFill"
+                                            HeightRequest="120" />
+                                        <VerticalStackLayout
+                                            Grid.Row="1"
+                                            Padding="10,5">
                                             <Label
-                                                Text="&#xE55F;"
-                                                FontFamily="{StaticResource MaterialIconsFont}"
-                                                FontSize="12"
-                                                TextColor="Gray"
-                                                VerticalOptions="Center" />
-                                            <Label
-                                                Text="Kerala"
-                                                FontSize="12"
-                                                TextColor="Gray" />
-                                        </HorizontalStackLayout>
-                                        <HorizontalStackLayout Spacing="5">
-                                            <Label
-                                                Text="&#xE838;"
-                                                FontFamily="{StaticResource MaterialIconsFont}"
-                                                FontSize="12"
-                                                TextColor="#FFD700"
-                                                VerticalOptions="Center" />
-                                            <Label
-                                                Text="4.6"
-                                                FontSize="12"
-                                                TextColor="#FFD700" />
-                                        </HorizontalStackLayout>
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-
-                            <!-- Beach Card 3 -->
-                            <Frame
-                                BackgroundColor="White"
-                                CornerRadius="10"
-                                HeightRequest="180"
-                                WidthRequest="150"
-                                Padding="0"
-                                HasShadow="True"
-                                IsClippedToBounds="True"
-                                Margin="0,0,20,0">
-                                <Grid RowDefinitions="*, Auto">
-                                    <Image
-                                        Grid.Row="0"
-                                        Source="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f"
-                                        Aspect="AspectFill"
-                                        HeightRequest="120" />
-                                    <VerticalStackLayout
-                                        Grid.Row="1"
-                                        Padding="10,5">
-                                        <Label
-                                            Text="Radhanagar"
-                                            FontAttributes="Bold"
-                                            FontSize="14" />
-                                        <HorizontalStackLayout Spacing="5">
-                                            <Label
-                                                Text="&#xE55F;"
-                                                FontFamily="{StaticResource MaterialIconsFont}"
-                                                FontSize="12"
-                                                TextColor="Gray"
-                                                VerticalOptions="Center" />
-                                            <Label
-                                                Text="Andaman"
-                                                FontSize="12"
-                                                TextColor="Gray" />
-                                        </HorizontalStackLayout>
-                                        <HorizontalStackLayout Spacing="5">
-                                            <Label
-                                                Text="&#xE838;"
-                                                FontFamily="{StaticResource MaterialIconsFont}"
-                                                FontSize="12"
-                                                TextColor="#FFD700"
-                                                VerticalOptions="Center" />
-                                            <Label
-                                                Text="4.9"
-                                                FontSize="12"
-                                                TextColor="#FFD700" />
-                                        </HorizontalStackLayout>
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </HorizontalStackLayout>
-                    </ScrollView>
+                                                Text="{Binding Name}"
+                                                FontAttributes="Bold"
+                                                FontSize="14" />
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label
+                                                    Text="&#xE55F;"
+                                                    FontFamily="{StaticResource MaterialIconsFont}"
+                                                    FontSize="12"
+                                                    TextColor="Gray"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Text="{Binding City}"
+                                                    FontSize="12"
+                                                    TextColor="Gray" />
+                                                <Label
+                                                    Text=", "
+                                                    FontSize="12"
+                                                    TextColor="Gray" />
+                                                <Label
+                                                    Text="{Binding State}"
+                                                    FontSize="12"
+                                                    TextColor="Gray" />
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label
+                                                    Text="&#xE838;"
+                                                    FontFamily="{StaticResource MaterialIconsFont}"
+                                                    FontSize="12"
+                                                    TextColor="#FFD700"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Text="{Binding Rating}"
+                                                    FontSize="12"
+                                                    TextColor="#FFD700" />
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPage}}, Path=PopularBeachSelectedCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
@@ -264,7 +206,11 @@
                     FontFamily="{StaticResource MaterialIconsFont}"
                     TextColor="#1B4965"
                     FontSize="24"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToHomeCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label 
                     Text="Home"
                     TextColor="#1B4965"
@@ -279,7 +225,11 @@
                     FontFamily="{StaticResource MaterialIconsFont}"
                     TextColor="#1B4965"
                     FontSize="24"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToWeatherCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label 
                     Text="Weather"
                     TextColor="#1B4965"
@@ -294,7 +244,11 @@
                     FontFamily="{StaticResource MaterialIconsFont}"
                     TextColor="#1B4965"
                     FontSize="24"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToMapCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label 
                     Text="Map"
                     TextColor="#1B4965"

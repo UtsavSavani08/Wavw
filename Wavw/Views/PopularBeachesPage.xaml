@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Wavw.Views.PopularBeachesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Wavw.Converters"
+    xmlns:local="clr-namespace:Wavw.Views"
+    xmlns:model="clr-namespace:Wavw.Model"
+    Title="Popular Beaches"
+    BackgroundColor="White"
+    NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+        <!--  Header  -->
+        <Grid
+            Grid.Row="0"
+            Padding="20,10"
+            BackgroundColor="White">
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalOptions="Center"
+                Text="Popular Beaches"
+                TextColor="#1B4965" />
+            <Button
+                BackgroundColor="Transparent"
+                Clicked="OnBackButtonClicked"
+                FontFamily="{StaticResource MaterialIconsFont}"
+                FontSize="24"
+                HorizontalOptions="Start"
+                Text="&#xE5C4;"
+                TextColor="#1B4965" />
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="20">
+                <!--  Loading Indicator  -->
+                <ActivityIndicator
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsLoading}"
+                    IsVisible="{Binding IsLoading}"
+                    VerticalOptions="Center"
+                    WidthRequest="50"
+                    Color="#1B4965" />
+
+                <!--  Beaches Grid  -->
+                <CollectionView IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}" ItemsSource="{Binding PopularBeaches}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="15"
+                            Orientation="Vertical"
+                            Span="2"
+                            VerticalItemSpacing="15" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:PopularBeach">
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="White"
+                                CornerRadius="10"
+                                HasShadow="True"
+                                HeightRequest="220"
+                                IsClippedToBounds="True">
+                                <Grid RowDefinitions="*, Auto">
+                                    <Image
+                                        Grid.Row="0"
+                                        Aspect="AspectFill"
+                                        HeightRequest="140"
+                                        Source="{Binding ImageUrl}" />
+                                    <VerticalStackLayout Grid.Row="1" Padding="10,5">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            Text="{Binding Name}" />
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                FontFamily="{StaticResource MaterialIconsFont}"
+                                                FontSize="14"
+                                                Text="&#xE55F;"
+                                                TextColor="Gray"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                FontSize="14"
+                                                Text="{Binding City}"
+                                                TextColor="Gray" />
+                                            <Label
+                                                FontSize="14"
+                                                Text=", "
+                                                TextColor="Gray" />
+                                            <Label
+                                                FontSize="14"
+                                                Text="{Binding State}"
+                                                TextColor="Gray" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                FontFamily="{StaticResource MaterialIconsFont}"
+                                                FontSize="14"
+                                                Text="&#xE838;"
+                                                TextColor="#FFD700"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                FontSize="14"
+                                                Text="{Binding Rating}"
+                                                TextColor="#FFD700" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:PopularBeachesPage}}, Path=BeachSelectedCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage> 

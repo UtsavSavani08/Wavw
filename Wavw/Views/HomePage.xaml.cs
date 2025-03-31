@@ -16,6 +16,10 @@ using System.Linq;
 
 namespace Wavw.Views
 {
+    [QueryProperty(nameof(ShowBeachLocation), "ShowBeachLocation")]
+    [QueryProperty(nameof(BeachLatitude), "BeachLatitude")]
+    [QueryProperty(nameof(BeachLongitude), "BeachLongitude")]
+    [QueryProperty(nameof(BeachName), "BeachName")]
     public partial class HomePage : ContentPage
     {
         private readonly IGeolocation _geolocation;
@@ -28,11 +32,19 @@ namespace Wavw.Views
         private const uint AnimationDuration = 250;
         private const string LocationPermissionRequestedKey = "LocationPermissionRequested";
 
+        public bool ShowBeachLocation { get; set; }
+        public double BeachLatitude { get; set; }
+        public double BeachLongitude { get; set; }
+        public string BeachName { get; set; }
+
         public ICommand SearchCommand { get; }
         public ICommand GetCurrentLocationCommand { get; }
         public ICommand CloseDetailsCommand { get; }
         public ICommand GetDirectionsCommand { get; }
         public ICommand GetWeatherCommand { get; }
+        public ICommand NavigateToHomeCommand { get; }
+        public ICommand NavigateToWeatherCommand { get; }
+        public ICommand NavigateToMapCommand { get; }
 
         public Beach? SelectedBeach
         {
@@ -66,6 +78,9 @@ namespace Wavw.Views
             CloseDetailsCommand = new Command(async () => await HideDetailsPanel());
             GetDirectionsCommand = new Command(async () => await OpenDirections());
             GetWeatherCommand = new Command(async () => await ShowWeatherInfo());
+            NavigateToHomeCommand = new Command(async () => await Shell.Current.GoToAsync("//MainPage"));
+            NavigateToWeatherCommand = new Command(async () => await Shell.Current.GoToAsync("//WeatherPage"));
+            NavigateToMapCommand = new Command(async () => await Shell.Current.GoToAsync("//HomePage"));
 
             BindingContext = this;
 
@@ -75,35 +90,30 @@ namespace Wavw.Views
                 _detailsPanel.TranslationY = 1000;
             }
 
-            // Request location access when page appears
+            // Handle navigation parameters when the page appears
             this.Loaded += async (s, e) =>
             {
-                // Check if we've already requested permission
-                bool hasRequestedPermission = Preferences.Default.Get(LocationPermissionRequestedKey, false);
-                
-                if (!hasRequestedPermission)
+                if (ShowBeachLocation)
                 {
-                    var result = await DisplayAlert("Location Access", 
-                        "Wavw needs access to your location to show you nearby beaches. Would you like to allow location access?", 
-                        "Allow", "Not Now");
-                        
-                    // Mark that we've requested permission
-                    Preferences.Default.Set(LocationPermissionRequestedKey, true);
+                    // Create a beach object from the navigation parameters
+                    var beach = new Beach
+                    {
+                        Name = BeachName,
+                        Latitude = BeachLatitude,
+                        Longitude = BeachLongitude
+                    };
+
+                    // Clear existing pins and add the beach pin
+                    ClearMapPins();
+                    AddBeachPin(beach);
+                    await CenterMapOn(BeachLatitude, BeachLongitude);
                     
-                    if (result)
-                    {
-                        await CheckLocationPermission();
-                    }
-                    else
-                    {
-                        await DisplayAlert("Limited Functionality", 
-                            "Without location access, you won't be able to see nearby beaches. You can enable it later in Settings.", 
-                            "OK");
-                    }
+                    // Set as selected beach to show details
+                    SelectedBeach = beach;
                 }
                 else
                 {
-                    // Just check the permission status without showing the prompt
+                    // Request location access for normal flow
                     await CheckLocationPermission();
                 }
             };
@@ -485,6 +495,11 @@ namespace Wavw.Views
                     "Unable to show weather information. Please try again.", 
                     "OK");
             }
+        }
+
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

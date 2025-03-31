@@ -61,7 +61,7 @@ namespace Wavw.Services
                 try
                 {
                     using var stream = FileSystem.OpenAppPackageFileAsync("beaches.json").Result;
-                    using var reader = new StreamReader(stream);
+                using var reader = new StreamReader(stream);
                     jsonString = reader.ReadToEnd();
                     System.Diagnostics.Debug.WriteLine("Successfully read beaches.json from app package");
                 }
@@ -452,7 +452,23 @@ namespace Wavw.Services
 
         public List<Beach> GetAllBeaches()
         {
-            return _beaches.ToList();
+            return _beaches;
+        }
+
+        public async Task<List<Beach>> GetBeachesAsync()
+        {
+            try
+            {
+                // Since we already have the beaches loaded in memory,
+                // we'll return them wrapped in a Task
+                return await Task.FromResult(_beaches);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in GetBeachesAsync: {ex.Message}");
+                // Return an empty list if there's an error
+                return new List<Beach>();
+            }
         }
     }
 

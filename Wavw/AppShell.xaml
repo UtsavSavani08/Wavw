@@ -3,18 +3,27 @@
     x:Class="Wavw.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:Wavw.Views"
+    xmlns:local="clr-namespace:Wavw.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <TabBar>
-        <Tab Title="Home" Icon="home_icon.png">
-            <ShellContent
-                ContentTemplate="{DataTemplate views:SignUpPage}" />
-        </Tab>
-        <Tab Title="Weather" Icon="weather_icon.png">
-            <ShellContent
-                ContentTemplate="{DataTemplate views:SignUpPage}" />
-        </Tab>
-    </TabBar>
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Popular Beaches"
+        ContentTemplate="{DataTemplate local:PopularBeachesPage}"
+        Route="PopularBeachesPage" />
+
+    <ShellContent
+        Title="Map"
+        ContentTemplate="{DataTemplate local:HomePage}"
+        Route="HomePage" />
+
+    <ShellContent
+        Title="Weather"
+        ContentTemplate="{DataTemplate local:WeatherPage}"
+        Route="WeatherPage" />
 
 </Shell>

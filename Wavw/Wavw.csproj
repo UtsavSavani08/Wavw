@@ -56,6 +56,7 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 		<MauiAsset Include="Resources\beaches.json" LogicalName="beaches.json" />
+		<MauiAsset Include="Resources\popular_beaches.json" LogicalName="popular_beaches.json" />
 	</ItemGroup>
 
 	<ItemGroup>

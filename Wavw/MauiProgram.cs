@@ -24,22 +24,20 @@ public static class MauiProgram
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-SemiBold.ttf", "OpenSansSemiBold");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
         // Register services
-        builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
         builder.Services.AddSingleton<BeachService>();
         builder.Services.AddSingleton<SupabaseService>();
+        builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
         
         // Register pages
-        builder.Services.AddTransient<SignUpPage>();
+        builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<LoginPage>();
-        builder.Services.AddTransient<HomePage>(serviceProvider => 
-            new HomePage(
-                serviceProvider.GetRequiredService<IGeolocation>(),
-                serviceProvider.GetRequiredService<BeachService>()
-            ));
+        builder.Services.AddTransient<SignUpPage>();
+        builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<WeatherPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

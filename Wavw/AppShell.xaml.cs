@@ -1,15 +1,17 @@
-﻿namespace Wavw;
+﻿using Wavw.Views;
+
+namespace Wavw;
 
 public partial class AppShell : Shell
 {
     public AppShell()
     {
         InitializeComponent();
-        Routing.RegisterRoute(nameof(Views.WeatherPage), typeof(Views.WeatherPage));
-        Routing.RegisterRoute(nameof(Views.HomePage), typeof(Views.HomePage));
-        Routing.RegisterRoute(nameof(Views.LoginPage), typeof(Views.LoginPage));
-        Routing.RegisterRoute(nameof(Views.SignUpPage), typeof(Views.SignUpPage));
-        Routing.RegisterRoute(nameof(Views.MainPage), typeof(Views.MainPage));
-
+        
+        // Register routes
+        Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+        Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
+        Routing.RegisterRoute(nameof(BeachPage), typeof(BeachPage));
+        Routing.RegisterRoute("PopularBeachesPage", typeof(PopularBeachesPage));
     }
 }

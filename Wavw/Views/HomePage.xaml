@@ -5,7 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:Wavw.Converters"
     xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
-    NavigationPage.HasNavigationBar="False">
+    xmlns:model="clr-namespace:Wavw.Model"
+    BackgroundColor="White"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
         <converters:NotNullToBoolConverter x:Key="NotNullToBoolConverter" />

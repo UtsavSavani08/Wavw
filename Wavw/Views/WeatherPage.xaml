@@ -5,94 +5,129 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:services="clr-namespace:Wavw.Services"
     xmlns:views="clr-namespace:Wavw.Views"
+    xmlns:converters="clr-namespace:Wavw.Converters"
     x:DataType="views:CompositeBindingContext"
-    Title="Weather">
+    Title="Weather"
+    BackgroundColor="#F4F4F4">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
+            <Style x:Key="CardStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="Padding" Value="16"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="Margin" Value="16,8"/>
+                <Setter Property="HasShadow" Value="True"/>
+            </Style>
+            <Style x:Key="HeaderLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="#1B4965"/>
+                <Setter Property="Margin" Value="0,0,0,16"/>
+            </Style>
+            <Style x:Key="ValueLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="TextColor" Value="#1B4965"/>
+            </Style>
+            <Style x:Key="SubLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextColor" Value="#666666"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*,Auto">
         <!-- Search Bar -->
-        <SearchBar
-            Grid.Row="0"
-            Margin="10"
-            Placeholder="Search beach by name..."
-            SearchCommand="{Binding ViewModel.SearchCommand}"
-            SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}" />
+        <Frame Grid.Row="0" 
+               Style="{StaticResource CardStyle}"
+               Margin="16,16,16,8"
+               Padding="16,0"
+               CornerRadius="28"
+               HeightRequest="56">
+            <SearchBar
+                Placeholder="Search beach by name..."
+                SearchCommand="{Binding ViewModel.SearchCommand}"
+                SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"
+                BackgroundColor="Transparent"
+                CancelButtonColor="#1B4965"
+                Margin="-16,0"/>
+        </Frame>
 
         <!-- Weather Content -->
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20" Spacing="20" IsVisible="{Binding ViewModel.HasBeachSelected}">
+            <VerticalStackLayout Spacing="8" IsVisible="{Binding ViewModel.HasBeachSelected}">
                 <!-- Beach Name -->
-                <Label
-                    FontSize="24"
-                    FontAttributes="Bold"
-                    Text="{Binding ViewModel.BeachName}"
-                    TextColor="#333333" />
-
-                <!-- Location -->
-                <Label
-                    FontSize="16"
-                    Text="{Binding ViewModel.Beach.City, StringFormat='{0}, '}{Binding ViewModel.Beach.State}"
-                    TextColor="#666666" />
+                <Frame Style="{StaticResource CardStyle}">
+                    <Label
+                        Text="{Binding ViewModel.BeachName}"
+                        Style="{StaticResource HeaderLabelStyle}"/>
+                </Frame>
 
                 <!-- Current Conditions -->
-                <Frame BackgroundColor="White" Padding="15" CornerRadius="10">
-                    <VerticalStackLayout Spacing="15">
+                <Frame Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout Spacing="20">
                         <Label
-                            FontSize="18"
-                            FontAttributes="Bold"
                             Text="Current Conditions"
-                            TextColor="#666666" />
+                            Style="{StaticResource HeaderLabelStyle}"/>
 
                         <!-- Wave Height -->
-                        <Grid ColumnDefinitions="Auto,*" RowSpacing="10">
-                            <Image
+                        <Grid ColumnDefinitions="Auto,*" RowSpacing="4">
+                            <Label
                                 Grid.Column="0"
-                                Source="wave_icon.png"
-                                HeightRequest="24"
-                                WidthRequest="24" />
-                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                Text="&#xE186;"
+                                FontFamily="{StaticResource MaterialIconsFont}"
+                                TextColor="#1B4965"
+                                FontSize="24"
+                                Margin="0,0,16,0"
+                                VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4">
                                 <Label
                                     Text="Wave Height"
-                                    FontAttributes="Bold"
-                                    TextColor="#666666" />
+                                    Style="{StaticResource SubLabelStyle}"/>
                                 <Label
                                     Text="{Binding ViewModel.WaveHeight, StringFormat='{0:F1} meters'}"
-                                    TextColor="#333333" />
+                                    Style="{StaticResource ValueLabelStyle}"/>
                             </VerticalStackLayout>
                         </Grid>
 
                         <!-- Sea Temperature -->
-                        <Grid ColumnDefinitions="Auto,*" RowSpacing="10">
-                            <Image
+                        <Grid ColumnDefinitions="Auto,*" RowSpacing="4">
+                            <Label
                                 Grid.Column="0"
-                                Source="temp_icon.png"
-                                HeightRequest="24"
-                                WidthRequest="24" />
-                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                Text="&#xE1FF;"
+                                FontFamily="{StaticResource MaterialIconsFont}"
+                                TextColor="#1B4965"
+                                FontSize="24"
+                                Margin="0,0,16,0"
+                                VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4">
                                 <Label
                                     Text="Sea Temperature"
-                                    FontAttributes="Bold"
-                                    TextColor="#666666" />
+                                    Style="{StaticResource SubLabelStyle}"/>
                                 <Label
                                     Text="{Binding ViewModel.SeaTemperature, StringFormat='{0:F1}°C'}"
-                                    TextColor="#333333" />
+                                    Style="{StaticResource ValueLabelStyle}"/>
                             </VerticalStackLayout>
                         </Grid>
 
                         <!-- Wind Conditions -->
-                        <Grid ColumnDefinitions="Auto,*" RowSpacing="10">
-                            <Image
+                        <Grid ColumnDefinitions="Auto,*" RowSpacing="4">
+                            <Label
                                 Grid.Column="0"
-                                Source="wind_icon.png"
-                                HeightRequest="24"
-                                WidthRequest="24" />
-                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                Text="&#xE430;"
+                                FontFamily="{StaticResource MaterialIconsFont}"
+                                TextColor="#1B4965"
+                                FontSize="24"
+                                Margin="0,0,16,0"
+                                VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4">
                                 <Label
                                     Text="Wind Conditions"
-                                    FontAttributes="Bold"
-                                    TextColor="#666666" />
+                                    Style="{StaticResource SubLabelStyle}"/>
                                 <Label
                                     Text="{Binding ViewModel.WindConditions}"
-                                    TextColor="#333333" />
+                                    Style="{StaticResource ValueLabelStyle}"/>
                             </VerticalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
@@ -101,9 +136,9 @@
                 <!-- Last Updated -->
                 <Label
                     Text="{Binding ViewModel.LastUpdated, StringFormat='Last Updated: {0:g}'}"
-                    TextColor="#666666"
-                    FontSize="12"
-                    HorizontalOptions="Center" />
+                    Style="{StaticResource SubLabelStyle}"
+                    Margin="16,8"
+                    HorizontalOptions="Center"/>
             </VerticalStackLayout>
         </ScrollView>
 
@@ -113,16 +148,19 @@
             IsVisible="{Binding ViewModel.HasBeachSelected, Converter={StaticResource BooleanInvertConverter}}"
             HorizontalOptions="Center"
             VerticalOptions="Center"
-            Margin="20,100,20,20"
-            TranslationY="50"
-            Spacing="20"
+            Spacing="16"
             Padding="20">
             <Label
+                Text="&#xE2DB;"
+                FontFamily="{StaticResource MaterialIconsFont}"
+                TextColor="#1B4965"
+                FontSize="48"
+                HorizontalOptions="Center"/>
+            <Label
                 Text="Search for a beach to view weather information"
-                FontSize="16"
-                TextColor="#666666"
+                Style="{StaticResource SubLabelStyle}"
                 HorizontalOptions="Center"
-                HorizontalTextAlignment="Center" />
+                HorizontalTextAlignment="Center"/>
         </VerticalStackLayout>
 
         <!-- Bottom Navigation Bar -->
@@ -149,7 +187,7 @@
             <!-- Weather -->
             <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
                 <Label 
-                    Text="&#xE2BD;"
+                    Text="&#xE9CA;"
                     FontFamily="{StaticResource MaterialIconsFont}"
                     TextColor="#1B4965"
                     FontSize="24"

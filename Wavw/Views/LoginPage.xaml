@@ -3,8 +3,9 @@
     x:Class="Wavw.Views.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    NavigationPage.HasNavigationBar="False">
-    
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False">
+
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Offset="0.0" Color="#5FA8D3" />
@@ -12,117 +13,118 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <Grid RowDefinitions="Auto,*" Padding="24,48,24,0">
-        <!-- Header -->
+    <Grid Padding="24,48,24,0" RowDefinitions="Auto,*">
+        <!--  Header  -->
         <VerticalStackLayout Grid.Row="0" Spacing="8">
-            <Image 
-                Source="wavw_logo.png"
-                HeightRequest="60" 
-                WidthRequest="60"
+            <Image
+                Margin="0,0,0,8"
+                HeightRequest="60"
                 HorizontalOptions="Center"
-                Margin="0,0,0,8"/>
-            <Label 
-                Text="Wavw"
-                TextColor="White"
-                FontSize="32"
+                Source="wavw_logo.png"
+                WidthRequest="60" />
+            <Label
                 FontAttributes="Bold"
-                HorizontalOptions="Center"/>
-            <Label 
-                Text="Welcome Back"
-                TextColor="#BEE9E8"
+                FontSize="32"
+                HorizontalOptions="Center"
+                Text="Wavw"
+                TextColor="White" />
+            <Label
+                Margin="0,4,0,0"
                 FontSize="16"
                 HorizontalOptions="Center"
                 Opacity="0.9"
-                Margin="0,4,0,0"/>
+                Text="Welcome Back"
+                TextColor="#BEE9E8" />
         </VerticalStackLayout>
 
-        <!-- Login Form -->
-        <VerticalStackLayout Grid.Row="1" Spacing="24" Margin="0,48,0,0">
-            <!-- Email Input -->
+        <!--  Login Form  -->
+        <VerticalStackLayout
+            Grid.Row="1"
+            Margin="0,48,0,0"
+            Spacing="24">
+            <!--  Email Input  -->
             <VerticalStackLayout Spacing="8">
-                <Label 
-                    Text="Email" 
-                    TextColor="#BEE9E8"
+                <Label
                     FontSize="14"
-                    Opacity="0.9"/>
-                <Frame 
+                    Opacity="0.9"
+                    Text="Email"
+                    TextColor="#BEE9E8" />
+                <Frame
+                    Padding="16,0"
                     BackgroundColor="#62B6CB"
                     BorderColor="Transparent"
                     CornerRadius="8"
-                    Padding="16,0"
                     HeightRequest="48">
                     <Grid ColumnDefinitions="*,Auto">
-                        <Entry 
+                        <Entry
                             x:Name="EmailEntry"
                             Grid.Column="0"
+                            BackgroundColor="Transparent"
                             Placeholder="Enter your email"
                             PlaceholderColor="#BEE9E8"
                             TextColor="White"
-                            BackgroundColor="Transparent"
-                            VerticalOptions="Center"/>
-                        <Image 
+                            VerticalOptions="Center" />
+                        <Image
                             Grid.Column="1"
-                            Source="email.png"
                             HeightRequest="20"
-                            WidthRequest="20"
-                            VerticalOptions="Center"/>
+                            Source="email.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
                     </Grid>
                 </Frame>
             </VerticalStackLayout>
 
-            <!-- Password Input -->
+            <!--  Password Input  -->
             <VerticalStackLayout Spacing="8">
-                <Label 
-                    Text="Password" 
-                    TextColor="#BEE9E8"
+                <Label
                     FontSize="14"
-                    Opacity="0.9"/>
-                <Frame 
+                    Opacity="0.9"
+                    Text="Password"
+                    TextColor="#BEE9E8" />
+                <Frame
+                    Padding="16,0"
                     BackgroundColor="#62B6CB"
                     BorderColor="Transparent"
                     CornerRadius="8"
-                    Padding="16,0"
                     HeightRequest="48">
                     <Grid ColumnDefinitions="*">
-                        <Entry 
+                        <Entry
                             x:Name="PasswordEntry"
                             Grid.Column="0"
+                            BackgroundColor="Transparent"
+                            IsPassword="True"
                             Placeholder="Enter your password"
                             PlaceholderColor="#BEE9E8"
-                            IsPassword="True"
                             TextColor="White"
-                            BackgroundColor="Transparent"
-                            VerticalOptions="Center"/>
+                            VerticalOptions="Center" />
                     </Grid>
                 </Frame>
             </VerticalStackLayout>
 
-            <!-- Login Button -->
-            <Button 
+            <!--  Login Button  -->
+            <Button
                 x:Name="LoginButton"
-                Text="Login"
-                TextColor="#1B4965"
+                Margin="0,16,0,0"
                 BackgroundColor="White"
+                Clicked="OnLoginClicked"
+                CornerRadius="8"
                 FontSize="16"
                 HeightRequest="48"
-                CornerRadius="8"
-                Margin="0,16,0,0"
-                Clicked="OnLoginClicked"/>
+                Text="Login"
+                TextColor="#1B4965" />
 
-            <!-- Sign Up Link -->
-            <HorizontalStackLayout 
-                HorizontalOptions="Center" 
-                Spacing="4">
-                <Label 
+            <!--  Sign Up Link  -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                <Label
+                    Opacity="0.9"
                     Text="Don't have an account?"
-                    TextColor="#BEE9E8"
-                    Opacity="0.9"/>
-                <Label 
+                    TextColor="#BEE9E8" />
+                <Label
+                    FontAttributes="Bold"
                     Text="Sign Up"
-                    TextColor="White"
-                    FontAttributes="Bold">
+                    TextColor="White">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnSignUpTapped"/>
+                        <TapGestureRecognizer Tapped="OnSignUpTapped" />
                     </Label.GestureRecognizers>
                 </Label>
             </HorizontalStackLayout>

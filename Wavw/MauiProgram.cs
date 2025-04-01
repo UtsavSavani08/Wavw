@@ -38,6 +38,8 @@ public static class MauiProgram
         builder.Services.AddTransient<SignUpPage>();
         builder.Services.AddTransient<HomePage>();
         builder.Services.AddTransient<WeatherPage>();
+        builder.Services.AddTransient<WeatherViewModel>();
+        builder.Services.AddTransient<Converters.BooleanInvertConverter>();
 
 #if DEBUG
         builder.Logging.AddDebug();

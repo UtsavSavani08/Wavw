@@ -12,8 +12,8 @@ namespace Wavw.Services
 {
     internal class SupabaseService
     {
-        private static readonly string SupabaseUrl = "https://sgbxtacuzhmneufaomyi.supabase.co";
-        private static readonly string SupabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYnh0YWN1emhtbmV1ZmFvbXlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMwOTg1NDAsImV4cCI6MjA1ODY3NDU0MH0.-MVekDYhdDt9ywYp829fBS-GlneLqG6UpjnfVkAZkqA";
+        private static readonly string SupabaseUrl = "SUPABASE_URL";
+        private static readonly string SupabaseKey = "SUPABASE_KEY";
 
         private static Supabase.Client _client;
         private static readonly SemaphoreSlim _clientLock = new SemaphoreSlim(1, 1);

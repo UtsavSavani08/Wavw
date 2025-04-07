@@ -12,7 +12,7 @@ namespace Wavw.Services
     public class WeatherViewModel : INotifyPropertyChanged
     {
         private readonly HttpClient _httpClient;
-        private const string API_KEY = "d61e2c4c-05a5-11f0-a906-0242ac130003-d61e2cc4-05a5-11f0-a906-0242ac130003";
+        private const string API_KEY = "API_KEY";
         private readonly BeachService _beachService;
         private const string BaseUrl = "https://api.stormglass.io/v2/weather/point";
         

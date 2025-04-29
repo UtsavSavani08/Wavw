@@ -84,12 +84,151 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         BindingContext = this;
     }
 
-    protected override void OnAppearing()
+    // Add these properties
+    private ObservableCollection<Beach> _recommendedBeaches;
+    private bool _isLoadingRecommended;
+    private readonly IGeolocation _geolocation;
+    
+    public ObservableCollection<Beach> RecommendedBeaches
+    {
+        get => _recommendedBeaches;
+        set
+        {
+            if (_recommendedBeaches != value)
+            {
+                _recommendedBeaches = value;
+                OnPropertyChanged(nameof(RecommendedBeaches));
+            }
+        }
+    }
+    
+    public bool IsLoadingRecommended
+    {
+        get => _isLoadingRecommended;
+        set
+        {
+            if (_isLoadingRecommended != value)
+            {
+                _isLoadingRecommended = value;
+                OnPropertyChanged(nameof(IsLoadingRecommended));
+            }
+        }
+    }
+    
+    // Update constructor
+    // Add the command property
+    public ICommand RecommendedBeachSelectedCommand { get; }
+    
+    // Update the constructor to initialize the command
+    public MainPage(IGeolocation geolocation)
+    {
+        InitializeComponent();
+        _geolocation = geolocation;
+        _beachService = new BeachService();
+        PopularBeaches = new ObservableCollection<PopularBeach>();
+        RecommendedBeaches = new ObservableCollection<Beach>();
+        
+        // Initialize commands
+        PopularBeachSelectedCommand = new Command<PopularBeach>(OnPopularBeachSelected);
+        RecommendedBeachSelectedCommand = new Command<Beach>(OnRecommendedBeachSelected);
+        SeeMoreCommand = new Command(OnSeeMoreClicked);
+        
+        // Initialize navigation commands
+        NavigateToHomeCommand = new Command(async () => await Shell.Current.GoToAsync("//MainPage"));
+        NavigateToWeatherCommand = new Command(async () => await Shell.Current.GoToAsync("//WeatherPage"));
+        NavigateToMapCommand = new Command(async () => await Shell.Current.GoToAsync("//HomePage"));
+        
+        BindingContext = this;
+    }
+    
+    // Add the handler method
+    private async void OnRecommendedBeachSelected(Beach beach)
+    {
+        if (beach != null)
+        {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "Beach", beach }
+            };
+            // Use relative route instead of absolute route
+            await Shell.Current.GoToAsync("BeachPage", navigationParameter);
+        }
+    }
+    
+    // Add this method
+    private async Task LoadRecommendedBeachesAsync()
+    {
+        try
+        {
+            IsLoadingRecommended = true;
+            
+            // Get current location
+            var location = await _geolocation.GetLastKnownLocationAsync();
+            if (location == null)
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+                location = await _geolocation.GetLocationAsync(request);
+            }
+    
+            if (location != null)
+            {
+                // Use existing file loading logic
+                using var stream = await FileSystem.OpenAppPackageFileAsync("beaches.json");
+                using var reader = new StreamReader(stream);
+                var jsonString = await reader.ReadToEndAsync();
+    
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    AllowTrailingCommas = true,
+                    ReadCommentHandling = JsonCommentHandling.Skip
+                };
+    
+                var data = JsonSerializer.Deserialize<BeachData>(jsonString, options);
+                if (data?.Beaches != null)
+                {
+                    var beachesWithDistance = data.Beaches
+                        .Select(b => new
+                        {
+                            Beach = b,
+                            Distance = b.DistanceFromUser(new Location(location.Latitude, location.Longitude))
+                        })
+                        .OrderBy(x => x.Distance)
+                        .Take(3)
+                        .Select(x => x.Beach);
+    
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        RecommendedBeaches.Clear();
+                        foreach (var beach in beachesWithDistance)
+                        {
+                            RecommendedBeaches.Add(beach);
+                        }
+                    });
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error loading recommended beaches: {ex.Message}");
+        }
+        finally
+        {
+            IsLoadingRecommended = false;
+        }
+    }
+    
+    // Update OnAppearing
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
         if (PopularBeaches.Count == 0)
         {
             LoadPopularBeachesAsync();
+        }
+        if (RecommendedBeaches.Count == 0)
+        {
+            await LoadRecommendedBeachesAsync();
         }
     }
 
@@ -98,77 +237,20 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         try
         {
             IsLoading = true;
-            System.Diagnostics.Debug.WriteLine("Starting to load popular beaches...");
+            var beaches = await _beachService.GetPopularBeachesAsync();
             
-            string jsonString = null;
-            try
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                System.Diagnostics.Debug.WriteLine("Attempting to load popular_beaches.json");
-                using var stream = await FileSystem.OpenAppPackageFileAsync("popular_beaches.json");
-                using var reader = new StreamReader(stream);
-                jsonString = await reader.ReadToEndAsync();
-                System.Diagnostics.Debug.WriteLine("Successfully loaded JSON file");
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Failed to load JSON file: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                throw; // Re-throw to be caught by outer try-catch
-            }
-
-            if (string.IsNullOrEmpty(jsonString))
-            {
-                throw new Exception("JSON file is empty");
-            }
-            
-            System.Diagnostics.Debug.WriteLine($"JSON content length: {jsonString.Length}");
-            System.Diagnostics.Debug.WriteLine($"JSON content preview: {jsonString.Substring(0, Math.Min(100, jsonString.Length))}");
-            
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                AllowTrailingCommas = true,
-                ReadCommentHandling = JsonCommentHandling.Skip
-            };
-
-            try
-            {
-                var data = JsonSerializer.Deserialize<PopularBeachData>(jsonString, options);
-                if (data == null)
+                PopularBeaches.Clear();
+                foreach (var beach in beaches.Take(7))
                 {
-                    throw new Exception("Deserialization resulted in null data");
+                    PopularBeaches.Add(beach);
                 }
-                
-                var popularBeaches = data.Beaches;
-                System.Diagnostics.Debug.WriteLine($"Deserialized {popularBeaches.Count} beaches");
-
-                if (popularBeaches.Count == 0)
-                {
-                    System.Diagnostics.Debug.WriteLine("Warning: No beaches found in the JSON data");
-                }
-
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    PopularBeaches.Clear();
-                    foreach (var beach in popularBeaches.Take(7))
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Adding beach: {beach.Name} ({beach.City}, {beach.State})");
-                        PopularBeaches.Add(beach);
-                    }
-                    System.Diagnostics.Debug.WriteLine($"Total beaches added to collection: {PopularBeaches.Count}");
-                });
-            }
-            catch (JsonException jex)
-            {
-                System.Diagnostics.Debug.WriteLine($"JSON deserialization error: {jex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {jex.StackTrace}");
-                throw;
-            }
+            });
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Error loading popular beaches: {ex.Message}");
-            System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 await DisplayAlert("Error", "Failed to load popular beaches. Please try again later.", "OK");
@@ -337,4 +419,4 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         [JsonPropertyName("beaches")]
         public List<Beach> Beaches { get; set; } = new List<Beach>();
     }
-} 
+}

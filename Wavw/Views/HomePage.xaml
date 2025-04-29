@@ -208,67 +208,91 @@
                         HeightRequest="50"
                         Text="Weather Info"
                         TextColor="White" />
+
+
                 </Grid>
+                <Button
+                    Grid.Column="2"
+                    BackgroundColor="#FF9800"
+                    Command="{Binding ShowBeachInfoCommand}"
+                    CornerRadius="25"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    Text="Info"
+                    TextColor="White" />
             </VerticalStackLayout>
         </Frame>
 
-        <!-- Bottom Navigation Bar -->
-        <Grid Grid.Row="2" ColumnDefinitions="*,*,*" BackgroundColor="White" HeightRequest="60">
-            <!-- Home -->
-            <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
-                <Label 
+        <!--  Bottom Navigation Bar  -->
+        <Grid
+            Grid.Row="2"
+            BackgroundColor="White"
+            ColumnDefinitions="*,*,*"
+            HeightRequest="60">
+            <!--  Home  -->
+            <VerticalStackLayout
+                Grid.Column="0"
+                Spacing="4"
+                VerticalOptions="Center">
+                <Label
+                    FontFamily="{StaticResource MaterialIconsFont}"
+                    FontSize="24"
+                    HorizontalOptions="Center"
                     Text="&#xE88A;"
-                    FontFamily="{StaticResource MaterialIconsFont}"
-                    TextColor="#1B4965"
-                    FontSize="24"
-                    HorizontalOptions="Center">
+                    TextColor="#1B4965">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToHomeCommand}"/>
+                        <TapGestureRecognizer Command="{Binding NavigateToHomeCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
-                <Label 
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="Center"
                     Text="Home"
-                    TextColor="#1B4965"
-                    FontSize="12"
-                    HorizontalOptions="Center"/>
+                    TextColor="#1B4965" />
             </VerticalStackLayout>
 
-            <!-- Weather -->
-            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
-                <Label 
+            <!--  Weather  -->
+            <VerticalStackLayout
+                Grid.Column="1"
+                Spacing="4"
+                VerticalOptions="Center">
+                <Label
+                    FontFamily="{StaticResource MaterialIconsFont}"
+                    FontSize="24"
+                    HorizontalOptions="Center"
                     Text="&#xE2BD;"
-                    FontFamily="{StaticResource MaterialIconsFont}"
-                    TextColor="#1B4965"
-                    FontSize="24"
-                    HorizontalOptions="Center">
+                    TextColor="#1B4965">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToWeatherCommand}"/>
+                        <TapGestureRecognizer Command="{Binding NavigateToWeatherCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
-                <Label 
-                    Text="Weather"
-                    TextColor="#1B4965"
+                <Label
                     FontSize="12"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    Text="Weather"
+                    TextColor="#1B4965" />
             </VerticalStackLayout>
 
-            <!-- Map -->
-            <VerticalStackLayout Grid.Column="2" Spacing="4" VerticalOptions="Center">
-                <Label 
-                    Text="&#xE55B;"
+            <!--  Map  -->
+            <VerticalStackLayout
+                Grid.Column="2"
+                Spacing="4"
+                VerticalOptions="Center">
+                <Label
                     FontFamily="{StaticResource MaterialIconsFont}"
-                    TextColor="#1B4965"
                     FontSize="24"
-                    HorizontalOptions="Center">
+                    HorizontalOptions="Center"
+                    Text="&#xE55B;"
+                    TextColor="#1B4965">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToMapCommand}"/>
+                        <TapGestureRecognizer Command="{Binding NavigateToMapCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
-                <Label 
-                    Text="Map"
-                    TextColor="#1B4965"
+                <Label
                     FontSize="12"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    Text="Map"
+                    TextColor="#1B4965" />
             </VerticalStackLayout>
         </Grid>
     </Grid>

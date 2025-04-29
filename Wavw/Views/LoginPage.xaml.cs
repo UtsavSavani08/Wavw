@@ -41,7 +41,7 @@ public partial class LoginPage : ContentPage
             if (isSuccess)
             {
                 // Navigate to MainPage
-                Application.Current.MainPage = new NavigationPage(new MainPage());
+                await Shell.Current.GoToAsync("//MainPage");
             }
             else
             {

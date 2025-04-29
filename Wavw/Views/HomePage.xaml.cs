@@ -20,6 +20,13 @@ namespace Wavw.Views
     [QueryProperty(nameof(BeachLatitude), "BeachLatitude")]
     [QueryProperty(nameof(BeachLongitude), "BeachLongitude")]
     [QueryProperty(nameof(BeachName), "BeachName")]
+    [QueryProperty(nameof(BeachCity), "BeachCity")]
+    [QueryProperty(nameof(BeachState), "BeachState")]
+    [QueryProperty(nameof(BeachRating), "BeachRating")]
+    [QueryProperty(nameof(BeachCleanliness), "BeachCleanliness")]
+    [QueryProperty(nameof(BeachBestSeason), "BeachBestSeason")]
+    [QueryProperty(nameof(BeachMainAttractions), "BeachMainAttractions")]
+    [QueryProperty(nameof(BeachImageUrl), "BeachImageUrl")]
     public partial class HomePage : ContentPage
     {
         private readonly IGeolocation _geolocation;
@@ -36,6 +43,15 @@ namespace Wavw.Views
         public double BeachLatitude { get; set; }
         public double BeachLongitude { get; set; }
         public string BeachName { get; set; }
+        
+        // Add new properties for beach details
+        public string BeachCity { get; set; }
+        public string BeachState { get; set; }
+        public string BeachRating { get; set; }
+        public string BeachCleanliness { get; set; }
+        public string BeachBestSeason { get; set; }
+        public string BeachMainAttractions { get; set; }
+        public string BeachImageUrl { get; set; }
 
         public ICommand SearchCommand { get; }
         public ICommand GetCurrentLocationCommand { get; }
@@ -65,6 +81,10 @@ namespace Wavw.Views
 
         public string DisplayBeachName => _selectedBeach?.Name.ToUpper() ?? string.Empty;
 
+        // Add the command property
+        public ICommand ShowBeachInfoCommand { get; }
+
+        // Update the constructor to initialize the command
         public HomePage(IGeolocation geolocation, BeachService beachService)
         {
             InitializeComponent();
@@ -78,6 +98,7 @@ namespace Wavw.Views
             CloseDetailsCommand = new Command(async () => await HideDetailsPanel());
             GetDirectionsCommand = new Command(async () => await OpenDirections());
             GetWeatherCommand = new Command(async () => await ShowWeatherInfo());
+            ShowBeachInfoCommand = new Command(async () => await ShowBeachInfo());
             NavigateToHomeCommand = new Command(async () => await Shell.Current.GoToAsync("//MainPage"));
             NavigateToWeatherCommand = new Command(async () => await Shell.Current.GoToAsync("//WeatherPage"));
             NavigateToMapCommand = new Command(async () => await Shell.Current.GoToAsync("//HomePage"));
@@ -95,12 +116,19 @@ namespace Wavw.Views
             {
                 if (ShowBeachLocation)
                 {
-                    // Create a beach object from the navigation parameters
+                    // Create a complete beach object from navigation parameters
                     var beach = new Beach
                     {
                         Name = BeachName,
                         Latitude = BeachLatitude,
-                        Longitude = BeachLongitude
+                        Longitude = BeachLongitude,
+                        City = BeachCity,
+                        State = BeachState,
+                        Rating = BeachRating,
+                        Cleanliness = BeachCleanliness,
+                        BestSeason = BeachBestSeason,
+                        MainAttractions = BeachMainAttractions,
+                        ImageUrl = BeachImageUrl
                     };
 
                     // Clear existing pins and add the beach pin
@@ -427,6 +455,27 @@ namespace Wavw.Views
             {
                 await DisplayAlert("Error", "Unable to open directions. Please try again.", "OK");
                 System.Diagnostics.Debug.WriteLine($"Error opening directions: {ex.Message}");
+            }
+        }
+
+        // Update the ShowBeachInfo method
+        private async Task ShowBeachInfo()
+        {
+            if (SelectedBeach != null)
+            {
+                try
+                {
+                    var navigationParameter = new Dictionary<string, object>
+                    {
+                        { "Beach", SelectedBeach }
+                    };
+                    await Shell.Current.GoToAsync($"BeachPage", navigationParameter);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error navigating to beach info: {ex.Message}");
+                    await DisplayAlert("Error", "Unable to show beach information. Please try again.", "OK");
+                }
             }
         }
 

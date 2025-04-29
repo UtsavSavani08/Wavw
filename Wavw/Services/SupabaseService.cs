@@ -7,16 +7,27 @@ using Supabase;
 using Supabase.Gotrue;
 using System.Net.Http;
 using System.Threading;
+using Microsoft.Extensions.Configuration;
 
 namespace Wavw.Services
 {
     internal class SupabaseService
     {
-        private static readonly string SupabaseUrl = "https://sgbxtacuzhmneufaomyi.supabase.co";
-        private static readonly string SupabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYnh0YWN1emhtbmV1ZmFvbXlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMwOTg1NDAsImV4cCI6MjA1ODY3NDU0MH0.-MVekDYhdDt9ywYp829fBS-GlneLqG6UpjnfVkAZkqA";
-
+        private static readonly string _supabaseUrl;
+        private static readonly string _supabaseKey;
         private static Supabase.Client _client;
         private static readonly SemaphoreSlim _clientLock = new SemaphoreSlim(1, 1);
+
+        static SupabaseService()
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            _supabaseUrl = configuration["ApiKeys:Supabase:Url"];
+            _supabaseKey = configuration["ApiKeys:Supabase:Key"];
+        }
 
         public SupabaseService()
         {
@@ -35,7 +46,7 @@ namespace Wavw.Services
                         AutoConnectRealtime = false,
                         AutoRefreshToken = true
                     };
-                    _client = new Supabase.Client(SupabaseUrl, SupabaseKey, options);
+                    _client = new Supabase.Client(_supabaseUrl, _supabaseKey, options);
                     await _client.InitializeAsync();
                 }
             }

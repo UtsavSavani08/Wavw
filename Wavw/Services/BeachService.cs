@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.IO;
 using Microsoft.Maui.Storage;
+using System.Text.Json.Serialization;
 
 namespace Wavw.Services
 {
@@ -51,187 +52,114 @@ namespace Wavw.Services
                       .ToLowerInvariant();
         }
 
-        private List<Beach> LoadBeachesFromJson()
+        public async Task<List<PopularBeach>> GetPopularBeachesAsync()
         {
             try
             {
-                string jsonString = null;
+                string jsonString;
+                var assembly = typeof(BeachService).Assembly;
+                var resourceName = "Wavw.Resources.popular_beaches.json";
                 
-                // First try to read from the app package
-                try
+                using (var stream = assembly.GetManifestResourceStream(resourceName))
                 {
-                    using var stream = FileSystem.OpenAppPackageFileAsync("beaches.json").Result;
-                using var reader = new StreamReader(stream);
-                    jsonString = reader.ReadToEnd();
-                    System.Diagnostics.Debug.WriteLine("Successfully read beaches.json from app package");
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Could not read from app package: {ex.Message}");
-                    
-                    // Fall back to file system if app package fails
-                    var possiblePaths = new[]
+                    if (stream == null)
                     {
-                        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "beaches.json"),
-                        Path.Combine(FileSystem.AppDataDirectory, "Resources", "beaches.json"),
-                        Path.Combine(FileSystem.AppDataDirectory, "beaches.json"),
-                        "Resources/beaches.json",
-                        "beaches.json"
-                    };
-
-                    foreach (var path in possiblePaths)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Checking path: {path}");
-                        if (File.Exists(path))
-                        {
-                            jsonString = File.ReadAllText(path);
-                            System.Diagnostics.Debug.WriteLine($"Found and read beaches.json at: {path}");
-                            break;
-                        }
+                        System.Diagnostics.Debug.WriteLine($"Resource not found: {resourceName}");
+                        return new List<PopularBeach>();
                     }
+                    
+                    using var reader = new StreamReader(stream);
+                    jsonString = await reader.ReadToEndAsync();
                 }
-
-                // If we still don't have the JSON content, use default beaches
-                if (string.IsNullOrEmpty(jsonString))
-                {
-                    System.Diagnostics.Debug.WriteLine("No beaches.json found, using default list");
-                    return new List<Beach>
-                    {
-                        new Beach { 
-                            Name = "juhu", 
-                            State = "Maharashtra",
-                            City = "Mumbai",
-                            Latitude = 19.0883, 
-                            Longitude = 72.8263, 
-                            Rating = "4.2/5", 
-                            Cleanliness = "Good", 
-                            BestSeason = "October to March", 
-                            MainAttractions = "Celebrity Spotting, Famous Street Food" 
-                        },
-                        new Beach { 
-                            Name = "marina", 
-                            State = "Tamil Nadu",
-                            City = "Chennai",
-                            Latitude = 13.0500, 
-                            Longitude = 80.2824, 
-                            Rating = "4.3/5", 
-                            Cleanliness = "Good", 
-                            BestSeason = "December to February", 
-                            MainAttractions = "World's Second Longest Urban Beach" 
-                        },
-                        new Beach { 
-                            Name = "puri", 
-                            State = "Odisha",
-                            City = "Puri",
-                            Latitude = 19.7987, 
-                            Longitude = 85.8249, 
-                            Rating = "4.4/5", 
-                            Cleanliness = "Good", 
-                            BestSeason = "October to February", 
-                            MainAttractions = "Sacred Beach, Famous Sand Art" 
-                        }
-                    };
-                }
-
-                System.Diagnostics.Debug.WriteLine($"Read JSON content, length: {jsonString.Length}");
 
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,
                     AllowTrailingCommas = true,
-                    ReadCommentHandling = JsonCommentHandling.Skip
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
                 };
 
-                var beachData = JsonSerializer.Deserialize<BeachData>(jsonString, options);
-                if (beachData?.Beaches == null || !beachData.Beaches.Any())
-                {
-                    System.Diagnostics.Debug.WriteLine("No beaches found in JSON file, using default list");
-                    return new List<Beach>
-                    {
-                        new Beach { 
-                            Name = "juhu", 
-                            State = "Maharashtra",
-                            City = "Mumbai",
-                            Latitude = 19.0883, 
-                            Longitude = 72.8263, 
-                            Rating = "4.2/5", 
-                            Cleanliness = "Good", 
-                            BestSeason = "October to March", 
-                            MainAttractions = "Celebrity Spotting, Famous Street Food" 
-                        },
-                        new Beach { 
-                            Name = "marina", 
-                            State = "Tamil Nadu",
-                            City = "Chennai",
-                            Latitude = 13.0500, 
-                            Longitude = 80.2824, 
-                            Rating = "4.3/5", 
-                            Cleanliness = "Good", 
-                            BestSeason = "December to February", 
-                            MainAttractions = "World's Second Longest Urban Beach" 
-                        },
-                        new Beach { 
-                            Name = "puri", 
-                            State = "Odisha",
-                            City = "Puri",
-                            Latitude = 19.7987, 
-                            Longitude = 85.8249, 
-                            Rating = "4.4/5", 
-                            Cleanliness = "Good", 
-                            BestSeason = "October to February", 
-                            MainAttractions = "Sacred Beach, Famous Sand Art" 
-                        }
-                    };
-                }
-
-                System.Diagnostics.Debug.WriteLine($"Successfully loaded {beachData.Beaches.Count} beaches from JSON");
-                foreach (var beach in beachData.Beaches)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Loaded beach: {beach.Name}");
-                }
-                return beachData.Beaches;
+                var data = JsonSerializer.Deserialize<PopularBeachData>(jsonString, options);
+                return data?.Beaches ?? new List<PopularBeach>();
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error loading beaches from JSON: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                return new List<Beach>
-                {
-                    new Beach { 
-                        Name = "juhu", 
-                        State = "Maharashtra",
-                        City = "Mumbai",
-                        Latitude = 19.0883, 
-                        Longitude = 72.8263, 
-                        Rating = "4.2/5", 
-                        Cleanliness = "Good", 
-                        BestSeason = "October to March", 
-                        MainAttractions = "Celebrity Spotting, Famous Street Food" 
-                    },
-                    new Beach { 
-                        Name = "marina", 
-                        State = "Tamil Nadu",
-                        City = "Chennai",
-                        Latitude = 13.0500, 
-                        Longitude = 80.2824, 
-                        Rating = "4.3/5", 
-                        Cleanliness = "Good", 
-                        BestSeason = "December to February", 
-                        MainAttractions = "World's Second Longest Urban Beach" 
-                    },
-                    new Beach { 
-                        Name = "puri", 
-                        State = "Odisha",
-                        City = "Puri",
-                        Latitude = 19.7987, 
-                        Longitude = 85.8249, 
-                        Rating = "4.4/5", 
-                        Cleanliness = "Good", 
-                        BestSeason = "October to February", 
-                        MainAttractions = "Sacred Beach, Famous Sand Art" 
-                    }
-                };
+                System.Diagnostics.Debug.WriteLine($"Error loading popular beaches: {ex.Message}");
+                return new List<PopularBeach>();
             }
+        }
+
+        private List<Beach> LoadBeachesFromJson()
+        {
+            try
+            {
+                string jsonString;
+                var assembly = typeof(BeachService).Assembly;
+                using (var stream = assembly.GetManifestResourceStream("Wavw.Resources.beaches.json"))
+                {
+                    if (stream == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Could not find beaches.json in embedded resources");
+                        return GetDefaultBeaches();
+                    }
+                    using var reader = new StreamReader(stream);
+                    jsonString = reader.ReadToEnd();
+                }
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    AllowTrailingCommas = true
+                };
+
+                var data = JsonSerializer.Deserialize<BeachData>(jsonString, options);
+                return data?.Beaches ?? GetDefaultBeaches();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error loading beaches: {ex.Message}");
+                return GetDefaultBeaches();
+            }
+        }
+
+        private List<Beach> GetDefaultBeaches()
+        {
+            return new List<Beach>
+            {
+                new Beach { 
+                    Name = "juhu", 
+                    State = "Maharashtra",
+                    City = "Mumbai",
+                    Latitude = 19.0883, 
+                    Longitude = 72.8263, 
+                    Rating = "4.2/5", 
+                    Cleanliness = "Good", 
+                    BestSeason = "October to March", 
+                    MainAttractions = "Celebrity Spotting, Famous Street Food" 
+                },
+                new Beach { 
+                    Name = "marina", 
+                    State = "Tamil Nadu",
+                    City = "Chennai",
+                    Latitude = 13.0500, 
+                    Longitude = 80.2824, 
+                    Rating = "4.3/5", 
+                    Cleanliness = "Good", 
+                    BestSeason = "December to February", 
+                    MainAttractions = "World's Second Longest Urban Beach" 
+                },
+                new Beach { 
+                    Name = "puri", 
+                    State = "Odisha",
+                    City = "Puri",
+                    Latitude = 19.7987, 
+                    Longitude = 85.8249, 
+                    Rating = "4.4/5", 
+                    Cleanliness = "Good", 
+                    BestSeason = "October to February", 
+                    MainAttractions = "Sacred Beach, Famous Sand Art" 
+                }
+            };
         }
 
         public async Task<Beach?> SearchBeachByName(string searchTerm)
@@ -475,5 +403,11 @@ namespace Wavw.Services
     public class BeachData
     {
         public List<Beach> Beaches { get; set; } = new List<Beach>();
+    }
+
+    public class PopularBeachData
+    {
+        [JsonPropertyName("popular_beaches")]
+        public List<PopularBeach> Beaches { get; set; } = new List<PopularBeach>();
     }
 }

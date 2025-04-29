@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:Wavw.Views"
     Shell.FlyoutBehavior="Disabled">
 
+
     <ShellContent
         Title="Sign Up"
         ContentTemplate="{DataTemplate local:SignUpPage}"

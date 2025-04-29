@@ -31,6 +31,7 @@ public partial class BeachPage : ContentPage
 		BindingContext = this;
 	}
 
+	// In BeachPage.xaml.cs
 	private async void OnBackButtonClicked(object sender, EventArgs e)
 	{
 		await Shell.Current.GoToAsync("..");
@@ -45,10 +46,37 @@ public partial class BeachPage : ContentPage
 				{ "ShowBeachLocation", true },
 				{ "BeachLatitude", Beach.Latitude },
 				{ "BeachLongitude", Beach.Longitude },
-				{ "BeachName", Beach.Name }
+				{ "BeachName", Beach.Name },
+				{ "BeachCity", Beach.City },
+				{ "BeachState", Beach.State },
+				{ "BeachRating", Beach.Rating },
+				{ "BeachCleanliness", Beach.Cleanliness },
+				{ "BeachBestSeason", Beach.BestSeason },
+				{ "BeachMainAttractions", Beach.MainAttractions },
+				{ "BeachImageUrl", Beach.ImageUrl }
 			};
 
 			await Shell.Current.GoToAsync("//HomePage", navigationParameter);
 		}
 	}
+
+    // Update the OnClickCheckWeather method
+    private async void OnClickCheckWeather(object sender, TappedEventArgs e)
+    {
+        if (Beach != null)
+        {
+            try
+            {
+                var weatherPage = new WeatherPage(Beach);
+                await Navigation.PushAsync(weatherPage);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error showing weather info: {ex.Message}");
+                await DisplayAlert("Error", 
+                    "Unable to show weather information. Please try again.", 
+                    "OK");
+            }
+        }
+    }
 }

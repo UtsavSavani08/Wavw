@@ -6,13 +6,15 @@ using System.Windows.Input;
 using Wavw.Model;
 using System.Text.Json.Serialization;
 using System.Net.Http.Headers;
+using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace Wavw.Services
 {
     public class WeatherViewModel : INotifyPropertyChanged
     {
         private readonly HttpClient _httpClient;
-        private const string API_KEY = "d61e2c4c-05a5-11f0-a906-0242ac130003-d61e2cc4-05a5-11f0-a906-0242ac130003";
+        private readonly string _apiKey;
         private readonly BeachService _beachService;
         private const string BaseUrl = "https://api.stormglass.io/v2/weather/point";
         
@@ -109,15 +111,67 @@ namespace Wavw.Services
             }
         }
 
+        // Add these properties
+        private List<WeatherForecast> _forecasts;
+        private bool _isLoadingForecast;
+        private readonly MarineWeatherService _marineWeatherService;
+
+        public List<WeatherForecast> Forecasts
+        {
+            get => _forecasts;
+            set
+            {
+                _forecasts = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsLoadingForecast
+        {
+            get => _isLoadingForecast;
+            set
+            {
+                _isLoadingForecast = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // Update constructor
         public WeatherViewModel()
         {
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.DefaultRequestHeaders.Add("Authorization", API_KEY);
-            _beachService = new BeachService();
-            HasBeachSelected = false;
-            SearchCommand = new Command<string>(async (term) => await SearchBeach(term));
-            _httpClient.Timeout = TimeSpan.FromSeconds(30);
+            try
+            {
+                string configPath = Path.Combine(FileSystem.Current.AppDataDirectory, "appsettings.json");
+
+                // Ensure config file exists in app data directory
+                if (!File.Exists(configPath))
+                {
+                    var assembly = typeof(WeatherViewModel).Assembly;
+                    using var stream = assembly.GetManifestResourceStream("Wavw.appsettings.json");
+                    using var reader = new StreamReader(stream);
+                    string content = reader.ReadToEnd();
+                    File.WriteAllText(configPath, content);
+                }
+                    
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(FileSystem.Current.AppDataDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+                _apiKey = configuration["ApiKeys:StormGlass"];
+                _httpClient = new HttpClient();
+                _httpClient.DefaultRequestHeaders.Clear();
+                _httpClient.DefaultRequestHeaders.Add("Authorization", _apiKey);
+                _beachService = new BeachService();
+                HasBeachSelected = false;
+                SearchCommand = new Command<string>(async (term) => await SearchBeach(term));
+                _httpClient.Timeout = TimeSpan.FromSeconds(30);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Configuration error: {ex.Message}");
+                throw new Exception("Failed to initialize weather service. Please check your configuration.", ex);
+            }
         }
 
         public WeatherViewModel(Beach beach) : this()
@@ -144,6 +198,7 @@ namespace Wavw.Services
                     BeachName = beach.Name;
                     HasBeachSelected = true;
                     await LoadWeatherDataAsync(beach.Latitude, beach.Longitude);
+                    await LoadForecastDataAsync(beach.Latitude, beach.Longitude); // Add this line
                 }
                 else
                 {
@@ -251,6 +306,30 @@ namespace Wavw.Services
             }
         }
 
+        private async Task LoadForecastDataAsync(double latitude, double longitude)
+        {
+            try
+            {
+                IsLoadingForecast = true;
+                var forecasts = await _marineWeatherService.GetMarineWeatherForecastAsync(latitude, longitude);
+                Forecasts = forecasts;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading forecast: {ex.Message}");
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    await Application.Current.MainPage.DisplayAlert("Forecast Error", 
+                        "Unable to load weather forecast. Please try again later.", 
+                        "OK");
+                });
+            }
+            finally
+            {
+                IsLoadingForecast = false;
+            }
+        }
+
         private bool IsValidCoordinate(double latitude, double longitude)
         {
             // Latitude must be between -90 and 90
@@ -325,4 +404,4 @@ namespace Wavw.Services
         [JsonPropertyName("requestCount")]
         public int RequestCount { get; set; }
     }
-} 
+}

@@ -20,6 +20,13 @@ public partial class WeatherPage : ContentPage
         _marineWeatherService = new MarineWeatherService();
         _forecasts = new List<WeatherForecast>();
         
+        // Subscribe to the forecast update event
+        _viewModel.WeatherForecastUpdated += (sender, forecasts) =>
+        {
+            _forecasts = forecasts;
+            UpdateForecastDisplay();
+        };
+        
         var compositeContext = new CompositeBindingContext
         {
             ViewModel = _viewModel,
@@ -27,7 +34,8 @@ public partial class WeatherPage : ContentPage
         };
         BindingContext = compositeContext;
     }
-
+    
+    // Add the same subscription in the other constructor
     public WeatherPage(Beach selectedBeach)
     {
         InitializeComponent();
@@ -36,17 +44,21 @@ public partial class WeatherPage : ContentPage
         _marineWeatherService = new MarineWeatherService();
         _forecasts = new List<WeatherForecast>();
         
+        // Subscribe to the forecast update event
+        _viewModel.WeatherForecastUpdated += (sender, forecasts) =>
+        {
+            _forecasts = forecasts;
+            UpdateForecastDisplay();
+        };
+        
         var compositeContext = new CompositeBindingContext
         {
             ViewModel = _viewModel,
             NavigationCommands = _navigationCommands
         };
         BindingContext = compositeContext;
-
-        if (selectedBeach != null)
-        {
-            LoadWeatherForecast(selectedBeach.Latitude, selectedBeach.Longitude);
-        }
+    
+        // Remove the LoadWeatherForecast call as it's now handled in the ViewModel
     }
 
     private async void LoadWeatherForecast(double latitude, double longitude)

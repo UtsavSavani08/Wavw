@@ -209,8 +209,8 @@
                         Text="Weather Info"
                         TextColor="White" />
 
-
                 </Grid>
+
                 <Button
                     Grid.Column="2"
                     BackgroundColor="#FF9800"

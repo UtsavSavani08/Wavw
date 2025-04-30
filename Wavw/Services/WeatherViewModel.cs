@@ -116,6 +116,7 @@ namespace Wavw.Services
         private bool _isLoadingForecast;
         private readonly MarineWeatherService _marineWeatherService;
 
+        // In WeatherViewModel, modify the Forecasts property
         public List<WeatherForecast> Forecasts
         {
             get => _forecasts;
@@ -123,8 +124,14 @@ namespace Wavw.Services
             {
                 _forecasts = value;
                 OnPropertyChanged();
+                // Use the correct MainThread method
+                MainThread.InvokeOnMainThreadAsync(() => 
+                    WeatherForecastUpdated?.Invoke(this, _forecasts));
             }
         }
+        
+        // Add this event at class level
+        public event EventHandler<List<WeatherForecast>> WeatherForecastUpdated;
 
         public bool IsLoadingForecast
         {
@@ -162,6 +169,7 @@ namespace Wavw.Services
                 _httpClient = new HttpClient();
                 _httpClient.DefaultRequestHeaders.Clear();
                 _httpClient.DefaultRequestHeaders.Add("Authorization", _apiKey);
+                _marineWeatherService = new MarineWeatherService();
                 _beachService = new BeachService();
                 HasBeachSelected = false;
                 SearchCommand = new Command<string>(async (term) => await SearchBeach(term));
@@ -174,22 +182,15 @@ namespace Wavw.Services
             }
         }
 
-        public WeatherViewModel(Beach beach) : this()
-        {
-            _beach = beach;
-            BeachName = beach.Name;
-            HasBeachSelected = true;
-            LoadWeatherDataAsync(beach.Latitude, beach.Longitude).ConfigureAwait(false);
-        }
-
         private async Task SearchBeach(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
                 return;
-
+        
             try
             {
                 IsLoading = true;
+                IsLoadingForecast = true;
                 var beach = await _beachService.SearchBeachByName(searchTerm);
                 
                 if (beach != null)
@@ -197,8 +198,12 @@ namespace Wavw.Services
                     _beach = beach;
                     BeachName = beach.Name;
                     HasBeachSelected = true;
-                    await LoadWeatherDataAsync(beach.Latitude, beach.Longitude);
-                    await LoadForecastDataAsync(beach.Latitude, beach.Longitude); // Add this line
+                    
+                    // Load both weather and forecast data in one place
+                    await Task.WhenAll(
+                        LoadWeatherDataAsync(beach.Latitude, beach.Longitude),
+                        LoadForecastDataAsync(beach.Latitude, beach.Longitude)
+                    );
                 }
                 else
                 {
@@ -209,7 +214,7 @@ namespace Wavw.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Search error: {ex.Message}");
+                Debug.WriteLine($"Search error: {ex.Message}");
                 await Application.Current.MainPage.DisplayAlert("Error", 
                     "An error occurred while searching for the beach. Please try again.", 
                     "OK");
@@ -217,7 +222,21 @@ namespace Wavw.Services
             finally
             {
                 IsLoading = false;
+                IsLoadingForecast = false;
             }
+        }
+
+        // Update the constructor with beach parameter
+        public WeatherViewModel(Beach beach) : this()
+        {
+            _beach = beach;
+            BeachName = beach.Name;
+            HasBeachSelected = true;
+            // Load both weather and forecast data
+            Task.WhenAll(
+                LoadWeatherDataAsync(beach.Latitude, beach.Longitude),
+                LoadForecastDataAsync(beach.Latitude, beach.Longitude)
+            ).ConfigureAwait(false);
         }
 
         private async Task LoadWeatherDataAsync(double latitude, double longitude)
